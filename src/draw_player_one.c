@@ -73,7 +73,7 @@ void bresenham_line(mlx_image_t *img, t_line line, uint32_t color) {
 	int dx = abs(line.x2 - line.x1);
 	int dy = abs(line.y2 - line.y1);
 	int sx = (line.x1 < line.x2) ? 1 : -1;
-	int sy = (line.y1 < line.y2) ? 1 : -1;
+	int sy = (line.y1 < line.y2) ? 1 : -1; //illegal ternary
 	
 	int e2;
 	int err;
@@ -96,13 +96,13 @@ void bresenham_line(mlx_image_t *img, t_line line, uint32_t color) {
 		}
 	}
 }
-
-void draw_line_bresenham(mlx_image_t *img, double angle)
-{
-	t_line	line;
-	line = calculate_line_endpoints(angle);
-	bresenham_line(img, line, 0xFFFFFF);
-}
+	// commented out cause unused.
+// void draw_line_bresenham(mlx_image_t *img, double angle)
+// {
+// 	t_line	line;
+// 	line = calculate_line_endpoints(angle);
+// 	bresenham_line(img, line, 0xFFFFFF);
+// }
 
 //from center.
 void draw_line_in_direction(mlx_image_t *img, double angle) {

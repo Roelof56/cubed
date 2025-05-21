@@ -1,6 +1,6 @@
 #include "cubed.h"
 
-// maybe chang eangle ammount.
+// maybe chang angle ammount.
 void	change_player_angle(t_vars *vars, int dir)
 {
 	if (dir == 1)
