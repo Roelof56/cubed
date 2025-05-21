@@ -1,0 +1,13 @@
+# Executable
+cub3d
+
+# Files i don't want
+**/.DS_Store
+.vscode
+*.out
+*.a
+*.o
+
+# Folders
+MLX42/build
+**/bin
