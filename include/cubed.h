@@ -48,9 +48,9 @@ typedef struct s_line
 	// mlx_image_t	*w_texture;
 // }					t_mapinfo;
 
-// typedef struct	s_textures //hier moet ik imgs van maken. => ja ?
+// typedef struct	s_textures // should be images ?
 // {
-	// mlx_image_t		*td_player; //dit errorde ?
+	// mlx_image_t		*td_player; //this do error ?
 	// mlx_texture_t	*n_texture;
 	// mlx_texture_t	*s_texture;
 	// mlx_texture_t	*e_texture;
