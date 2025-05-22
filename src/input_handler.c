@@ -31,13 +31,16 @@ static int check_for_wall(t_vars *vars)
 
 	// type = 'a';
 	newx = floor(vars->pl_x);
-	newy = floor(vars->pl_y);
+	newy = floor(vars->pl_y); //this creates the offset thing i think !
 
 	if (newx > 0 && newy > 0) //check voor max ?
 	{
-		printf("type: %c\n", vars->themap[newy][newx]);
-		// type = vars->themap[newy][newx];
-		// printf("type: %c", type);
+		// printf("type: %c\n", vars->themap[newy][newx]); //debug print
+		if (vars->themap[newy][newx] == '1')
+		{
+			// printf("dont move");
+			return (1);
+		}
 	}
 	// if (vars->themap[newy][newx] == wall)
 	// 	return (1);
