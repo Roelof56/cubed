@@ -41,10 +41,10 @@ int	import_map(t_vars *vars, char *str)
 		// if there is list -> clean it here (part of it if something went wrong)
 		return (ft_strerror("Faild on read_and_save_map()."));
 	}
-	// 	printf("\ndata from mapfile (in list form): \n");
-	// 	ll_print_list(data);
-	// 	printf("\nthe map (in list form): \n");
-	// 	ll_print_list(map);
+		printf("\ndata from mapfile (in list form): \n");
+		ll_print_list(data);
+		printf("\nthe map (in list form): \n");
+		ll_print_list(map);
 	if (parse_and_save_mapinfo(vars, data) != 0)	/// save mapinfo (sprites/color)
 		return (ft_strerror("wrong mapinfo (colors & identifiers)")); //clean lists...
 	if (parse_and_save_themap(vars, map) != 0)		// save the actual map

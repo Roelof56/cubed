@@ -39,9 +39,9 @@ RED			= \033[31;01m
 
 # Args for run rule.
 ARG0		= maps/map0.cub # Tiny map.
-ARG1		= maps/map1.cub # ?
-ARG2		= maps/map2.cub # Heeft 2 keer zelfde type identifier.
-ARG3		= maps/map3.cub # Mist 1 info line.
+ARG1		= maps/map1.cub # ! crashed codam pc. probably invalid path to texture.
+ARG2		= maps/map2.cub # Has same identifier.
+ARG3		= maps/map3.cub # Misses ceiling color line.
 
 # Operations
 all				:	createlibs $(NAME)
