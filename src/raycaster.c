@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/03 10:02:34 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/06/05 16:23:57 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/06/05 17:09:52 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void draw_rays(t_vars *vars)
 	float	disV = 0.0; // distance from player to the vertical wall hit
 	float	vx = 0.0; // final vertical wall hit x coordinates (where the vertical ray hit the wall)
 	float	vy = 0.0; // final vertical wall hit y coordinates (where the vertical ray hit the wall)
-	float	px = vars->pl_x; // player's current x position on the map
-	float	py = vars->pl_y; // player's current y position on the map
+	float	px = vars->plx; // player's current x position on the map
+	float	py = vars->ply; // player's current y position on the map
 	float	hx, hy;
 	int map_width = 0;
 	int map_height = 0;
@@ -47,7 +47,7 @@ void draw_rays(t_vars *vars)
 	map_width = ft_strlen(vars->themap[0]);
 	
 	r = 0;
-	ra = vars->pl_angle + 30; // Starting ray angle
+	ra = vars->pla + 30; // Starting ray angle
 	while (r < 10)
 	{
 		// Normalize and convert to radians
