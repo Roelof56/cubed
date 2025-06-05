@@ -10,4 +10,6 @@ cub3d
 
 # Folders
 MLX42/build
-**/bin
+libft/build
+objects
+
