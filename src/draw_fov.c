@@ -13,7 +13,7 @@
 // }
 
 // Function to set a pixel using mlx_put_pixel
-static void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
 	if (x > 0 && y > 0) //& within minimap bounds ?
 	{
