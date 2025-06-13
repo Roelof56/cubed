@@ -98,8 +98,8 @@ static void	save_player_location(t_vars *data, int x, int y)
 		data->pla = PI / 2;
 	if (dir == 'W')
 		data->pla = PI;
-	// printf("dir: %c\n", dir);
-	// printf("pla: %f\n", data->pla);
+	data->pdx = cos(data->pla) * 5;
+	data->pdy = sin(data->pla) * 5;
 }
 
 //find player loc & angle. - also check for multiple
