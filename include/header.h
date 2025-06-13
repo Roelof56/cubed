@@ -131,7 +131,7 @@ int			draw_minimap(t_vars *data);
 
 /* draw_minimap_player.c */
 // void		move_minimap_player(t_vars *vars);
-void		first_draw_minimap_player(t_vars *data);
+// void		first_draw_minimap_player(t_vars *data);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(int r, int g, int b, int a);

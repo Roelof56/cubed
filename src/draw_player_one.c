@@ -106,17 +106,17 @@ void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
 // }
 
 //from center.
-void draw_line_in_direction(mlx_image_t *img, double angle) {
-	t_line line;
-	line = calculate_line_direction(angle);
-	bresenham_line(img, line, 0xFFFFFF);
-}
+// void draw_line_in_direction(mlx_image_t *img, double angle) {
+// 	t_line line;
+// 	line = calculate_line_direction(angle);
+// 	bresenham_line(img, line, 0xFFFFFF);
+// }
 
-void	draw_minimap_player(t_vars *vars)
-{
-	mlx_delete_image(vars->mlx, vars->td_player);
-	vars->td_player = mlx_texture_to_image(vars->mlx, vars->tdpl);
-	draw_line_in_direction(vars->td_player, vars->pl_angle);
-	draw_rays(vars);
-	mlx_image_to_window(vars->mlx, vars->td_player, (vars->pl_x * 32), (vars->pl_y * 32));
-}
+// void	draw_minimap_player(t_vars *vars)
+// {
+// 	mlx_delete_image(vars->mlx, vars->td_player);
+// 	vars->td_player = mlx_texture_to_image(vars->mlx, vars->tdpl);
+// 	draw_line_in_direction(vars->td_player, vars->pl_angle);
+// 	draw_rays(vars);
+// 	mlx_image_to_window(vars->mlx, vars->td_player, (vars->pl_x * 32), (vars->pl_y * 32));
+// }
