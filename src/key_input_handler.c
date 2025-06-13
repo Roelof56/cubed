@@ -59,7 +59,7 @@ void	input_hook(void *param)
 		// printf("pdy: %f\n", data->pdy);y
 		data->plx += (data->pdx / 20);
 		data->ply += (data->pdy / 20);
-		move_minimap_player(data);
+		// move_minimap_player(data);
 		draw_fov_line(data);
 
 	}
@@ -67,19 +67,19 @@ void	input_hook(void *param)
 	{
 		data->plx -= (data->pdx / 20);
 		data->ply -= (data->pdy / 20);
-		move_minimap_player(data);
+		// move_minimap_player(data);
 		draw_fov_line(data);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 	{
 		data->plx -= 0.1;
-		move_minimap_player(data);
+		// move_minimap_player(data);
 		draw_fov_line(data);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
 		data->plx += 0.1;
-		move_minimap_player(data);
+		// move_minimap_player(data);
 		draw_fov_line(data);
 	}
 	// - add arrows for angle - 

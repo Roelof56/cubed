@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	
 	draw_minimap(&data); //only walls
 
-	first_draw_minimap_player(&data); //draw and save in struct for moving arround.
+	// first_draw_minimap_player(&data); //draw and save in struct for moving arround.
 	
 	data.fovlines = mlx_new_image(data.mlx, 700, 400); //tmp for first run delete.
 	mlx_image_to_window(data.mlx, data.fovlines, 0,0);
