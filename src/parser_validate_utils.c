@@ -66,22 +66,6 @@ int	check_map_for_invalid_chars(char **themap)
 	return (0);
 }
 
-// (old) save x, y coordinates & player starting angle
-// static void	save_player_loc(t_vars *vars, int i, int j, char dir)
-// {
-// 	if (dir == 'N')
-// 		vars->pl_angle = 270;
-// 	if (dir == 'E')
-// 		vars->pl_angle = 0;
-// 	if (dir == 'S')
-// 		vars->pl_angle = 90;
-// 	if (dir == 'W')
-// 		vars->pl_angle = 180;
-// 	vars->pl_x = j;
-// 	vars->pl_y = i;
-// 	printf("player(x,y): %f,%f", vars->pl_x, vars->pl_y);
-// }
-
 // new -> probably angle here also ?
 static void	save_player_location(t_vars *data, int x, int y)
 {

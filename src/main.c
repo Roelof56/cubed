@@ -12,6 +12,26 @@
 
 #include "header.h"
 
+void	draw_hook(void *param)
+{
+	t_vars *data;
+
+	data = (t_vars *)param;
+	draw_fov_line(data);
+	// limit fps here ?
+}
+
+void	game_hook(void *param)
+{
+	t_vars *data;
+
+	data = (t_vars *)param;
+	input_hook(data); // handle keyboard input.
+	mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
+	draw_hook(data); // draw minimap & draw 3d cast
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_vars	data;
@@ -29,16 +49,12 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx, data.fovlines, 0,0);
 	draw_fov_line(&data);
 
-	//new draw every movement thing -> broken.
-	// data.layer1  = mlx_new_image(data.mlx, 700, 400);
-	
-	// start program // add mouse hook.
-	mlx_loop_hook(data.mlx, &input_hook, &data);
+	// mlx_loop_hook(data.mlx, &input_hook, &data); //old
+	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 
 	//end of program clean.
-	// printf("does this trigger after mlx temrinate ? \n"); //-> yes
 	clean_map_info(&data);
 	clean_2dchar_array(&data, data.mapheight);
 	return (0);

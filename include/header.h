@@ -122,6 +122,8 @@ int			print_map_color(char **map, int len);
 int			start_mlx(t_vars *data);
 
 /* key_input_handler.c */
+void		change_player_angle(t_vars *data, int dir);
+void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
 /* draw_minimap.c */
