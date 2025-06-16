@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/12 15:20:07 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/06/16 14:46:39 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,6 @@ double		degree_to_radians(double degree);
 void		draw_fov_line(t_vars *data);
 
 /* draw_mm.c */
-void		draw_mm_new(t_vars *data);
+// void		draw_mm_new(t_vars *data);
 
 #endif
