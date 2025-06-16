@@ -27,13 +27,13 @@ void	change_player_angle(t_vars *data, int dir)
 {
 	if (dir == 1)
 	{
-		data->pla += 0.05;
+		data->pla += 0.04;
 		if (data->pla > (2 * PI))
 			data->pla = 0;
 	}
 	else
 	{
-		data->pla -= 0.05;
+		data->pla -= 0.04;
 		if (data->pla < 0)
 			data->pla = (2 * PI);
 	}
@@ -48,18 +48,16 @@ void mouse_hook(double xpos, double ypos, void *param)
 	(void) xpos;
 	(void) param;
 
-	// t_vars *data;
-	// static double lastpos;
+	t_vars			*data;
+	static double	lastpos;
 
-	// data = (t_vars *)param;
-	// if (lastpos > xpos)
-	// 	printf("moving left\n");
-	// if (lastpos < xpos)
-	// 	printf("moving right\n");
-	// lastpos = xpos;
-	// mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2);
-	// printf("Mouse moved: %.2f\n", xpos);
-	// printf("%f", data->pla);
+	data = (t_vars *)param;
+	if (lastpos > xpos)
+		change_player_angle(data, 1);
+	if (lastpos < xpos)
+		change_player_angle(data, 0);
+	lastpos = xpos;
+	mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2); // keep mouse in screen.
 }
 
 

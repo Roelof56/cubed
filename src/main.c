@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/03 18:44:23 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/16 14:59:28 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx, data.fovlines, 0,0);
 	draw_fov_line(&data);
 
-	// mlx_loop_hook(data.mlx, &input_hook, &data); //old
+	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
