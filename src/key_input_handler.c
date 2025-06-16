@@ -27,13 +27,13 @@ void	change_player_angle(t_vars *data, int dir)
 {
 	if (dir == 1)
 	{
-		data->pla += 0.05;
+		data->pla += 0.04;
 		if (data->pla > (2 * PI))
-			data->pla = 0;
+			data->pla += (2 * PI);
 	}
 	else
 	{
-		data->pla -= 0.05;
+		data->pla -= 0.04;
 		if (data->pla < 0)
 			data->pla = (2 * PI);
 	}
@@ -48,18 +48,16 @@ void mouse_hook(double xpos, double ypos, void *param)
 	(void) xpos;
 	(void) param;
 
-	// t_vars *data;
-	// static double lastpos;
+	t_vars			*data;
+	static double	lastpos;
 
-	// data = (t_vars *)param;
-	// if (lastpos > xpos)
-	// 	printf("moving left\n");
-	// if (lastpos < xpos)
-	// 	printf("moving right\n");
-	// lastpos = xpos;
-	// mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2);
-	// printf("Mouse moved: %.2f\n", xpos);
-	// printf("%f", data->pla);
+	data = (t_vars *)param;
+	if (lastpos > xpos)
+		change_player_angle(data, 0);
+	if (lastpos < xpos)
+		change_player_angle(data, 1);
+	lastpos = xpos;
+	mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2); // keep mouse in screen.
 }
 
 
@@ -73,21 +71,23 @@ void	input_hook(void *param)
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{
-		data->plx += (data->pdx / 20);
-		data->ply += (data->pdy / 20);
+		data->plx += (data->pdx / 40);
+		data->ply += (data->pdy / 40);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 	{
-		data->plx -= (data->pdx / 20);
-		data->ply -= (data->pdy / 20);
+		data->plx -= (data->pdx / 40);
+		data->ply -= (data->pdy / 40);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 	{
-		data->plx -= 0.1; //add 'strafe' ?
+		data->plx += data->pdy / 60;
+		data->ply += -data->pdx / 60;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
-		data->plx += 0.1; //add 'strafe' ?
+		data->plx += -data->pdy / 60;
+		data->ply += data->pdx / 60;
 	}
 	// - add arrows for angle - 
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
