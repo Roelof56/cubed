@@ -93,58 +93,19 @@ static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
 	}
 }
 
-
-
-// first attempt thing.
-// void	draw_small_minimap(t_vars *data)
-// {
-// 	draw_image_outline(data->layer1, 0xFFD700FF); //tmp for placement
-// 	int i = 0;
-// 	int j = 0;
-// 	int startx;
-// 	int starty;
-
-// 	startx = data->plx -5;
-// 	starty = data->ply -5;
-// 	while (startx < 0)
-// 		startx++;
-// 	while (starty < 0)
-// 		starty++;
-// 	clear_image(data->layer1);
-// 	while (j < 10)
-// 	{
-// 		while (i < 10)
-// 		{
-// 			if (data->themap[starty + j][startx + i])
-// 			{
-// 				if (data->themap[starty + j][startx + i] == '1')
-// 				{
-// 					draw_block(data->layer1, startx + i, starty + j, 0xFF0000FF); //red
-// 				}
-// 				else
-// 					draw_floor(data->layer1, startx + i, starty + j, 0xF5F5DC09); //greyish
-// 			}
-// 			else
-// 				break ;
-// 			i++;
-// 		}
-// 		i = 0;
-// 		j++;
-// 	}
-// 	draw_player(data->layer1, round(data->plx * MMSCALE), round(data->ply * MMSCALE));
-// }
-
+// try to draw minimap arround player.
 void draw_small_minimap(t_vars *data)
 {
-	int view_w = 10;
-	int view_h = 10;
-	int startx;
-	int starty;
-
+	float view_w = 10;
+	float view_h = 10;
+	float startx;
+	float starty;
 
 	// Clamp the viewport so it doesn't go outside the map
-	startx = (int)(data->plx) - view_w / 2;
-	starty = (int)(data->ply) - view_h / 2;
+	startx = data->plx - (view_w / 2);
+	starty = data->ply - (view_h / 2);
+
+	// Clean co-ordinates.
 	if (startx < 0)
 		startx = 0;
 	if (starty < 0)
@@ -157,16 +118,16 @@ void draw_small_minimap(t_vars *data)
 	clear_image(data->layer1);
 	draw_image_outline(data->layer1, 0xFFD700FF); // temp border
 
+	// looptieloop to 
 	int y;
 	int x;
-
 	y = 0;
 	while (y < view_h)
 	{
 		x = 0;
 		while (x < view_w)
 		{
-			char tile = data->themap[starty + y][startx + x];
+			char tile = data->themap[(int)round(starty + y)][(int)round(startx + x)];
 			if (tile)
 			{
 				if (tile == '1')
