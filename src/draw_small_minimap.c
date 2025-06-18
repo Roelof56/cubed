@@ -93,6 +93,73 @@ static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
 	}
 }
 
+
+// void draw_small_minimap(t_vars *data)
+// {
+// 	float view_w = 10;
+// 	float view_h = 10;
+// 	float startx = data->plx - (view_w / 2.0f);
+// 	float starty = data->ply - (view_h / 2.0f);
+
+// 	// Clamp to map bounds
+// 	if (startx < 0)
+// 		startx = 0;
+// 	if (starty < 0)
+// 		starty = 0;
+// 	if (startx + view_w > data->mapwidth)
+// 		startx = data->mapwidth - view_w;
+// 	if (starty + view_h > data->mapheight)
+// 		starty = data->mapheight - view_h;
+// 	if (startx < 0)
+// 		startx = 0;
+// 	if (starty < 0)
+// 		starty = 0;
+
+// 	clear_image(data->layer1);
+// 	draw_image_outline(data->layer1, 0xFFD700FF); // border
+
+// 	// For sub-tile pixel shift
+// 	float offsetx = startx - floorf(startx);
+// 	float offsety = starty - floorf(starty);
+
+// 	int y = 0;
+// 	while (y < view_h)
+// 	{
+// 		int x = 0;
+// 		while (x < view_w)
+// 		{
+// 			int mx = (int)(floorf(startx) + x);
+// 			int my = (int)(floorf(starty) + y);
+
+// 			if (my >= data->mapheight || !data->themap[my])
+// 			{
+// 				x++;
+// 				continue;
+// 			}
+// 			if (mx >= (int)ft_strlen(data->themap[my]))
+// 			{
+// 				x++;
+// 				continue;
+// 			}
+
+// 			char tile = data->themap[my][mx];
+// 			if (tile == '1')
+// 				draw_block(data->layer1, x - offsetx, y - offsety, 0xFF0000FF);
+// 			else
+// 				draw_floor(data->layer1, x - offsetx, y - offsety, 0xF5F5DC09);
+
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+
+// 	// Draw player relative to sub-tile offset
+// 	float px = (data->plx - startx) * MMSCALE;
+// 	float py = (data->ply - starty) * MMSCALE;
+// 	draw_player(data->layer1, (int)roundf(px), (int)roundf(py));
+// }
+
+
 // try to draw minimap arround player.
 void draw_small_minimap(t_vars *data)
 {
@@ -100,6 +167,8 @@ void draw_small_minimap(t_vars *data)
 	float view_h = 10;
 	float startx;
 	float starty;
+	float px;
+	float py;
 
 	// Clamp the viewport so it doesn't go outside the map
 	startx = data->plx - (view_w / 2);
@@ -131,7 +200,7 @@ void draw_small_minimap(t_vars *data)
 			if (tile)
 			{
 				if (tile == '1')
-					draw_block(data->layer1, x, y, 0xFF0000FF); // red
+					draw_block(data->layer1, x , y, 0xFF0000FF); // red // also add offset here ?
 				else
 					draw_floor(data->layer1, x, y, 0xF5F5DC09); // beige-ish
 			}
@@ -141,7 +210,7 @@ void draw_small_minimap(t_vars *data)
 	}
 
 	// Draw player relative to startx/starty
-	float px = (data->plx - startx) * MMSCALE;
-	float py = (data->ply - starty) * MMSCALE;
-	draw_player(data->layer1, round(px), round(py));
+	px = (data->plx - startx) * MMSCALE;
+	py = (data->ply - starty) * MMSCALE;
+	draw_player(data->layer1, (int)roundf(px), (int)roundf(py));
 }
