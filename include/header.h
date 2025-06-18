@@ -26,6 +26,10 @@
 # define PI 3.14159
 # define SCALE 32
 
+# define MMSCALE 16
+# define VIEW_W 10
+# define VIEW_H 10
+
 // typedef struct s_mapinfo //texture save point
 // {
 // 	mlx_texture_t *no;
@@ -42,7 +46,8 @@ typedef struct s_vars
 	mlx_t			*mlx;
 	char			**map_info; // texture loc & colors
 	char			**themap;	// actual map
-	int				mapheight;	// y columns
+	int				mapheight;
+	int				mapwidth;
 	// t_mapinfo	textures;
 	double			plx; //player x location
 	double			ply; // player y location
@@ -51,7 +56,7 @@ typedef struct s_vars
 	double			pdy; // player delta y
 	// mlx_image_t		*mmpl; //minimap player.
 	mlx_image_t		*fovlines; // minimap player fov lines go here.
-	mlx_image_t		*layer1; // for draw_mm.c (don't work)
+	mlx_image_t		*layer1; // small minimap
 }				t_vars;
 
 /* linkedlist - for map import*/
@@ -138,9 +143,11 @@ int			ft_get_rgba(int r, int g, int b, int a);
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
+void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
 
-/* draw_mm.c */
-// void		draw_mm_new(t_vars *data);
+/* draw_small_minimap.c */
+void		draw_small_minimap(t_vars *data);
+void		compute_map_dimensions(t_vars *data);
 
 #endif
