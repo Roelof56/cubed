@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/16 14:59:28 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 15:23:33 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 	// draw_fov_line(&data);
 
 	// new small minimap
-	compute_map_dimensions(&data);
-	data.layer1 = mlx_new_image(data.mlx, 160, 160);
+	// compute_map_dimensions(&data);
+	data.layer1 = mlx_new_image(data.mlx, 200, 200);
 	mlx_image_to_window(data.mlx, data.layer1, 0, 0);
 	draw_small_minimap(&data);
 
