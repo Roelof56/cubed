@@ -93,7 +93,7 @@ static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
 	}
 }
 
-
+	// offset inspiration by ai. I dont like it.
 // void draw_small_minimap(t_vars *data)
 // {
 // 	float view_w = 10;
