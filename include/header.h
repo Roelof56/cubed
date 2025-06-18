@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/16 14:46:39 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 16:08:42 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_vars
 	char			**map_info; // texture loc & colors
 	char			**themap;	// actual map
 	int				mapheight;	// y columns
+	int				mapwidth;
 	// t_mapinfo	textures;
 	double			plx; //player x location
 	double			ply; // player y location
@@ -142,5 +143,8 @@ void		draw_fov_line(t_vars *data);
 
 /* draw_mm.c */
 // void		draw_mm_new(t_vars *data);
+
+/* parser_square_map.c */
+int	make_map_square(t_vars *data);
 
 #endif

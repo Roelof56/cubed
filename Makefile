@@ -27,7 +27,8 @@ SRCS		:=	main.c \
 				draw_minimap_player.c \
 				draw_utils_color.c \
 				draw_fov.c \
-				draw_mm.c
+				draw_mm.c \
+				parser_square_map.c
 
 OBJ			:=	$(SRCS:.c=.o)
 OBJS		:=	$(addprefix $(OBJ_PATH), $(OBJ))
