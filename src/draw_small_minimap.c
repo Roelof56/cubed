@@ -1,20 +1,5 @@
 #include "header.h"
 
-// void compute_map_dimensions(t_vars *data)
-// {
-// 	int i = 0;
-// 	int max_width = 0;
-// 	while (data->themap[i])
-// 	{
-// 		int len = ft_strlen(data->themap[i]);
-// 		if (len > max_width)
-// 			max_width = len;
-// 		i++;
-// 	}
-// 	data->mapheight = i;
-// 	data->mapwidth = max_width;
-// }
-
 // draw a 4x4 square (orange)
 static void	draw_player(mlx_image_t *img, int x, int y)
 {
@@ -27,7 +12,7 @@ static void	draw_player(mlx_image_t *img, int x, int y)
 		j = 0;
 		while (j < 4)
 		{
-			mlx_put_pixel(img, ((x - 2) + j), ((y - 2) + i), 0xFFA500FF); // this is not mid of minimap...
+			mlx_put_pixel(img, ((x - 2) + j), ((y - 2) + i), 0xFFA500FF);
 			j++;
 		}
 		i++;
@@ -57,56 +42,56 @@ static void draw_image_outline(mlx_image_t *img, uint32_t color)
 }
 
 // draw wall block - red
-// static void draw_block(mlx_image_t *img, float x, float y, uint32_t color)
-// {
-// 	int i;
-// 	int	newx;
-// 	int	newy;
+static void draw_block(mlx_image_t *img, float x, float y, uint32_t color)
+{
+	int i;
+	int	newx;
+	int	newy;
 
-// 	newx = (int)round(x * MMSCALE);
-// 	newy = (int)round(y * MMSCALE);
-// 	// printf("newx: %d\n", newx);
-// 	i = 0;
-// 	while (i < MMSCALE)
-// 	{
-// 		mlx_put_pixel(img, (newx + i), newy, color);
-// 		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
-// 		i++;
-// 	}
-// 	i = 1;
-// 	while (i < MMSCALE)
-// 	{
-// 		mlx_put_pixel(img, newx, (newy + i), color);
-// 		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
-// 		i++;
-// 	}
-// }
+	newx = (int)round(x * MMSCALE);
+	newy = (int)round(y * MMSCALE);
+	// printf("newx: %d\n", newx);
+	i = 0;
+	while (i < MMSCALE)
+	{
+		mlx_put_pixel(img, (newx + i), newy, color);
+		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
+		i++;
+	}
+	i = 1;
+	while (i < MMSCALE)
+	{
+		mlx_put_pixel(img, newx, (newy + i), color);
+		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
+		i++;
+	}
+}
 
-// // draw floor block - grey.
-// static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
-// {
-// 	int i;
-// 	int	newx;
-// 	int	newy;
+// draw floor block - grey.
+static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
+{
+	int i;
+	int	newx;
+	int	newy;
 
-// 	newx = (int)round(x * MMSCALE) + 1;
-// 	newy = (int)round(y * MMSCALE) + 1;
-// 	// printf("newx: %d\n", newx);
-// 	i = 0;
-// 	while (i < MMSCALE - 1)
-// 	{
-// 		mlx_put_pixel(img, (newx + i), newy, color);
-// 		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
-// 		i++;
-// 	}
-// 	i = 1;
-// 	while (i < MMSCALE - 1)
-// 	{
-// 		mlx_put_pixel(img, newx, (newy + i), color);
-// 		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
-// 		i++;
-// 	}
-// }
+	newx = (int)round(x * MMSCALE) + 1;
+	newy = (int)round(y * MMSCALE) + 1;
+	// printf("newx: %d\n", newx);
+	i = 0;
+	while (i < MMSCALE - 1)
+	{
+		mlx_put_pixel(img, (newx + i), newy, color);
+		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
+		i++;
+	}
+	i = 1;
+	while (i < MMSCALE - 1)
+	{
+		mlx_put_pixel(img, newx, (newy + i), color);
+		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
+		i++;
+	}
+}
 
 
 
@@ -156,7 +141,6 @@ void draw_small_minimap(t_vars *data)
 	int startx;
 	int starty;
 
-	// compute_map_dimensions(data);
 
 	// Clamp the viewport so it doesn't go outside the map
 	startx = (int)(data->plx) - view_w / 2;
@@ -171,26 +155,29 @@ void draw_small_minimap(t_vars *data)
 		starty = data->mapheight - view_h;
 
 	clear_image(data->layer1);
-	draw_image_outline(data->layer1, 0xFFD700FF); // optional border
+	draw_image_outline(data->layer1, 0xFFD700FF); // temp border
 
-	// int j = 0;
-	// while (j < view_h)
-	// {
-	// 	int i = 0;
-	// 	while (i < view_w)
-	// 	{
-	// 		char tile = data->themap[starty + j][startx + i];
-	// 		if (tile)
-	// 		{
-	// 			if (tile == '1')
-	// 				draw_block(data->layer1, i, j, 0xFF0000FF); // red
-	// 			else
-	// 				draw_floor(data->layer1, i, j, 0xF5F5DC09); // beige-ish
-	// 		}
-	// 		i++;
-	// 	}
-	// 	j++;
-	// }
+	int y;
+	int x;
+
+	y = 0;
+	while (y < view_h)
+	{
+		x = 0;
+		while (x < view_w)
+		{
+			char tile = data->themap[starty + y][startx + x];
+			if (tile)
+			{
+				if (tile == '1')
+					draw_block(data->layer1, x, y, 0xFF0000FF); // red
+				else
+					draw_floor(data->layer1, x, y, 0xF5F5DC09); // beige-ish
+			}
+			x++;
+		}
+		y++;
+	}
 
 	// Draw player relative to startx/starty
 	float px = (data->plx - startx) * MMSCALE;

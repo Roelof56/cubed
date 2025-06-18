@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/18 16:08:42 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 16:17:07 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define HEIGHT 960
 # define PI 3.14159
 # define SCALE 32
-# define MMSCALE 16
+# define MMSCALE 32
 
 // typedef struct s_mapinfo //texture save point
 // {
