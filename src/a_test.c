@@ -1,7 +1,7 @@
 #include "header.h"
 
-# define MAPSCALE 16
-# define VIEW 6
+# define MAPSCALE 16 // size of wall & floor blocks.
+# define VIEW 6 //ammount of blocks to draw arround player.
 
 // Outline img -> tmp for placement in window
 static void draw_image_outline(mlx_image_t *img, uint32_t color)

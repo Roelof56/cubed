@@ -1,5 +1,7 @@
 #include "header.h"
 
+# define MMSCALE 16 // draw_small_minimap 
+
 // Unused -> it was my first zoomed minimap attempt.
 
 // draw a 4x4 square (orange)
