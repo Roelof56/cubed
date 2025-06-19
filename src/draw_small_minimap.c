@@ -58,7 +58,7 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	frac_x = (float)modf(data->plx, &ignore);
 	frac_y = (float)modf(data->ply, &ignore);
 
-	// world-space to minimap-pixel, deze naamgeveing is dom. // i swear i'll make this norminette approved.
+	// world-space to minimap-pixel, // I swear i'll make this norminette approved.
 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
 	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
 
@@ -76,7 +76,7 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 		j = 0;
 		while (j < MAPSCALE)
 		{
-			if (i == 0 || j == 0 || i == MAPSCALE - 1 || j == MAPSCALE - 1)
+			if (i == 0 || j == 0 || i == MAPSCALE - 2 || j == MAPSCALE - 2)
 			{
 				if (drawx + i >= 0 && drawx + i < data->layer1->width &&
 					drawy + j >= 0 && drawy + j < data->layer1->height)

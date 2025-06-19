@@ -26,8 +26,8 @@
 # define PI 3.14159
 # define SCALE 32	// OG map scale
 
-# define MAPSCALE 32	// size of wall & floor blocks.
-# define VIEW 5		// ammount of blocks to draw arround player x & y
+# define MAPSCALE 16	// size of wall & floor blocks.
+# define VIEW 10		// ammount of blocks to draw arround player x & y
 
 // typedef struct s_mapinfo //texture save point
 // {
