@@ -66,8 +66,8 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	int centerx = data->layer1->width / 2;
 	int centery = data->layer1->height / 2;
 
-	uint32_t drawx = centerx + (int)dx;
-	uint32_t drawy = centery + (int)dy;
+	uint32_t drawx = centerx + (int)dx; // maybe create a struct & setter function.
+	uint32_t drawy = centery + (int)dy;	// for this & all needed shit above.
 
 	// draw a border square
 	i = 0;
