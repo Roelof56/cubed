@@ -55,8 +55,8 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	double ignore; // needed for modf for some reason...
 
 	// rest of float 5.7 = 0.7
-	frac_x = (float)modf(data->plx, &ignore);
-	frac_y = (float)modf(data->ply, &ignore);
+	frac_x = (float)modf(data->plx, &ignore); // move to draw-small-minimap
+	frac_y = (float)modf(data->ply, &ignore); // cause this is heavy computing for no reason
 
 	// world-space to minimap-pixel, // I swear i'll make this norminette approved.
 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
@@ -69,7 +69,7 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	uint32_t drawx = centerx + (int)dx; // maybe create a struct & setter function.
 	uint32_t drawy = centery + (int)dy;	// for this & all needed shit above.
 
-	// draw a border square
+	// actual drawing of block lines
 	i = 0;
 	while (i < MAPSCALE)
 	{
