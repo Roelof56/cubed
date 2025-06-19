@@ -14,11 +14,13 @@
 
 void	draw_hook(void *param)
 {
+	// (void) param;
 	t_vars *data;
 
 	data = (t_vars *)param;
 	// draw_fov_line(data);
-	draw_small_minimap(data);
+	// draw_small_minimap(data);
+	a_test(data);
 	// limit fps here ?
 }
 
@@ -44,17 +46,16 @@ int	main(int argc, char **argv)
 	if (start_mlx(&data) == 1)
 		return (ft_strerror("Error\nCould not start mlx instance.\n"));
 	
-	// draw_minimap(&data); //only walls
-	
+	// draw_minimap(&data); //only walls - background for data.fovlines.
 	// data.fovlines = mlx_new_image(data.mlx, 700, 700); //tmp for first run delete.
 	// mlx_image_to_window(data.mlx, data.fovlines, 0,0);
 	// draw_fov_line(&data);
 
 	// new small minimap
-	// compute_map_dimensions(&data);
 	data.layer1 = mlx_new_image(data.mlx, 400, 400);
-	mlx_image_to_window(data.mlx, data.layer1, 0, 0);
-	draw_small_minimap(&data);
+	mlx_image_to_window(data.mlx, data.layer1, 2, 2);
+	// draw_small_minimap(&data);
+	a_test(&data);
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data.mlx, &game_hook, &data);

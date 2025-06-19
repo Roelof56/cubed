@@ -1,5 +1,7 @@
 #include "header.h"
 
+// Unused -> it was my first zoomed minimap attempt.
+
 // draw a 4x4 square (orange)
 static void	draw_player(mlx_image_t *img, int x, int y)
 {

@@ -25,7 +25,7 @@
 # define HEIGHT 960
 # define PI 3.14159
 # define SCALE 32
-# define MMSCALE 32
+# define MMSCALE 16 // draw_small_minimap helper
 
 // typedef struct s_mapinfo //texture save point
 // {
@@ -149,5 +149,8 @@ void		compute_map_dimensions(t_vars *data);
 
 /* parser_square_map.c */
 int	make_map_square(t_vars *data);
+
+/* a_test.c */ // new zoomed minimap
+void	a_test(t_vars *data);
 
 #endif
