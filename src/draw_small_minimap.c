@@ -62,7 +62,7 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
 	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
 
-	// screen center
+	// screen center // this can just be in drawx. wich makes it a lil unreadable.
 	int centerx = data->layer1->width / 2;
 	int centery = data->layer1->height / 2;
 
@@ -111,8 +111,8 @@ void	draw_small_minimap(t_vars *data)
 			tile_x = data->plx + offset_x;
 			tile_y = data->ply + offset_y;
 
-			map_x = (int)tile_x;
-			map_y = (int)tile_y;
+			map_x = (int)floorf(tile_x);
+			map_y = (int)floorf(tile_y);
 
 			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
 			{

@@ -50,9 +50,9 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx, data.fovlines, 1, 2);
 	draw_fov_line(&data);
 
-	// new small minimap
-	data.layer1 = mlx_new_image(data.mlx, 400, 400);
-	mlx_image_to_window(data.mlx, data.layer1, 710, 2);
+	
+	data.layer1 = mlx_new_image(data.mlx, 400, 400); // new small minimap
+	mlx_image_to_window(data.mlx, data.layer1, 710, 2); // place left of og map
 	draw_small_minimap(&data);
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
