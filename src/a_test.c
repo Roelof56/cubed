@@ -1,7 +1,7 @@
 #include "header.h"
 
-# define MAPSCALE 16 // size of wall & floor blocks.
-# define VIEW 6 //ammount of blocks to draw arround player.
+# define MAPSCALE 32 // size of wall & floor blocks.
+# define VIEW 10 //ammount of blocks to draw arround player.
 
 // Outline img -> tmp for placement in window
 static void draw_image_outline(mlx_image_t *img, uint32_t color)
@@ -61,7 +61,7 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	frac_x = (float)modf(data->plx, &ignore);
 	frac_y = (float)modf(data->ply, &ignore);
 
-	// world-space to minimap-pixel, deze naamgeveing is dom.
+	// world-space to minimap-pixel, deze naamgeveing is dom. // i swear i'll make this norminette approved.
 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
 	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
 
