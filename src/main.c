@@ -19,8 +19,7 @@ void	draw_hook(void *param)
 
 	data = (t_vars *)param;
 	draw_fov_line(data);
-	// draw_small_minimap(data);
-	a_test(data);
+	draw_small_minimap(data);
 	// limit fps here ?
 }
 
@@ -54,8 +53,7 @@ int	main(int argc, char **argv)
 	// new small minimap
 	data.layer1 = mlx_new_image(data.mlx, 400, 400);
 	mlx_image_to_window(data.mlx, data.layer1, 710, 2);
-	// draw_small_minimap(&data); //first
-	a_test(&data); //last is decent
+	draw_small_minimap(&data);
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data.mlx, &game_hook, &data);

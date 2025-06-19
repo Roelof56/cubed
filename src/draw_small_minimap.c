@@ -1,29 +1,6 @@
 #include "header.h"
 
-# define MMSCALE 16 // draw_small_minimap 
-
-// Unused -> it was my first zoomed minimap attempt.
-
-// draw a 4x4 square (orange)
-static void	draw_player(mlx_image_t *img, int x, int y)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			mlx_put_pixel(img, ((x - 2) + j), ((y - 2) + i), 0xFFA500FF);
-			j++;
-		}
-		i++;
-	}
-}
-
-// Outline an image
+// Outline img -> tmp for placement in window
 static void draw_image_outline(mlx_image_t *img, uint32_t color)
 {
 	uint32_t x;
@@ -45,176 +22,107 @@ static void draw_image_outline(mlx_image_t *img, uint32_t color)
 	}
 }
 
-// draw wall block - red
-static void draw_block(mlx_image_t *img, float x, float y, uint32_t color)
+// draw player middle of minimap
+static void	draw_player_center(mlx_image_t *img)
 {
-	int i;
-	int	newx;
-	int	newy;
+	int	i;
+	int	j;
+	int startx = (img->width / 2) - 2;
+	int starty = (img->height / 2)- 2;
 
-	newx = (int)round(x * MMSCALE);
-	newy = (int)round(y * MMSCALE);
-	// printf("newx: %d\n", newx);
 	i = 0;
-	while (i < MMSCALE)
+	while (i < 6)
 	{
-		mlx_put_pixel(img, (newx + i), newy, color);
-		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
-		i++;
-	}
-	i = 1;
-	while (i < MMSCALE)
-	{
-		mlx_put_pixel(img, newx, (newy + i), color);
-		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
+		j = 0;
+		while (j < 6)
+		{
+			mlx_put_pixel(img, (startx + i), (starty + j), 0xFFA500FF);
+			j++;
+		}
 		i++;
 	}
 }
 
-// draw floor block - grey.
-static void draw_floor(mlx_image_t *img, float x, float y, uint32_t color)
+// draw floors & walls based on distance to player.
+// todo: make outer 2 blocks more transparent last 2 characters of hex code.
+static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 {
 	int i;
-	int	newx;
-	int	newy;
+	int j;
 
-	newx = (int)round(x * MMSCALE) + 1;
-	newy = (int)round(y * MMSCALE) + 1;
-	// printf("newx: %d\n", newx);
+	float frac_x;
+	float frac_y;
+	double ignore; // needed for modf for some reason...
+
+	// rest of float 5.7 = 0.7
+	frac_x = (float)modf(data->plx, &ignore);
+	frac_y = (float)modf(data->ply, &ignore);
+
+	// world-space to minimap-pixel, deze naamgeveing is dom. // i swear i'll make this norminette approved.
+	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
+	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
+
+	// screen center
+	int centerx = data->layer1->width / 2;
+	int centery = data->layer1->height / 2;
+
+	uint32_t drawx = centerx + (int)dx;
+	uint32_t drawy = centery + (int)dy;
+
+	// draw a border square
 	i = 0;
-	while (i < MMSCALE - 1)
+	while (i < MAPSCALE)
 	{
-		mlx_put_pixel(img, (newx + i), newy, color);
-		mlx_put_pixel(img, (newx + i), (newy + MMSCALE), color);
-		i++;
-	}
-	i = 1;
-	while (i < MMSCALE - 1)
-	{
-		mlx_put_pixel(img, newx, (newy + i), color);
-		mlx_put_pixel(img, (newx + MMSCALE), (newy + i), color);
+		j = 0;
+		while (j < MAPSCALE)
+		{
+			if (i == 0 || j == 0 || i == MAPSCALE - 1 || j == MAPSCALE - 1)
+			{
+				if (drawx + i >= 0 && drawx + i < data->layer1->width &&
+					drawy + j >= 0 && drawy + j < data->layer1->height)
+					mlx_put_pixel(data->layer1, drawx + i, drawy + j, color);
+			}
+			j++;
+		}
 		i++;
 	}
 }
 
-	// offset inspiration by ai. I dont like it.
-// void draw_small_minimap(t_vars *data)
-// {
-// 	float view_w = 10;
-// 	float view_h = 10;
-// 	float startx = data->plx - (view_w / 2.0f);
-// 	float starty = data->ply - (view_h / 2.0f);
-
-// 	// Clamp to map bounds
-// 	if (startx < 0)
-// 		startx = 0;
-// 	if (starty < 0)
-// 		starty = 0;
-// 	if (startx + view_w > data->mapwidth)
-// 		startx = data->mapwidth - view_w;
-// 	if (starty + view_h > data->mapheight)
-// 		starty = data->mapheight - view_h;
-// 	if (startx < 0)
-// 		startx = 0;
-// 	if (starty < 0)
-// 		starty = 0;
-
-// 	clear_image(data->layer1);
-// 	draw_image_outline(data->layer1, 0xFFD700FF); // border
-
-// 	// For sub-tile pixel shift
-// 	float offsetx = startx - floorf(startx);
-// 	float offsety = starty - floorf(starty);
-
-// 	int y = 0;
-// 	while (y < view_h)
-// 	{
-// 		int x = 0;
-// 		while (x < view_w)
-// 		{
-// 			int mx = (int)(floorf(startx) + x);
-// 			int my = (int)(floorf(starty) + y);
-
-// 			if (my >= data->mapheight || !data->themap[my])
-// 			{
-// 				x++;
-// 				continue;
-// 			}
-// 			if (mx >= (int)ft_strlen(data->themap[my]))
-// 			{
-// 				x++;
-// 				continue;
-// 			}
-
-// 			char tile = data->themap[my][mx];
-// 			if (tile == '1')
-// 				draw_block(data->layer1, x - offsetx, y - offsety, 0xFF0000FF);
-// 			else
-// 				draw_floor(data->layer1, x - offsetx, y - offsety, 0xF5F5DC09);
-
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-
-// 	// Draw player relative to sub-tile offset
-// 	float px = (data->plx - startx) * MMSCALE;
-// 	float py = (data->ply - starty) * MMSCALE;
-// 	draw_player(data->layer1, (int)roundf(px), (int)roundf(py));
-// }
-
-
-// try to draw minimap arround player.
-void draw_small_minimap(t_vars *data)
+//draw walls/floors arround player.
+void	draw_small_minimap(t_vars *data)
 {
-	float view_w = 10;
-	float view_h = 10;
-	float startx;
-	float starty;
-	float px;
-	float py;
-
-	// Clamp the viewport so it doesn't go outside the map
-	startx = data->plx - (view_w / 2);
-	starty = data->ply - (view_h / 2);
-
-	// Clean co-ordinates.
-	if (startx < 0)
-		startx = 0;
-	if (starty < 0)
-		starty = 0;
-	if (startx + view_w > data->mapwidth)
-		startx = data->mapwidth - view_w;
-	if (starty + view_h > data->mapheight)
-		starty = data->mapheight - view_h;
+	int		offset_x;
+	int		offset_y;
+	float	tile_x;
+	float	tile_y;
+	int		map_x;
+	int		map_y;
 
 	clear_image(data->layer1);
-	draw_image_outline(data->layer1, 0xFFD700FF); // temp border
+	draw_image_outline(data->layer1, 0xE6E6FAFF); //tmp
+	draw_player_center(data->layer1); //draw block in center of minimap.
 
-	// looptieloop to 
-	int y;
-	int x;
-	y = 0;
-	while (y < view_h)
+	offset_y = -VIEW;
+	while (offset_y <= VIEW) // count: -5 -> 5 (if define is 10)
 	{
-		x = 0;
-		while (x < view_w)
+		offset_x = -VIEW;
+		while (offset_x <= VIEW)
 		{
-			char tile = data->themap[(int)round(starty + y)][(int)round(startx + x)];
-			if (tile)
-			{
-				if (tile == '1')
-					draw_block(data->layer1, x , y, 0xFF0000FF); // red // also add offset here ?
-				else
-					draw_floor(data->layer1, x, y, 0xF5F5DC09); // beige-ish
-			}
-			x++;
-		}
-		y++;
-	}
+			tile_x = data->plx + offset_x;
+			tile_y = data->ply + offset_y;
 
-	// Draw player relative to startx/starty
-	px = (data->plx - startx) * MMSCALE;
-	py = (data->ply - starty) * MMSCALE;
-	draw_player(data->layer1, (int)roundf(px), (int)roundf(py));
+			map_x = (int)tile_x;
+			map_y = (int)tile_y;
+
+			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
+			{
+				if (data->themap[map_y][map_x] == '1')
+					draw_block(data, tile_x, tile_y, 0xFF0000FF);
+				else if (data->themap[map_y][map_x] == '0')
+					draw_block(data, tile_x, tile_y, 0x87CEEB08);
+			}
+			offset_x++;
+		}
+		offset_y++;
+	}
 }

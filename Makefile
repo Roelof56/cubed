@@ -28,8 +28,7 @@ SRCS		:=	main.c \
 				draw_utils_color.c \
 				draw_fov.c \
 				parser_square_map.c \
-				draw_small_minimap.c \
-				a_test.c
+				draw_small_minimap.c
 
 
 OBJ			:=	$(SRCS:.c=.o)

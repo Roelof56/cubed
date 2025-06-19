@@ -24,7 +24,10 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define PI 3.14159
-# define SCALE 32
+# define SCALE 32	// OG map scale
+
+# define MAPSCALE 32	// size of wall & floor blocks.
+# define VIEW 5		// ammount of blocks to draw arround player x & y
 
 // typedef struct s_mapinfo //texture save point
 // {
@@ -43,7 +46,7 @@ typedef struct s_vars
 	char			**map_info; // texture loc & colors
 	char			**themap;	// actual map
 	int				mapheight;	// y columns
-	int				mapwidth;
+	int				mapwidth; // x -width = constant now.
 	// t_mapinfo	textures;
 	double			plx; //player x location
 	double			ply; // player y location
@@ -143,13 +146,9 @@ void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
 
 /* draw_small_minimap.c */
-void		draw_small_minimap(t_vars *data);
-void		compute_map_dimensions(t_vars *data);
+void	draw_small_minimap(t_vars *data);
 
 /* parser_square_map.c */
-int	make_map_square(t_vars *data);
-
-/* a_test.c */ // new zoomed minimap
-void	a_test(t_vars *data);
+int		make_map_square(t_vars *data);
 
 #endif
