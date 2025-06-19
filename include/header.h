@@ -53,7 +53,6 @@ typedef struct s_vars
 	double			pla; // player angle -> in radians 0 - 2pi
 	double			pdx; // player delta x
 	double			pdy; // player delta y
-	// mlx_image_t		*mmpl; //minimap player.
 	mlx_image_t		*fovlines; // minimap player fov lines go here.
 	mlx_image_t		*layer1; // small minimap
 }				t_vars;
