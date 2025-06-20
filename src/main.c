@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/16 14:59:28 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 16:17:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	draw_hook(void *param)
 {
+	// (void) param;
 	t_vars *data;
 
 	data = (t_vars *)param;
 	draw_fov_line(data);
+	draw_small_minimap(data);
 	// limit fps here ?
 }
 
@@ -43,11 +45,15 @@ int	main(int argc, char **argv)
 	if (start_mlx(&data) == 1)
 		return (ft_strerror("Error\nCould not start mlx instance.\n"));
 	
-	draw_minimap(&data); //only walls
-	
-	data.fovlines = mlx_new_image(data.mlx, 700, 400); //tmp for first run delete.
-	mlx_image_to_window(data.mlx, data.fovlines, 0,0);
+	draw_minimap(&data); //only walls - background for data.fovlines.
+	data.fovlines = mlx_new_image(data.mlx, 700, 700); //first map. no zoom.
+	mlx_image_to_window(data.mlx, data.fovlines, 1, 2);
 	draw_fov_line(&data);
+
+	
+	data.layer1 = mlx_new_image(data.mlx, 400, 400); // new small minimap
+	mlx_image_to_window(data.mlx, data.layer1, 710, 2); // place left of og map
+	draw_small_minimap(&data);
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data.mlx, &game_hook, &data);

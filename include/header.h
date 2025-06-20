@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/16 14:46:39 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 16:17:07 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define PI 3.14159
-# define SCALE 32
+# define SCALE 32	// OG map scale
+
+# define MAPSCALE 16	// size of wall & floor blocks.
+# define VIEW 10		// ammount of blocks to draw arround player x & y
 
 // typedef struct s_mapinfo //texture save point
 // {
@@ -43,15 +46,15 @@ typedef struct s_vars
 	char			**map_info; // texture loc & colors
 	char			**themap;	// actual map
 	int				mapheight;	// y columns
+	int				mapwidth; // x -width = constant now.
 	// t_mapinfo	textures;
 	double			plx; //player x location
 	double			ply; // player y location
 	double			pla; // player angle -> in radians 0 - 2pi
 	double			pdx; // player delta x
 	double			pdy; // player delta y
-	// mlx_image_t		*mmpl; //minimap player.
 	mlx_image_t		*fovlines; // minimap player fov lines go here.
-	mlx_image_t		*layer1; // for draw_mm.c (don't work)
+	mlx_image_t		*layer1; // small minimap
 }				t_vars;
 
 /* linkedlist - for map import*/
@@ -138,9 +141,13 @@ int			ft_get_rgba(int r, int g, int b, int a);
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
+void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
 
-/* draw_mm.c */
-// void		draw_mm_new(t_vars *data);
+/* draw_small_minimap.c */
+void	draw_small_minimap(t_vars *data);
+
+/* parser_square_map.c */
+int		make_map_square(t_vars *data);
 
 #endif
