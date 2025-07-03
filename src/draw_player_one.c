@@ -13,11 +13,11 @@ double degree_to_radians(double degree)
 }
 
 // Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-    if (x < img->width && y < img->height)
-        mlx_put_pixel(img, x, y, color);
-}
+// static void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color) // unused ?
+// {
+//     if (x < img->width && y < img->height)
+//         mlx_put_pixel(img, x, y, color);
+// }
 
 // old one _ thru middle
 // t_line	calculate_line_endpoints(double angle) {

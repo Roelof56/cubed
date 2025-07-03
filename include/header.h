@@ -140,6 +140,7 @@ int			draw_minimap(t_vars *data);
 int			ft_get_rgba(int r, int g, int b, int a);
 
 /* draw_fov.c */
+void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 double		degree_to_radians(double degree);
 void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
