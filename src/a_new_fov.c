@@ -45,19 +45,17 @@ static t_line ray_wall(t_vars *data, double angle)
 {
 	t_line	line;
 
-	double	ray_x = data->plx; // is this the problem ?	
+	double	ray_x = data->plx;
 	double	ray_y = data->ply;
 
 	double	dx = cos(angle);
 	double	dy = sin(angle);
-	double	step = 0.05; // fine enough step for smooth lines
+	double	step = 0.05;
 	int		map_x; 
 	int		map_y;
 
-	// line.x1 = (int)(data->plx * 16); 
-	// line.y1 = (int)(data->ply * 16);
-	line.x1 = data->layer1->width / 2;
-	line.y1 = data->layer1->height / 2; // change to center of img.
+	line.x1 = data->layer1->width / 2; // change to img center where player is.
+	line.y1 = data->layer1->height / 2;
 
 	while (1)
 	{
@@ -65,11 +63,14 @@ static t_line ray_wall(t_vars *data, double angle)
 		ray_y += dy * step;
 		map_x = (int)(ray_x);
 		map_y = (int)(ray_y);
-		if (data->themap[map_y][map_x] == '1') // hit wall
+		if (data->themap[map_y][map_x] == '1')
 			break;
 	}
-	line.x2 = (int)(ray_x * 16);
-	line.y2 = (int)(ray_y * 16);
+
+	// add middle offset to endpoints ass wel
+	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * SCALE;
+	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * SCALE;
+
 	return (line);
 }
 
