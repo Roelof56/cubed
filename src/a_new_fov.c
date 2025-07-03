@@ -62,7 +62,7 @@ static t_line ray_wall(t_vars *data, double angle)
 	line.x1 = data->layer1->width / 2; // change to img center where player is.
 	line.y1 = data->layer1->height / 2;
 
-	while (distance < VIEW + 1)
+	while (distance < VIEW + 5)
 	{
 		ray_x += dx * step;
 		ray_y += dy * step;

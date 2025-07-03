@@ -21,13 +21,13 @@
 # include <unistd.h>
 # include <math.h>
 
-# define WIDTH 1280
-# define HEIGHT 960
+# define WIDTH 1920
+# define HEIGHT 1080
 # define PI 3.14159
 # define SCALE 32	// OG map scale
 
-# define MAPSCALE 16	// size of wall & floor blocks.
-# define VIEW 10		// ammount of blocks to draw arround player x & y
+# define MAPSCALE 16	// size of wall & floor blocks minimap
+# define VIEW 10	// ammount of blocks to draw arround player x & y
 
 // typedef struct s_mapinfo //texture save point
 // {

@@ -22,26 +22,26 @@ static void draw_image_outline(mlx_image_t *img, uint32_t color)
 	}
 }
 
-// draw player middle of minimap
-static void	draw_player_center(mlx_image_t *img)
-{
-	int	i;
-	int	j;
-	int startx = (img->width / 2) - 2;
-	int starty = (img->height / 2)- 2;
+// draw player middle of minimap //can go cause fovlines are enough ?
+// static void	draw_player_center(mlx_image_t *img)
+// {
+// 	int	i;
+// 	int	j;
+// 	int startx = (img->width / 2) - 2;
+// 	int starty = (img->height / 2)- 2;
 
-	i = 0;
-	while (i < 6)
-	{
-		j = 0;
-		while (j < 6)
-		{
-			mlx_put_pixel(img, (startx + i), (starty + j), 0xFFA500FF);
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < 6)
+// 	{
+// 		j = 0;
+// 		while (j < 6)
+// 		{
+// 			mlx_put_pixel(img, (startx + i), (starty + j), 0xFFA500FF);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 // draw floors & walls based on distance to player.
 // todo: make outer 2 blocks more transparent last 2 characters of hex code.
@@ -99,11 +99,9 @@ void	draw_small_minimap(t_vars *data)
 	int		map_y;
 
 	clear_image(data->layer1);
-	draw_image_outline(data->layer1, 0xE6E6FAFF); //tmp
-	draw_player_center(data->layer1); //draw block in center of minimap.
-
+	// draw_player_center(data->layer1);
 	offset_y = -VIEW;
-	while (offset_y <= VIEW) // count: -5 -> 5 (if define is 10)
+	while (offset_y <= VIEW)
 	{
 		offset_x = -VIEW;
 		while (offset_x <= VIEW)
@@ -119,11 +117,12 @@ void	draw_small_minimap(t_vars *data)
 				if (data->themap[map_y][map_x] == '1')
 					draw_block(data, tile_x, tile_y, 0xFF0000FF);
 				else if (data->themap[map_y][map_x] == '0')
-					draw_block(data, tile_x, tile_y, 0x87CEEB08);
+					draw_block(data, tile_x, tile_y, 0x87CEEB12);
 			}
 			offset_x++;
 		}
 		offset_y++;
 	}
 	new_draw_fov_line(data);
+	draw_image_outline(data->layer1, 0xE6E6FAFF);
 }

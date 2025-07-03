@@ -40,7 +40,7 @@ GREEN		= \033[0;92m
 RED			= \033[31;01m
 
 # Args for run rule.
-ARG0		= map0.cub # Tiny map.
+ARG			= map2.cub # Tiny map.
 
 # Operations
 all				:	createlibs $(NAME)
@@ -58,7 +58,7 @@ $(NAME)			:	$(OBJS)
 					@echo "$(GREEN)$(NAME) has been made! $(RESET)" 
 
 run				:	all
-					./$(NAME) $(ARG0)
+					./$(NAME) $(ARG)
 
 clean			:
 					rm -rf $(OBJ_PATH)
