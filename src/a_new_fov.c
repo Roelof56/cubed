@@ -57,7 +57,7 @@ static t_line ray_wall(t_vars *data, double angle)
 	// line.x1 = (int)(data->plx * 16); 
 	// line.y1 = (int)(data->ply * 16);
 	line.x1 = data->layer1->width / 2;
-	line.y1 = data->layer1->height / 2; // change to center of img. (as player)
+	line.y1 = data->layer1->height / 2; // change to center of img.
 
 	while (1)
 	{
