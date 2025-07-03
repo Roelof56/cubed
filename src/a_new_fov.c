@@ -67,9 +67,9 @@ static t_line ray_wall(t_vars *data, double angle)
 			break;
 	}
 
-	// add middle offset to endpoints ass wel
-	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * SCALE;
-	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * SCALE;
+	// add middle-player-position offset to endpoints ? - yes
+	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * MAPSCALE;
+	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * MAPSCALE;
 
 	return (line);
 }
