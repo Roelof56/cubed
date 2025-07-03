@@ -125,4 +125,5 @@ void	draw_small_minimap(t_vars *data)
 		}
 		offset_y++;
 	}
+	new_draw_fov_line(data);
 }

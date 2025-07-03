@@ -12,13 +12,6 @@
 
 #include "header.h"
 
-// Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-    if (x < img->width && y < img->height)
-        mlx_put_pixel(img, x, y, color);
-}
-
 static t_line ray_wall(t_vars *data, double angle)
 {
 	t_line	line;
@@ -48,7 +41,7 @@ static t_line ray_wall(t_vars *data, double angle)
 }
 
 // Function to draw a line using Bresenham's algorithm
-void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
+static void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
 {
 	int dx = abs(line.x2 - line.x1);
 	int dy = abs(line.y2 - line.y1);
@@ -85,20 +78,6 @@ void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
 			err += dx;
 			line.y1 += sy;
 		}
-	}
-}
-
-void	clear_image(mlx_image_t *img)
-{
-	uint32_t i = 0;
-	while (i < img->width * img->height)
-	{
-		// Each pixel = 4 bytes (RGBA)
-		img->pixels[i * 4 + 0] = 0; // R
-		img->pixels[i * 4 + 1] = 0; // G
-		img->pixels[i * 4 + 2] = 0; // B
-		img->pixels[i * 4 + 3] = 0; // A
-		i++;
 	}
 }
 

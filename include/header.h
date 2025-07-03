@@ -136,13 +136,13 @@ int			draw_minimap(t_vars *data);
 // void		move_minimap_player(t_vars *vars);
 // void		first_draw_minimap_player(t_vars *data);
 
-/* draw_utils_color.c */
+/* draw_utils.c */
 int			ft_get_rgba(int r, int g, int b, int a);
+void		clear_image(mlx_image_t *img);
+void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 
 /* draw_fov.c */
-void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 double		degree_to_radians(double degree);
-void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
 
 /* draw_small_minimap.c */
@@ -150,5 +150,8 @@ void	draw_small_minimap(t_vars *data);
 
 /* parser_square_map.c */
 int		make_map_square(t_vars *data);
+
+/* a_new_fov.c */
+void	new_draw_fov_line(t_vars *data);
 
 #endif
