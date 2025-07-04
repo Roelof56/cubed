@@ -103,7 +103,7 @@ static t_line get_line_coordinates(t_vars *data, double angle)
 	return (line);
 }
 
-// for small minimap.
+//draw fovlines. maybe use 1 degree to rad as step ? 
 void	draw_fov_minimap(t_vars *data)
 {
 	const int num_rays = 30;  // number of rays
