@@ -1,16 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   draw_fov.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/06/12 15:18:52 by jilustre      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "header.h"
+
+// M_PI is defined in <math.h> but squigly line made me define my own.
+// take agle in degree -> return radians
+// double degree_to_radians(double degree)
+// {
+// 	double	pi;
+// 	double	retval;
+	
+// 	pi = PI; 
+// 	retval = degree * pi / 180.0;
+// 	return (retval);
+// }
+
+// Function to set a pixel using mlx_put_pixel
+void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+{
+	if (x > 0 && y > 0) //& within minimap bounds ?
+	{
+		if (x < 700 && y < 700)
+			mlx_put_pixel(img, x, y, color);
+	}
+}
 
 // calculate line points in map
 static t_line ray_wall(t_vars *data, double angle)
