@@ -6,11 +6,32 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/03 18:44:23 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 16:17:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	draw_hook(void *param)
+{
+	t_vars *data;
+
+	data = (t_vars *)param;
+	draw_small_minimap(data);
+	draw_fov_line(data); // rename, it should be calculate wall heights or something.
+	draw_3d_world(data);
+	// limit fps here ?
+}
+
+void	game_hook(void *param)
+{
+	t_vars *data;
+
+	data = (t_vars *)param;
+	input_hook(data); // handle keyboard input.
+	mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
+	draw_hook(data); // draw minimap & draw 3d cast
+}
 
 int	main(int argc, char **argv)
 {
@@ -23,24 +44,24 @@ int	main(int argc, char **argv)
 	if (start_mlx(&data) == 1)
 		return (ft_strerror("Error\nCould not start mlx instance.\n"));
 	
-	draw_minimap(&data); //only walls
+	// draw_minimap(&data); //only walls - background for data.fovlines.
+	// data.fovlines = mlx_new_image(data.mlx, 700, 700); //first map. no zoom.
+	// mlx_image_to_window(data.mlx, data.fovlines, 1, 2);
+	// draw_fov_line(&data);
 
-	first_draw_minimap_player(&data); //draw and save in struct for moving arround.
+	data.layer1 = mlx_new_image(data.mlx, 320, 320); // new small minimap
+	mlx_image_to_window(data.mlx, data.layer1, 0, 0); // place left of og map
+	draw_small_minimap(&data);
 	
-	data.fovlines = mlx_new_image(data.mlx, 700, 400); //tmp for first run delete.
-	mlx_image_to_window(data.mlx, data.fovlines, 0,0);
-	draw_fov_line(&data);
+	data.layer2 = mlx_new_image(data.mlx, 1080, 600); // cast 3d world in this one
+	mlx_image_to_window(data.mlx, data.layer2, 0, 321); // place left of og map
 
-	//new draw every movement thing -> broken.
-	// data.layer1  = mlx_new_image(data.mlx, 700, 400);
-	
-	// start program // add mouse hook.
-	mlx_loop_hook(data.mlx, &input_hook, &data);
+	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
+	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 
 	//end of program clean.
-	// printf("does this trigger after mlx temrinate ? \n"); //-> yes
 	clean_map_info(&data);
 	clean_2dchar_array(&data, data.mapheight);
 	return (0);

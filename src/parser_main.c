@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 18:56:39 by rhol          ########   odam.nl         */
+/*   Updated: 2025/06/18 15:44:43 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ int	import_mapfile(t_vars *data, char *str)
 		return (1);
 	}
 	if (validate_that_map(data) == 1)
+	{
+		clean_map_info(data);
+		clean_2dchar_array(data, (ll_listsize(head) - 6));
+		ll_clean_list(&head);
+		return (1);
+	}
+	if (make_map_square(data) == 1) // maybe insert in map validation or loading.
 	{
 		clean_map_info(data);
 		clean_2dchar_array(data, (ll_listsize(head) - 6));

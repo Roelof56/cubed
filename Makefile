@@ -24,10 +24,13 @@ SRCS		:=	main.c \
 				init_mlx.c \
 				key_input_handler.c \
 				draw_minimap.c \
-				draw_minimap_player.c \
-				draw_utils_color.c \
+				draw_utils.c \
 				draw_fov.c \
-				draw_mm.c
+				parser_square_map.c \
+				draw_small_minimap.c \
+				a_new_fov.c \
+				a_draw_3d.c
+
 
 OBJ			:=	$(SRCS:.c=.o)
 OBJS		:=	$(addprefix $(OBJ_PATH), $(OBJ))
@@ -38,7 +41,7 @@ GREEN		= \033[0;92m
 RED			= \033[31;01m
 
 # Args for run rule.
-ARG0		= map0.cub # Tiny map.
+ARG			= map2.cub
 
 # Operations
 all				:	createlibs $(NAME)
@@ -56,7 +59,7 @@ $(NAME)			:	$(OBJS)
 					@echo "$(GREEN)$(NAME) has been made! $(RESET)" 
 
 run				:	all
-					./$(NAME) $(ARG0)
+					./$(NAME) $(ARG)
 
 clean			:
 					rm -rf $(OBJ_PATH)

@@ -13,11 +13,11 @@ double degree_to_radians(double degree)
 }
 
 // Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (x < TWIDTH && y < THEIGHT)
-		mlx_put_pixel(img, x, y, color);
-}
+// static void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color) // unused ?
+// {
+//     if (x < img->width && y < img->height)
+//         mlx_put_pixel(img, x, y, color);
+// }
 
 // old one _ thru middle
 // t_line	calculate_line_endpoints(double angle) {
@@ -106,17 +106,17 @@ void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
 // }
 
 //from center.
-void draw_line_in_direction(mlx_image_t *img, double angle) {
-	t_line line;
-	line = calculate_line_direction(angle);
-	bresenham_line(img, line, 0xFFFFFF);
-}
+// void draw_line_in_direction(mlx_image_t *img, double angle) {
+// 	t_line line;
+// 	line = calculate_line_direction(angle);
+// 	bresenham_line(img, line, 0xFFFFFF);
+// }
 
-void	draw_minimap_player(t_vars *vars)
-{
-	mlx_delete_image(vars->mlx, vars->td_player);
-	vars->td_player = mlx_texture_to_image(vars->mlx, vars->tdpl);
-	draw_line_in_direction(vars->td_player, vars->pl_angle);
-	draw_rays(vars);
-	mlx_image_to_window(vars->mlx, vars->td_player, (vars->pl_x * 32), (vars->pl_y * 32));
-}
+// void	draw_minimap_player(t_vars *vars)
+// {
+// 	mlx_delete_image(vars->mlx, vars->td_player);
+// 	vars->td_player = mlx_texture_to_image(vars->mlx, vars->tdpl);
+// 	draw_line_in_direction(vars->td_player, vars->pl_angle);
+// 	draw_rays(vars);
+// 	mlx_image_to_window(vars->mlx, vars->td_player, (vars->pl_x * 32), (vars->pl_y * 32));
+// }
