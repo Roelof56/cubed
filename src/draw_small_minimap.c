@@ -1,27 +1,5 @@
 #include "header.h"
 
-// Outline img -> tmp for placement in window
-static void draw_image_outline(mlx_image_t *img, uint32_t color)
-{
-	uint32_t x;
-	uint32_t y;
-
-	x = 0;
-	while (x < img->width)
-	{
-		mlx_put_pixel(img, x, 0, color);
-		mlx_put_pixel(img, x, img->height - 1, color);
-		x++;
-	}
-	y = 1;
-	while (y < img->height - 1)
-	{
-		mlx_put_pixel(img, 0, y, color);
-		mlx_put_pixel(img, img->width - 1, y, color); 
-		y++;
-	}
-}
-
 // draw player middle of minimap //can go cause fovlines are enough ?
 // static void	draw_player_center(mlx_image_t *img)
 // {
