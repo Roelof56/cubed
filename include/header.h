@@ -55,6 +55,8 @@ typedef struct s_vars
 	double			pdy; // player delta y
 	mlx_image_t		*fovlines; // minimap player fov lines go here.
 	mlx_image_t		*layer1; // small minimap
+	mlx_image_t		*layer2; // img for 3d cast
+	double			array[60]; // test for line len.
 }				t_vars;
 
 /* linkedlist - for map import*/
@@ -140,6 +142,7 @@ int			draw_minimap(t_vars *data);
 int			ft_get_rgba(int r, int g, int b, int a);
 void		clear_image(mlx_image_t *img);
 void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+void draw_image_outline(mlx_image_t *img, uint32_t color);
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
@@ -153,5 +156,8 @@ int		make_map_square(t_vars *data);
 
 /* a_new_fov.c */
 void	new_draw_fov_line(t_vars *data);
+
+/* a_draw_3d.c */ //- new attempt ofzo
+void	draw_3d_world(t_vars *data);
 
 #endif

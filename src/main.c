@@ -14,12 +14,12 @@
 
 void	draw_hook(void *param)
 {
-	// (void) param;
 	t_vars *data;
 
 	data = (t_vars *)param;
-	// draw_fov_line(data);
 	draw_small_minimap(data);
+	draw_fov_line(data); // rename, it should be calculate wall heights or something.
+	draw_3d_world(data);
 	// limit fps here ?
 }
 
@@ -29,10 +29,9 @@ void	game_hook(void *param)
 
 	data = (t_vars *)param;
 	input_hook(data); // handle keyboard input.
-	// mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
+	mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
 	draw_hook(data); // draw minimap & draw 3d cast
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -50,10 +49,12 @@ int	main(int argc, char **argv)
 	// mlx_image_to_window(data.mlx, data.fovlines, 1, 2);
 	// draw_fov_line(&data);
 
-	
 	data.layer1 = mlx_new_image(data.mlx, 320, 320); // new small minimap
 	mlx_image_to_window(data.mlx, data.layer1, 0, 0); // place left of og map
 	draw_small_minimap(&data);
+	
+	data.layer2 = mlx_new_image(data.mlx, 1080, 600); // cast 3d world in this one
+	mlx_image_to_window(data.mlx, data.layer2, 0, 321); // place left of og map
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data.mlx, &game_hook, &data);

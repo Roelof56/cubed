@@ -27,3 +27,25 @@ void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
     if (x < img->width && y < img->height)
         mlx_put_pixel(img, x, y, color);
 }
+
+// Outline img -> tmp for placement in window
+void draw_image_outline(mlx_image_t *img, uint32_t color)
+{
+	uint32_t x;
+	uint32_t y;
+
+	x = 0;
+	while (x < img->width)
+	{
+		mlx_put_pixel(img, x, 0, color);
+		mlx_put_pixel(img, x, img->height - 1, color);
+		x++;
+	}
+	y = 1;
+	while (y < img->height - 1)
+	{
+		mlx_put_pixel(img, 0, y, color);
+		mlx_put_pixel(img, img->width - 1, y, color); 
+		y++;
+	}
+}

@@ -12,6 +12,7 @@
 
 #include "header.h"
 
+// calculate line points in map
 static t_line ray_wall(t_vars *data, double angle)
 {
 	t_line	line;
@@ -23,8 +24,10 @@ static t_line ray_wall(t_vars *data, double angle)
 	int		map_x; 
 	int		map_y;
 
-	line.x1 = (int)(data->plx * 32);
-	line.y1 = (int)(data->ply * 32);
+	// line.x1 = (int)(data->plx * 32);
+	// line.y1 = (int)(data->ply * 32);
+	line.x1 = (int)data->plx;
+	line.y1 = (int)data->ply;
 
 	while (1)
 	{
@@ -35,70 +38,45 @@ static t_line ray_wall(t_vars *data, double angle)
 		if (data->themap[map_y][map_x] == '1') // hit wall
 			break;
 	}
-	line.x2 = (int)(ray_x * 32);
-	line.y2 = (int)(ray_y * 32);
+	// line.x2 = (int)(ray_x * 32);
+	// line.y2 = (int)(ray_y * 32);
+	line.x2 = (int)ray_x;
+	line.y2 = (int)ray_y;
 	return (line);
 }
 
-// Function to draw a line using Bresenham's algorithm
-static void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
+// Get the length of a line in pixels
+static double	get_line_length(t_line *line)
 {
-	int dx = abs(line.x2 - line.x1);
-	int dy = abs(line.y2 - line.y1);
+	double	dx;
+	double	dy;
+	double	result;
 
-	int sx; // new;
-	int sy;
-
-	int e2;
-	int err;
-
-	//direction.
-	if (line.x1 < line.x2)
-		sx = 1;
-	else
-		sx = -1;
-
-	if (line.y1 < line.y2)
-		sy = 1;
-	else
-		sy = -1;
-
-	err = dx - dy;
-	while (1) {
-		set_pixel(img, line.x1, line.y1, color);
-		if (line.x1 == line.x2 && line.y1 == line.y2) // Reached endpoint
-			break;
-
-		e2 = 2 * err;
-		if (e2 > -dy) {
-			err -= dy;
-			line.x1 += sx;
-		}
-		if (e2 < dx) {
-			err += dx;
-			line.y1 += sy;
-		}
-	}
+	dx = (double)(line->x2 - line->x1);
+	dy = (double)(line->y2 - line->y1);
+	result = sqrt(dx * dx + dy * dy);
+	return (result);
 }
 
+// used for calculating line len
 void	draw_fov_line(t_vars *data)
 {
-	const int num_rays = 30;  // number of rays
+	const int num_rays = 60;  // number of rays
 	const double fov = PI / 3;  // 60 degrees field of view
 	const double start_angle = data->pla - fov / 2;
 	const double step = fov / num_rays;
 	int	i = 0;
 	t_line line;
 
-	// mlx_delete_image(data->mlx, data->fovlines);
-	// data->fovlines = mlx_new_image(data->mlx, 700, 400);
-	clear_image(data->fovlines);
+	// clear_image(data->fovlines);
 	while (i < num_rays)
 	{
 		double angle = start_angle + i * step;
 		line = ray_wall(data, angle);
-		bresenham_line(data->fovlines, line, 0xFFFFFF);
+		// bresenham_line(data->fovlines, line, 0xFFFFFF);
+		double tmp =  get_line_length(&line);
+		// printf("%d: linelen: %f\n", i, get_line_length(&line));
+		data->array[i] = tmp;
 		i++;
 	}
-	// mlx_image_to_window(data->mlx, data->fovlines, 0, 0);
 }
