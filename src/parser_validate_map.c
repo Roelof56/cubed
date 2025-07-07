@@ -95,29 +95,46 @@ static int	check_for_diagonal_gaps(t_vars *data)
 	return (tmp);
 }
 
+// error out if no walkable tiles in map
+static int	check_walkable_space(char **map)
+{
+	int	i;
+	int	j;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == '0')
+				count++;
+			j++;
+		}
+		i++;
+	}
+	if (count <= 0)
+		return (1);
+	return (0);
+}
+
 // wrapper for all checker funtions for map validation.
 int validate_that_map(t_vars *data)
 {
 	if (check_map_for_invalid_chars(data->themap) == 1)
 		return (ft_strerror("Error\nInvalid char on map."));
-	// this be the place to check for no walkable tiles ?
+	if (check_walkable_space(data->themap) == 1)
+		return (ft_strerror("Error\nNo walkable space"));
 	if (check_for_player(data, data->themap) == 1)
 		return (1);
 	if (call_floodfill_thing(data) == 1)
-	{
-		print_map_color(data->themap, data->mapheight);
 		return (ft_strerror("Error\nWalls do not enclose map."));
-	}
 	if (check_for_unreachable_tiles(data) == 1)
-	{
-		print_map_color(data->themap, data->mapheight);
 		return (ft_strerror("Error\nUnreachable tiles in map."));
-	}
 	if (check_for_diagonal_gaps(data) == 1)
-	{
-		print_map_color(data->themap, data->mapheight);
 		return (ft_strerror("Error\nDiagonal gap found."));
-	}
 	print_map_color(data->themap, data->mapheight);
 	reset_map_fields(data->themap);
 	return (0);
