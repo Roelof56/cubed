@@ -110,6 +110,7 @@ static t_ray ray_wall(t_vars *data, double angle)
 }
 
 // Function to draw a line using Bresenham's algorithm
+// move to draw_utils.c
 void bresenham_line(mlx_image_t *img, t_line line, uint32_t color)
 {
 	int dx = abs(line.x2 - line.x1);
@@ -164,22 +165,23 @@ void	clear_image(mlx_image_t *img)
 	}
 }
 
-void draw_fov_line(t_vars *data)
-{
-	const int num_rays = 700;
-	const double fov = PI / 3;
-	const double start_angle = data->pla - fov / 2;
-	const double step = fov / num_rays;
+// original fov for non zoomed minimap
+// void draw_fov_line(t_vars *data)
+// {
+// 	const int num_rays = 700;
+// 	const double fov = PI / 3;
+// 	const double start_angle = data->pla - fov / 2;
+// 	const double step = fov / num_rays;
 
-	clear_image(data->fovlines);
+// 	clear_image(data->fovlines);
 
-	for (int i = 0; i <= num_rays; i++)
-	{
-		double angle = start_angle + i * step;
-		t_ray ray = ray_wall(data, angle);
-		bresenham_line(data->fovlines, ray.line, 0xFFFFFF);
-	}
-}
+// 	for (int i = 0; i <= num_rays; i++)
+// 	{
+// 		double angle = start_angle + i * step;
+// 		t_ray ray = ray_wall(data, angle);
+// 		bresenham_line(data->fovlines, ray.line, 0xFFFFFF);
+// 	}
+// }
 
 double normalize_angle(double angle)
 {
