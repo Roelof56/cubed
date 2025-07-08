@@ -135,6 +135,7 @@ int			draw_minimap(t_vars *data);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(int r, int g, int b, int a);
+void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
@@ -142,7 +143,6 @@ void		clear_image(mlx_image_t *img);
 void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);
 void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
-void bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 double normalize_angle(double angle); //thanks, needed for parser.
 
 /* draw_small_minimap.c */
