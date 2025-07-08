@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/08 15:21:57 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/08 15:42:04 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,22 +111,22 @@ void	clear_image(mlx_image_t *img)
 }
 
 // original fov for non zoomed minimap
-void draw_fov_line(t_vars *data)
-{
-	const int num_rays = 60;
-	const double fov = PI / 3;
-	const double start_angle = data->pla - fov / 2;
-	const double step = fov / num_rays;
+// void draw_fov_line(t_vars *data)
+// {
+// 	const int num_rays = 60;
+// 	const double fov = PI / 3;
+// 	const double start_angle = data->pla - fov / 2;
+// 	const double step = fov / num_rays;
 
-	clear_image(data->fovlines);
+// 	clear_image(data->fovlines);
 
-	for (int i = 0; i <= num_rays; i++)
-	{
-		double angle = start_angle + i * step;
-		t_ray ray = ray_wall(data, angle);
-		bresenham_line(data->fovlines, ray.line, 0xFFFFFF);
-	}
-}
+// 	for (int i = 0; i <= num_rays; i++)
+// 	{
+// 		double angle = start_angle + i * step;
+// 		t_ray ray = ray_wall(data, angle);
+// 		bresenham_line(data->fovlines, ray.line, 0xFFFFFF);
+// 	}
+// }
 
 double normalize_angle(double angle)
 {
