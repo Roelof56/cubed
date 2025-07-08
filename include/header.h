@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/04 09:05:08 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/08 15:11:31 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ typedef struct	s_color
 	int		b;
 	int		a;
 }			t_color;
+
+typedef struct	s_ray
+{
+	int		hit_x; // ray hit x coordinate
+	int		hit_y; // ray_hit y coordinate
+	double	distance; // perpedicular distance from player's position to the point where the ray hits the wall
+	int		side; // 0 = vertical wall (NS), 1 = horizontal (EW)
+	t_line	line; // line from player to hit point (for 2D drawing)
+}	t_ray;
 
 /* error.c */
 int			ft_strerror(char *str);

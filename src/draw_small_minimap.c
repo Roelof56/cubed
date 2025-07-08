@@ -106,7 +106,7 @@ static t_line get_line_coordinates(t_vars *data, double angle)
 //draw fovlines. maybe use 1 degree to rad as step ? 
 void	draw_fov_minimap(t_vars *data)
 {
-	const int num_rays = 30;  // number of rays
+	const int num_rays = 60;  // number of rays
 	const double fov = PI / 3;  // 60 degrees field of view
 	const double start_angle = data->pla - fov / 2;
 	const double step = fov / num_rays;
