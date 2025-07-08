@@ -167,62 +167,118 @@ static int enforce_texture_file_extension(char **arr)
 	return (0);
 }
 
-// get_colours helper.
-// static int	save_that_color(t_color colour, int *array)
+/*  --- color stuff --- */
+// tmp for checking ft_split result.
+// static void	print_array_char(char **arr)
 // {
-// 	int i;
+// 	int i = 0;
 
-// 	i = 0;
-// 	while (i < 3)
+// 	printf("char array:\n");
+// 	while (arr[i])
 // 	{
-// 		if (array[i] < 0 || array[i] > 255)
-// 			return (ft_strerror("Color number is out of range")); //redundant error msg
+// 		printf("%d: %s\n", i, arr[i]);
 // 		i++;
 // 	}
-// 	colour.r = array[0];
-// 	colour.g = array[1];
-// 	colour.b = array[2];
-// 	colour.a = 255; // moet hier nog iets mee ?
-// 	return (0);
+// 	printf("\n");
 // }
 
-// wat probeer ik hier te doen
-// static int do_stuff(char **split, int *array)
+// tmp for checking ints from color struct
+// static void	print_array_int(int *arr)
 // {
-// 	int	i;
+// 	int i = 0;
 
-// 	i = 0;
-// 	while (i < 3)
+// 	printf("int array\n");
+// 	while (i <  3)
 // 	{
-		
-// 	}
-// }
-
-// static int	get_colours(t_textures *savehere, char *floor, char *ceiling)
-// {
-// 	(void) ceiling;
-// 	char	**split;
-// 	int		i;
-// 	int		ints[3];
-
-// 	i = 0;
-// 	split = ft_split(floor, ',');
-// 	// if (do_stuff(split, ints)) == 1)
-// 	// 	return (ft_strerror("oh no\n"));
-// 	while (split[i])
-// 		i++;
-// 	if (i != 3)
-// 		return (1); // clean gives double free?
-// 	i = 0;
-// 	while (i < 3)
-// 	{
-// 		ints[i] = ft_atoi(split[i]);
+// 		printf("%d: %d\n", i, arr[i]);
 // 		i++;
 // 	}
-// 	if (save_that_color(savehere->f, ints) == 1)
-// 		return (1);
-// 	return (0);
+// 	printf("\n");
 // }
+
+static void print_colorstruct(t_color *color)
+{
+	printf("colorstruct:\n");
+	printf("r: %d\n", color->r);
+	printf("g: %d\n", color->g);
+	printf("b: %d\n", color->b);
+	printf("a: %d\n", color->a);
+	printf("convert to nbr:\n");
+	printf("rgba: %d\n", ft_get_rgba(color->r,color->g,color->b,color->a));
+}
+
+// convert char **array numbers to ints.
+static void convert_to_intarray(char **base, int *array)
+{
+	int	i;
+
+	i = 0;
+	while (base[i])
+	{
+		array[i] = ft_atoi(base[i]);
+		i++;
+	}
+}
+
+// color struct needs 3 vallues.
+static int check_array_length(char **split)
+{
+	int i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 3)
+	{
+		printf("incorrect amount of rgb numbers\n");
+		return (1);
+	}
+	return (0);
+}
+
+// save to data struct , maybe change data for texture thing.
+// c = 0 -> floor
+// c = 1 -> ceiling
+static int save_to_struct(t_vars *data, int *intarr, int c)
+{
+	t_color *color;
+
+	if (c == 0)
+		color = &data->textures.f;
+	else if (c == 1)
+		color = &data->textures.c;
+	else
+		return (1);
+	color->r = intarr[0];
+	color->g = intarr[1];
+	color->b = intarr[2];
+	color->a = 255; // moet hier nog wat mee ?
+	return (0);
+}
+
+static int	get_colours(t_vars *data, char **cf)
+{
+	char	**split;
+	int		i;
+	int		intarr[3];
+
+	i = 0;
+	while (i < 2)
+	{
+		printf("cf %d: %s\n", i, cf[i]);
+		split = ft_split(cf[i], ',');
+		if (check_array_length(split) == 1)
+			return (1);
+		convert_to_intarray(split, intarr);
+		// todo: check if numbers are within range
+		if (save_to_struct(data, intarr, i) == 1)
+			return (1);
+		i++;
+	}
+	print_colorstruct(&data->textures.f);
+	print_colorstruct(&data->textures.c);
+	return (0);
+}
 
 // put sprites in data->mapinfo 2d char array.
 int	get_map_info(t_maplst *head, t_vars *data)
@@ -245,7 +301,7 @@ int	get_map_info(t_maplst *head, t_vars *data)
 		return (ft_strerror("Error\nloading textures."));
 	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
 		return (ft_strerror("Error\nsaving textures."));
-	// if (get_colours(&data->textures, data->map_info[4], data->map_info[5]) == 1)
-	// 	return (ft_strerror("Error\nLoading color"));
+	if (get_colours(data, &data->map_info[4]) == 1)
+		return (ft_strerror("Error\nLoading color"));
 	return (0);
 }
