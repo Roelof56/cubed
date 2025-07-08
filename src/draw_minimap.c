@@ -1,5 +1,7 @@
 #include "header.h"
 
+// old can be deleted i think.
+
 static void mm_draw_wall(int x, int y, mlx_image_t *img, t_color color)
 {
 	int	i;
