@@ -236,6 +236,21 @@ static int check_array_length(char **split)
 	return (0);
 }
 
+// check if color numbers from mapfile are valid.
+static int are_those_ints_in_range(int *arr)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (arr[i] > 255 || arr[i] < 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 // save to data struct , maybe change data for texture thing.
 // c = 0 -> floor
 // c = 1 -> ceiling
@@ -270,6 +285,12 @@ static int	get_colours(t_vars *data, char **cf)
 		if (check_array_length(split) == 1)
 			return (1);
 		convert_to_intarray(split, intarr);
+		if (are_those_ints_in_range(intarr) == 1)
+		{
+			printf("out of range int found\n");
+			return (1);
+		}
+
 		// todo: check if numbers are within range
 		if (save_to_struct(data, intarr, i) == 1)
 			return (1);
