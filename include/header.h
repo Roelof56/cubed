@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 16:45:08 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/08 17:00:14 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_textures
 	mlx_texture_t *so;
 	mlx_texture_t *we;
 	mlx_texture_t *ea;
-	// t_color f;
-	// t_color c;
+	t_color f;
+	t_color c;
 }				t_textures;
 
 /* map data struct */
@@ -140,8 +140,8 @@ void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
-/* draw_minimap.c */
-int			draw_minimap(t_vars *data);
+/* draw_minimap.c */ // can be deleted
+// int			draw_minimap(t_vars *data);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(int r, int g, int b, int a);
