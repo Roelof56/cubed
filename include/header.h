@@ -161,4 +161,6 @@ void	draw_small_minimap(t_vars *data);
 /* parser_square_map.c */
 int		make_map_square(t_vars *data);
 
+/* parser_import_color.c */
+int		get_colours(t_vars *data, char **cf);
 #endif
