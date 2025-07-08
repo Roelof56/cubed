@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 17:00:14 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/08 17:05:33 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 
 # define MAPSCALE 16	// size of wall & floor blocks.
 # define VIEW 10		// ammount of blocks to draw arround player x & y
+
+/* colour */
+typedef struct	s_color
+{
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+}			t_color;
 
 typedef struct s_textures 
 {
@@ -73,15 +82,6 @@ typedef struct s_line
 	int		x2; // End point
 	int		y2;
 }			t_line;
-
-/* colour */
-typedef struct	s_color
-{
-	int		r;
-	int		g;
-	int		b;
-	int		a;
-}			t_color;
 
 typedef struct	s_ray
 {

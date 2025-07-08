@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 16:55:54 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/08 19:21:54 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,62 @@ static int enforce_texture_file_extension(char **arr)
 	return (0);
 }
 
+// get_colours helper.
+// static int	save_that_color(t_color colour, int *array)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (i < 3)
+// 	{
+// 		if (array[i] < 0 || array[i] > 255)
+// 			return (ft_strerror("Color number is out of range")); //redundant error msg
+// 		i++;
+// 	}
+// 	colour.r = array[0];
+// 	colour.g = array[1];
+// 	colour.b = array[2];
+// 	colour.a = 255; // moet hier nog iets mee ?
+// 	return (0);
+// }
+
+// wat probeer ik hier te doen
+// static int do_stuff(char **split, int *array)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < 3)
+// 	{
+		
+// 	}
+// }
+
+// static int	get_colours(t_textures *savehere, char *floor, char *ceiling)
+// {
+// 	(void) ceiling;
+// 	char	**split;
+// 	int		i;
+// 	int		ints[3];
+
+// 	i = 0;
+// 	split = ft_split(floor, ',');
+// 	// if (do_stuff(split, ints)) == 1)
+// 	// 	return (ft_strerror("oh no\n"));
+// 	while (split[i])
+// 		i++;
+// 	if (i != 3)
+// 		return (1); // clean gives double free?
+// 	i = 0;
+// 	while (i < 3)
+// 	{
+// 		ints[i] = ft_atoi(split[i]);
+// 		i++;
+// 	}
+// 	if (save_that_color(savehere->f, ints) == 1)
+// 		return (1);
+// 	return (0);
+// }
 
 // put sprites in data->mapinfo 2d char array.
 int	get_map_info(t_maplst *head, t_vars *data)
@@ -189,5 +245,7 @@ int	get_map_info(t_maplst *head, t_vars *data)
 		return (ft_strerror("Error\nloading textures."));
 	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
 		return (ft_strerror("Error\nsaving textures."));
+	// if (get_colours(&data->textures, data->map_info[4], data->map_info[5]) == 1)
+	// 	return (ft_strerror("Error\nLoading color"));
 	return (0);
 }
