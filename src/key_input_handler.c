@@ -146,9 +146,8 @@ void	input_hook(void *param)
 			printf("increase red\n");
 			data->textures.c.r += 10;
 		}
-		// clear_image(data->layer2);
 		print_colorstruct(&data->textures.c);
-		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_G))
 	{
@@ -157,9 +156,8 @@ void	input_hook(void *param)
 			printf("increase green\n");
 			data->textures.c.g += 10;
 		}
-		// clear_image(data->layer2);
 		print_colorstruct(&data->textures.c);
-		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_B))
 	{
@@ -168,9 +166,8 @@ void	input_hook(void *param)
 			printf("increase blue\n");
 			data->textures.c.b += 10;
 		}
-		// clear_image(data->layer2);
 		print_colorstruct(&data->textures.c);
-		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_C))
 	{
@@ -178,7 +175,7 @@ void	input_hook(void *param)
 		data->textures.c.g = 0;
 		data->textures.c.b = 0;
 		print_colorstruct(&data->textures.c);
-		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
 	// end new color buttons. delete later.
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))

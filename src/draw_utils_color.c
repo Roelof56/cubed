@@ -2,11 +2,6 @@
 
 int	ft_get_rgba(t_color color)
 {
-	return (color.a << 24 | color.b << 16 | color.g << 8 | color.r);
-}
-
-int	ft2_get_rgba(t_color color)
-{
 	return (color.r << 24 | color.g << 16 | color.b << 8 | color.a);
 }
 

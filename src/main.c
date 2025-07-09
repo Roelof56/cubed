@@ -55,8 +55,6 @@ int	main(int argc, char **argv)
 	data.layer2 = mlx_new_image(data.mlx, 320, 320);
 	mlx_image_to_window(data.mlx, data.layer2, 0, 0);
 	fill_image_color(data.layer2, ft_get_rgba(data.textures.c));
-
-
 	/* end color test.*/
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func

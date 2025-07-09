@@ -143,7 +143,6 @@ void		input_hook(void *param);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(t_color color);
-int			ft2_get_rgba(t_color color);
 void		fill_image_color(mlx_image_t *img, uint32_t color);
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 
@@ -156,11 +155,11 @@ void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 double		normalize_angle(double angle); //thanks, needed for parser.
 
 /* draw_small_minimap.c */
-void	draw_small_minimap(t_vars *data);
+void		draw_small_minimap(t_vars *data);
 
 /* parser_square_map.c */
-int		make_map_square(t_vars *data);
+int			make_map_square(t_vars *data);
 
 /* parser_import_color.c */
-int		get_colours(t_vars *data, char **cf);
+int			get_colours(t_vars *data, char **cf);
 #endif
