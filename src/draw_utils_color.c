@@ -1,9 +1,28 @@
 #include "header.h"
 
-// for mlx_put_pixel
-int	ft_get_rgba(int r, int g, int b, int a)
+// convert color struct to int vallue
+int	ft_get_rgba(t_color color)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	return (color.r << 24 | color.g << 16 | color.b << 8 | color.a);
+}
+
+// Fill img -> tmp, delete later.
+void fill_image_color(mlx_image_t *img, uint32_t color)
+{
+	uint32_t x;
+	uint32_t y;
+
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while (x < img->width)
+		{
+			set_pixel(img, x, y, color);
+			x++;
+		}
+		y++;
+	}
 }
 
 // Function to draw a line using Bresenham's algorithm

@@ -1,19 +1,6 @@
 #include "header.h"
 
 // get's called from parser_get_mapinfo.c
-// get color text for floor & ceiling
-
-// temp - delete
-// static void print_colorstruct(t_color *color)
-// {
-// 	printf("colorstruct:\n");
-// 	printf("r: %d\n", color->r);
-// 	printf("g: %d\n", color->g);
-// 	printf("b: %d\n", color->b);
-// 	printf("a: %d\n", color->a);
-// 	printf("convert to nbr:\n");
-// 	printf("rgba: %d\n", ft_get_rgba(color->r,color->g,color->b,color->a));
-// }
 
 // convert char **array numbers to ints.
 static void convert_to_intarray(char **base, int *array)

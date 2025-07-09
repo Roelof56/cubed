@@ -23,7 +23,6 @@ SRCS		:=	main.c \
 				parser_printer.c \
 				init_mlx.c \
 				key_input_handler.c \
-				draw_minimap.c \
 				draw_utils_color.c \
 				draw_fov.c \
 				parser_square_map.c \
