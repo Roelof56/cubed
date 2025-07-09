@@ -62,7 +62,7 @@ typedef struct s_vars
 	double			pla; // player angle -> in radians 0 - 2pi
 	double			pdx; // player delta x
 	double			pdy; // player delta y
-	mlx_image_t		*fovlines; // minimap player fov lines go here.
+	// mlx_image_t		*fovlines; // old & unused.
 	mlx_image_t		*layer1; // small minimap
 	mlx_image_t		*view3d;
 }				t_vars;
@@ -139,9 +139,6 @@ int			start_mlx(t_vars *data);
 void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
-
-/* draw_minimap.c */ // can be deleted
-// int			draw_minimap(t_vars *data);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(int r, int g, int b, int a);

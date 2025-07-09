@@ -12,6 +12,7 @@
 
 #include "header.h"
 
+// maybe put draw_hook into game_hook cause smol.
 void	draw_hook(void *param)
 {
 	t_vars *data;
@@ -33,6 +34,26 @@ void	game_hook(void *param)
 	draw_hook(data); // draw minimap & draw 3d cast
 }
 
+// Outline img -> tmp for placement in window
+static void fill_image_color(mlx_image_t *img, uint32_t color)
+{
+	uint32_t x;
+	uint32_t y;
+
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while (x < img->width)
+		{
+			set_pixel(img, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_vars	data;
@@ -43,18 +64,35 @@ int	main(int argc, char **argv)
 		return (ft_strerror("Error\nCould not start mlx instance.\n"));
 	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
 		return (1);
-	// draw_minimap(&data); //only walls - background for data.fovlines.
 	
 	data.view3d = mlx_new_image(data.mlx, 700, 400);
 	mlx_image_to_window(data.mlx, data.view3d, 0, 400);
-	
-	// data.fovlines = mlx_new_image(data.mlx, 700, 300); //first map. no zoom.
-	// mlx_image_to_window(data.mlx, data.fovlines, 1, 2);
 
 	data.layer1 = mlx_new_image(data.mlx, 320, 320); // new small minimap
 	mlx_image_to_window(data.mlx, data.layer1, WIDTH - 320, 0); // place left of og map
 
-	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
+	/* testing color import. */
+	mlx_image_t		*layer2;
+	mlx_image_t		*layer3;
+	printf("left block is ceiling color\n");
+	layer2 = mlx_new_image(data.mlx, 320, 320);
+	mlx_image_to_window(data.mlx, layer2, 0, 0);
+	fill_image_color(layer2, ft_get_rgba(data.textures.c.r,
+												data.textures.c.g,
+												data.textures.c.b,
+												data.textures.c.a
+												));
+
+	printf("right block is floor color\n");
+	layer3 = mlx_new_image(data.mlx, 320, 320);
+	mlx_image_to_window(data.mlx, layer3, 320, 0);
+	fill_image_color(layer3, ft_get_rgba(data.textures.f.r,
+												data.textures.f.g,
+												data.textures.f.b,
+												data.textures.f.a
+												));
+	/* end color test.*/
+	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
