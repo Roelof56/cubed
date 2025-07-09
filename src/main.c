@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 16:21:56 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/09 15:39:00 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,9 @@ void	game_hook(void *param)
 
 	data = (t_vars *)param;
 	input_hook(data); // handle keyboard input.
-	mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
+	// mlx_cursor_hook(data->mlx, mouse_hook, data); // hook that mouse
 	draw_hook(data); // draw minimap & draw 3d cast
 }
-
-// Outline img -> tmp for placement in window
-static void fill_image_color(mlx_image_t *img, uint32_t color)
-{
-	uint32_t x;
-	uint32_t y;
-
-	y = 0;
-	while (y < img->height)
-	{
-		x = 0;
-		while (x < img->width)
-		{
-			set_pixel(img, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
 
 int	main(int argc, char **argv)
 {
@@ -72,18 +52,11 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx, data.layer1, WIDTH - 320, 0); // place left of og map
 
 	/* testing color import. */
-	mlx_image_t		*layer2;
-	mlx_image_t		*layer3;
+	data.layer2 = mlx_new_image(data.mlx, 320, 320);
+	mlx_image_to_window(data.mlx, data.layer2, 0, 0);
+	fill_image_color(data.layer2, ft_get_rgba(data.textures.c));
 
-	printf("left block is ceiling color\n");
-	layer2 = mlx_new_image(data.mlx, 320, 320);
-	mlx_image_to_window(data.mlx, layer2, 0, 0);
-	fill_image_color(layer2, ft_get_rgba(data.textures.c));
 
-	printf("right block is floor color\n");
-	layer3 = mlx_new_image(data.mlx, 320, 320);
-	mlx_image_to_window(data.mlx, layer3, 320, 0);
-	fill_image_color(layer3, ft_get_rgba(data.textures.f));
 	/* end color test.*/
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func

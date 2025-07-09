@@ -113,6 +113,16 @@ static void	handle_side_movement(t_vars *data, int key)
 }
 
 
+// temp - delete
+static void print_colorstruct(t_color *color)
+{
+	printf("colorstruct:\n");
+	printf("r: %d\n", color->r);
+	printf("g: %d\n", color->g);
+	printf("b: %d\n", color->b);
+	printf("a: %d\n", color->a);
+}
+
 void	input_hook(void *param)
 {
 	t_vars	*data;
@@ -128,9 +138,51 @@ void	input_hook(void *param)
 		handle_side_movement(data, MLX_KEY_A);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		handle_side_movement(data, MLX_KEY_D);
+	// more color testing shit.
+	if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+	{
+		if (data->textures.c.r < 245)
+		{
+			printf("increase red\n");
+			data->textures.c.r += 10;
+		}
+		// clear_image(data->layer2);
+		print_colorstruct(&data->textures.c);
+		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_G))
+	{
+		if (data->textures.c.g < 245)
+		{
+			printf("increase green\n");
+			data->textures.c.g += 10;
+		}
+		// clear_image(data->layer2);
+		print_colorstruct(&data->textures.c);
+		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_B))
+	{
+		if (data->textures.c.b < 245)
+		{
+			printf("increase blue\n");
+			data->textures.c.b += 10;
+		}
+		// clear_image(data->layer2);
+		print_colorstruct(&data->textures.c);
+		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_C))
+	{
+		data->textures.c.r = 0;
+		data->textures.c.g = 0;
+		data->textures.c.b = 0;
+		print_colorstruct(&data->textures.c);
+		fill_image_color(data->layer2, ft2_get_rgba(data->textures.c));
+	}
+	// end new color buttons. delete later.
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		change_player_angle(data, 1);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		change_player_angle(data, 0);
 }
-

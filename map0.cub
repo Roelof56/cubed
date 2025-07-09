@@ -4,7 +4,7 @@ F   255,255,0
 SO        ./textures/so.png
 NO		./textures/no.png
 
-C     255,0,255
+C     0,0,0
 		EA  ./textures/ea.png
 	WE    ./textures/we.png
              
