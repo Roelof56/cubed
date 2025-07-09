@@ -6,14 +6,14 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/18 15:44:43 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/08 16:45:16 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // move to parser_utils ofzo ?
-static int	check_map_extension(char *str)
+int	check_file_extension(char *str, char *ext)
 {
 	int		i;
 	char	*type;
@@ -29,7 +29,7 @@ static int	check_map_extension(char *str)
 	type = ft_substr(str, (i - 4), 4);
 	if (!type)
 		return (ft_strerror("You encountered a malloc error."));
-	if (ft_strncmp(type, ".cub", 4) != 0)
+	if (ft_strncmp(type, ext, 4) != 0)
 	{
 		free(type);
 		return (1);
@@ -59,7 +59,7 @@ int	import_mapfile(t_vars *data, char *str)
 	t_maplst	*head;
 
 	head = NULL;
-	if (check_map_extension(str) == 1)
+	if (check_file_extension(str, ".cub") == 1)
 		return (ft_strerror("Error\nnvalid extension use '<name>.cub'"));
 	if (open_that_file(str, &fd) == 1)
 		return (ft_strerror("Error\nCan't open file"));

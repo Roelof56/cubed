@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 15:42:18 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/08 16:21:56 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_strerror("Error\nGive 1 map argument please."));
-	if (import_mapfile(&data, argv[1]) == 1)
-		return (1);
-	if (start_mlx(&data) == 1)
+	if (start_mlx(&data) == 1) //changed order with import_mapfile
 		return (ft_strerror("Error\nCould not start mlx instance.\n"));
-
+	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
+		return (1);
 	// draw_minimap(&data); //only walls - background for data.fovlines.
 	
 	data.view3d = mlx_new_image(data.mlx, 700, 400);

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 15:11:31 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/08 17:05:33 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,24 @@
 # define MAPSCALE 16	// size of wall & floor blocks.
 # define VIEW 10		// ammount of blocks to draw arround player x & y
 
-// typedef struct s_mapinfo //texture save point
-// {
-// 	mlx_texture_t *no;
-// 	mlx_texture_t *we;
-// 	mlx_texture_t *ea;
-// 	mlx_texture_t *so;
-// 	t_color f;
-// 	t_color c;
-// }				t_mapinfo;
+/* colour */
+typedef struct	s_color
+{
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+}			t_color;
+
+typedef struct s_textures 
+{
+	mlx_texture_t *no;
+	mlx_texture_t *so;
+	mlx_texture_t *we;
+	mlx_texture_t *ea;
+	t_color f;
+	t_color c;
+}				t_textures;
 
 /* map data struct */
 typedef struct s_vars
@@ -47,7 +56,7 @@ typedef struct s_vars
 	char			**themap;	// actual map
 	int				mapheight;	// y columns
 	int				mapwidth; // x -width = constant now.
-	// t_mapinfo	textures;
+	t_textures		textures;
 	double			plx; //player x location
 	double			ply; // player y location
 	double			pla; // player angle -> in radians 0 - 2pi
@@ -74,15 +83,6 @@ typedef struct s_line
 	int		y2;
 }			t_line;
 
-/* colour */
-typedef struct	s_color
-{
-	int		r;
-	int		g;
-	int		b;
-	int		a;
-}			t_color;
-
 typedef struct	s_ray
 {
 	int		hit_x; // ray hit x coordinate
@@ -98,6 +98,7 @@ void		clean_map_info(t_vars *data);
 int			clean_2dchar_array(t_vars *data, int length);
 
 /* parser_main.c */
+int			check_file_extension(char *str, char *ext);
 int			import_mapfile(t_vars *data, char *str);
 
 /* parser_load_file.c */
@@ -139,8 +140,8 @@ void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
-/* draw_minimap.c */
-int			draw_minimap(t_vars *data);
+/* draw_minimap.c */ // can be deleted
+// int			draw_minimap(t_vars *data);
 
 /* draw_utils_color.c */
 int			ft_get_rgba(int r, int g, int b, int a);
@@ -160,4 +161,6 @@ void	draw_small_minimap(t_vars *data);
 /* parser_square_map.c */
 int		make_map_square(t_vars *data);
 
+/* parser_import_color.c */
+int		get_colours(t_vars *data, char **cf);
 #endif
