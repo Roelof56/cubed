@@ -141,7 +141,7 @@ void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
 /* draw_utils_color.c */
-int			ft_get_rgba(int r, int g, int b, int a);
+int			ft_get_rgba(t_color color);
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 
 /* draw_fov.c */

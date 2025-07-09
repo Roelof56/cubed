@@ -74,24 +74,18 @@ int	main(int argc, char **argv)
 	/* testing color import. */
 	mlx_image_t		*layer2;
 	mlx_image_t		*layer3;
+
 	printf("left block is ceiling color\n");
 	layer2 = mlx_new_image(data.mlx, 320, 320);
 	mlx_image_to_window(data.mlx, layer2, 0, 0);
-	fill_image_color(layer2, ft_get_rgba(data.textures.c.r,
-												data.textures.c.g,
-												data.textures.c.b,
-												data.textures.c.a
-												));
+	fill_image_color(layer2, ft_get_rgba(data.textures.c));
 
 	printf("right block is floor color\n");
 	layer3 = mlx_new_image(data.mlx, 320, 320);
 	mlx_image_to_window(data.mlx, layer3, 320, 0);
-	fill_image_color(layer3, ft_get_rgba(data.textures.f.r,
-												data.textures.f.g,
-												data.textures.f.b,
-												data.textures.f.a
-												));
+	fill_image_color(layer3, ft_get_rgba(data.textures.f));
 	/* end color test.*/
+
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);

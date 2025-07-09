@@ -1,9 +1,8 @@
 #include "header.h"
 
-// for mlx_put_pixel
-int	ft_get_rgba(int r, int g, int b, int a)
+int	ft_get_rgba(t_color color)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	return (color.a << 24 | color.b << 16 | color.g << 8 | color.r);
 }
 
 // Function to draw a line using Bresenham's algorithm
