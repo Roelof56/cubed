@@ -23,13 +23,11 @@ SRCS		:=	main.c \
 				parser_printer.c \
 				init_mlx.c \
 				key_input_handler.c \
-				draw_minimap.c \
-				draw_utils.c \
+				draw_utils_color.c \
 				draw_fov.c \
 				parser_square_map.c \
 				draw_small_minimap.c \
-				a_new_fov.c \
-				a_draw_3d.c
+				parser_import_color.c
 
 
 OBJ			:=	$(SRCS:.c=.o)

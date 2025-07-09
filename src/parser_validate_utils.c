@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/03 18:51:22 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/08 16:02:13 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	reset_map_fields(char **map)
 	{
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == '3')
+			if (map[i][j] == '2')
 				map[i][j] = '0';
 			j++;
 		}

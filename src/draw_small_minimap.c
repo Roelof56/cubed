@@ -8,18 +8,21 @@
 // 	int startx = (img->width / 2) - 2;
 // 	int starty = (img->height / 2)- 2;
 
-// 	i = 0;
-// 	while (i < 6)
-// 	{
-// 		j = 0;
-// 		while (j < 6)
-// 		{
-// 			mlx_put_pixel(img, (startx + i), (starty + j), 0xFFA500FF);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+	x = 0;
+	while (x < img->width)
+	{
+		mlx_put_pixel(img, x, 0, color);
+		mlx_put_pixel(img, x, img->height - 1, color);
+		x++;
+	}
+	y = 1;
+	while (y < img->height - 1)
+	{
+		mlx_put_pixel(img, 0, y, color);
+		mlx_put_pixel(img, img->width - 1, y, color); 
+		y++;
+	}
+}
 
 // draw floors & walls based on distance to player.
 // todo: make outer 2 blocks more transparent last 2 characters of hex code.
@@ -66,6 +69,62 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 	}
 }
 
+// change this out for new DDA logic.
+static t_line get_line_coordinates(t_vars *data, double angle)
+{
+	t_line	line;
+
+	double	ray_x = data->plx;
+	double	ray_y = data->ply;
+
+	double	dx = cos(angle);
+	double	dy = sin(angle);
+	double	step = 0.05;
+	int		map_x; 
+	int		map_y;
+	double	distance = 0;
+
+	line.x1 = data->layer1->width / 2; // change to img center where player is.
+	line.y1 = data->layer1->height / 2;
+
+	while (distance < VIEW + 5)
+	{
+		ray_x += dx * step;
+		ray_y += dy * step;
+		map_x = (int)(ray_x);
+		map_y = (int)(ray_y);
+		distance += step;
+		if (data->themap[map_y][map_x] == '1')
+			break;
+	}
+
+	// add middle-player-position offset to endpoints ? - yes
+	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * MAPSCALE;
+	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * MAPSCALE;
+
+	return (line);
+}
+
+//draw fovlines. maybe use 1 degree to rad as step ? 
+void	draw_fov_minimap(t_vars *data)
+{
+	const int num_rays = 60;  // number of rays
+	const double fov = PI / 3;  // 60 degrees field of view
+	const double start_angle = data->pla - fov / 2;
+	const double step = fov / num_rays;
+	int	i = 0;
+	t_line line;
+
+	while (i < num_rays)
+	{
+		double angle = start_angle + i * step;
+		line = get_line_coordinates(data, angle);
+		bresenham_line(data->layer1, line, 0xFFFFFF);
+		i++;
+	}
+}
+
+
 //draw walls/floors arround player.
 void	draw_small_minimap(t_vars *data)
 {
@@ -77,7 +136,6 @@ void	draw_small_minimap(t_vars *data)
 	int		map_y;
 
 	clear_image(data->layer1);
-	// draw_player_center(data->layer1);
 	offset_y = -VIEW;
 	while (offset_y <= VIEW)
 	{
@@ -101,6 +159,6 @@ void	draw_small_minimap(t_vars *data)
 		}
 		offset_y++;
 	}
-	new_draw_fov_line(data);
+	draw_fov_minimap(data);
 	draw_image_outline(data->layer1, 0xE6E6FAFF);
 }
