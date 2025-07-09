@@ -1,10 +1,10 @@
   
  
-F   255,0,0
+F   255,255,0
 SO        ./textures/so.png
 NO		./textures/no.png
 
-C     1,255,1
+C     255,0,255
 		EA  ./textures/ea.png
 	WE    ./textures/we.png
              
