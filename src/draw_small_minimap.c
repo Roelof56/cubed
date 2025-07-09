@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   draw_small_minimap.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
+/*   Updated: 2025/07/09 17:09:27 by jilustre      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-// draw player middle of minimap //can go cause fovlines are enough ?
-// static void	draw_player_center(mlx_image_t *img)
-// {
-// 	int	i;
-// 	int	j;
-// 	int startx = (img->width / 2) - 2;
-// 	int starty = (img->height / 2)- 2;
+// Outline img -> tmp for placement in window
+static void draw_image_outline(mlx_image_t *img, uint32_t color)
+{
+	uint32_t x;
+	uint32_t y;
 
 	x = 0;
 	while (x < img->width)

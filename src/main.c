@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/09 16:56:09 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/09 17:09:04 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	draw_hook(void *param)
 
 	draw_3d_view(data);
 	draw_small_minimap(data);
-	draw_fov_line(data); // rename, it should be calculate wall heights or something.
-	draw_3d_world(data);
 	// limit fps here ?
 }
 
