@@ -170,13 +170,13 @@ void draw_3d_view(t_vars *data)
         if (bottom > screen_h)
 			bottom = screen_h;
 
-        uint32_t	ceil_col = 0xFF00FF;
+        uint32_t	ceil_col = ft_get_rgba(data->textures.c);
 		uint32_t	wall_col;
 		if (info.side)
 			wall_col = 0x888888;
 		else
 			wall_col = 0xAAAAAA;
-        uint32_t	floor_col= 0x00FFFF;
+        uint32_t	floor_col= ft_get_rgba(data->textures.f);
 
         // draw this single‐px slice
 		int		y = 0;

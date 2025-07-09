@@ -146,6 +146,11 @@ void	input_hook(void *param)
 			printf("increase red\n");
 			data->textures.c.r += 10;
 		}
+		else if (data->textures.c.r > 245)
+		{
+			printf("reset red\n");
+			data->textures.c.r = 0;
+		}
 		print_colorstruct(&data->textures.c);
 		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
@@ -155,6 +160,11 @@ void	input_hook(void *param)
 		{
 			printf("increase green\n");
 			data->textures.c.g += 10;
+		}
+		else if (data->textures.c.g > 245)
+		{
+			printf("reset green red\n");
+			data->textures.c.g = 0;
 		}
 		print_colorstruct(&data->textures.c);
 		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
@@ -166,11 +176,17 @@ void	input_hook(void *param)
 			printf("increase blue\n");
 			data->textures.c.b += 10;
 		}
+		else if (data->textures.c.b > 245)
+		{
+			printf("reset blue\n");
+			data->textures.c.b = 0;
+		}
 		print_colorstruct(&data->textures.c);
 		fill_image_color(data->layer2, ft_get_rgba(data->textures.c));
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_C))
 	{
+		printf("reset ceiling color struct to 0 0 0 255\n");
 		data->textures.c.r = 0;
 		data->textures.c.g = 0;
 		data->textures.c.b = 0;
