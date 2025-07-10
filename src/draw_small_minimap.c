@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/09 17:09:27 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/10 08:07:04 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,20 @@ void	draw_fov_minimap(t_vars *data)
 	}
 }
 
+void	fill_minimap_background(mlx_image_t *img, uint32_t color)
+{
+	uint32_t	i;
+	
+	i = 0;
+	while (i < img->width * img->height)
+	{
+		img->pixels[i * 4 + 0] = (color >> 24) & 0xFF; // R
+		img->pixels[i * 4 + 1] = (color >> 16) & 0xFF; // G
+		img->pixels[i * 4 + 2] = (color >> 8)  & 0xFF; // B
+		img->pixels[i * 4 + 3] = (color)       & 0xFF; // A
+		i++;
+	}
+}
 
 //draw walls/floors arround player.
 void	draw_small_minimap(t_vars *data)
@@ -145,7 +159,7 @@ void	draw_small_minimap(t_vars *data)
 	int		map_x;
 	int		map_y;
 
-	clear_image(data->layer1);
+	fill_minimap_background(data->layer1, 0x222222FF);
 	offset_y = -VIEW;
 	while (offset_y <= VIEW)
 	{
@@ -163,7 +177,7 @@ void	draw_small_minimap(t_vars *data)
 				if (data->themap[map_y][map_x] == '1')
 					draw_block(data, tile_x, tile_y, 0xFF0000FF);
 				else if (data->themap[map_y][map_x] == '0')
-					draw_block(data, tile_x, tile_y, 0x87CEEB12);
+					draw_block(data, tile_x, tile_y, 0x222222FF);
 			}
 			offset_x++;
 		}

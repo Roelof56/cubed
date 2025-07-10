@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/09 17:09:04 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/10 07:16:36 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ int	main(int argc, char **argv)
 	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
 		return (1);
 	
-	data.view3d = mlx_new_image(data.mlx, 700, 400);
-	mlx_image_to_window(data.mlx, data.view3d, 0, 400);
+	data.view3d = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data.mlx, data.view3d, 1, 2);
 
 	data.layer1 = mlx_new_image(data.mlx, 320, 320); // new small minimap
-	mlx_image_to_window(data.mlx, data.layer1, WIDTH - 320, 0); // place left of og map
+	mlx_image_to_window(data.mlx, data.layer1, WIDTH - 320, HEIGHT - 320); // place left of og map
 
 	/* testing color import. */
-	data.layer2 = mlx_new_image(data.mlx, 320, 320);
-	mlx_image_to_window(data.mlx, data.layer2, 0, 0);
-	fill_image_color(data.layer2, ft_get_rgba(data.textures.c));
+	// data.layer2 = mlx_new_image(data.mlx, 320, 320);
+	// mlx_image_to_window(data.mlx, data.layer2, 0, 0);
+	// fill_image_color(data.layer2, ft_get_rgba(data.textures.c));
 	/* end color test.*/
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func

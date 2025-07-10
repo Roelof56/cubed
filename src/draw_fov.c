@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/09 16:53:45 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/10 07:42:02 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,6 @@ void	clear_image(mlx_image_t *img)
 	}
 }
 
-// original fov for non zoomed minimap
-// void draw_fov_line(t_vars *data)
-// {
-// 	const int num_rays = 60;
-// 	const double fov = PI / 3;
-// 	const double start_angle = data->pla - fov / 2;
-// 	const double step = fov / num_rays;
-
-// 	clear_image(data->fovlines);
-
-// 	for (int i = 0; i <= num_rays; i++)
-// 	{
-// 		double angle = start_angle + i * step;
-// 		t_ray ray = ray_wall(data, angle);
-// 		bresenham_line(data->fovlines, ray.line, 0xFFFFFF);
-// 	}
-// }
-
 double normalize_angle(double angle)
 {
     while (angle < 0)
@@ -145,7 +127,7 @@ void draw_3d_view(t_vars *data)
     double	start_a  = data->pla - fov / 2.0;
     double	proj_plane = (screen_w / 2.0) / tan(fov / 2.0);
 
-    clear_image(data->view3d);
+    // clear_image(data->view3d);
 	
 	int		px = 0;
     while (px < screen_w)
