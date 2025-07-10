@@ -124,15 +124,9 @@ static void	hanlde_door_interaction(t_vars *data)
 	if (data->pdy < 0)
 		yo = -0.5;
 	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == 'D')
-	{
-		printf("door x offset\n");
 		data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] = '0';
-	}
 	else if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == 'D')
-	{
-		printf("door y offset\n");
 		data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] = '0';
-	}
 }
 
 void	input_hook(void *param)
