@@ -45,8 +45,14 @@ int	main(int argc, char **argv)
 	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
 		return (1);
 	
-	data.view3d = mlx_new_image(data.mlx, 700, 400);
-	mlx_image_to_window(data.mlx, data.view3d, 0, 400);
+	data.view3d = mlx_new_image(data.mlx, 1920, 1080);
+	mlx_image_to_window(data.mlx, data.view3d, 0, 0);
+
+	mlx_image_t *layer0;
+
+	layer0 = mlx_new_image(data.mlx, 320, 320); // background for minimap
+	mlx_image_to_window(data.mlx, layer0, WIDTH - 320, 0);
+	fill_image_color(layer0, 160);
 
 	data.layer1 = mlx_new_image(data.mlx, 320, 320); // new small minimap
 	mlx_image_to_window(data.mlx, data.layer1, WIDTH - 320, 0); // place left of og map

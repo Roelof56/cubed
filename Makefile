@@ -39,7 +39,7 @@ GREEN		= \033[0;92m
 RED			= \033[31;01m
 
 # Args for run rule.
-ARG			= map2.cub
+ARG			= map0.cub
 
 # Operations
 all				:	createlibs $(NAME)

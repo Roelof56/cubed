@@ -84,7 +84,7 @@ static void	handle_side_movement(t_vars *data, int key)
 	
 	if (new_angle > (2 * PI))
 		new_angle -= (2 * PI); //make general normalize angle function, cause i do this a lot.
-	if (new_angle < 0)
+	if (new_angle < 0)				// there is one in draw_fov.
 		new_angle += (2 * PI);
 
 	new_pdx = cos(new_angle) * 5;
@@ -112,6 +112,29 @@ static void	handle_side_movement(t_vars *data, int key)
 
 }
 
+static void	hanlde_door_interaction(t_vars *data)
+{
+	float xo;
+	float yo;
+
+	xo = 0.5;
+	yo = 0.5;
+	if (data->pdx < 0)
+		xo = -0.5;
+	if (data->pdy < 0)
+		yo = -0.5;
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == 'D')
+	{
+		printf("door x offset\n");
+		data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] = '0';
+	}
+	else if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == 'D')
+	{
+		printf("door y offset\n");
+		data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] = '0';
+	}
+}
+
 void	input_hook(void *param)
 {
 	t_vars	*data;
@@ -127,6 +150,8 @@ void	input_hook(void *param)
 		handle_side_movement(data, MLX_KEY_A);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		handle_side_movement(data, MLX_KEY_D);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_E)) // door
+		hanlde_door_interaction(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		change_player_angle(data, 1);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

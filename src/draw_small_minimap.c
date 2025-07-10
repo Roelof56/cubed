@@ -35,49 +35,86 @@ static void draw_image_outline(mlx_image_t *img, uint32_t color)
 }
 
 // draw floors & walls based on distance to player.
-// todo: make outer 2 blocks more transparent last 2 characters of hex code.
-static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
+// static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
+// {
+// 	int i;
+// 	int j;
+
+// 	float frac_x;
+// 	float frac_y;
+// 	double ignore; // needed for modf for some reason...
+
+// 	// rest of float 5.7 = 0.7
+// 	frac_x = (float)modf(data->plx, &ignore); // move to draw-small-minimap
+// 	frac_y = (float)modf(data->ply, &ignore); // cause this is heavy computing for no reason
+
+// 	// world-space to minimap-pixel, // I swear i'll make this norminette approved.
+// 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
+// 	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
+
+// 	// screen center // this can just be in drawx. wich makes it a lil unreadable.
+// 	int centerx = data->layer1->width / 2;
+// 	int centery = data->layer1->height / 2;
+
+// 	uint32_t drawx = centerx + (int)dx; // maybe create a struct & setter function.
+// 	uint32_t drawy = centery + (int)dy;	// for this & all needed shit above.
+
+// 	// actual drawing of block lines
+// 	i = 0;
+// 	while (i < MAPSCALE)
+// 	{
+// 		j = 0;
+// 		while (j < MAPSCALE)
+// 		{
+// 			if (i == 0 || j == 0 || i == MAPSCALE - 1 || j == MAPSCALE - 1)
+// 			{
+// 				if (drawx + i >= 0 && drawx + i < data->layer1->width &&
+// 					drawy + j >= 0 && drawy + j < data->layer1->height)
+// 					mlx_put_pixel(data->layer1, drawx + i, drawy + j, color);
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// draw filled floors & walls based on distance to player.
+static void draw_filled_block(t_vars *data, float tilex, float tiley, uint32_t color)
 {
 	int i;
 	int j;
 
 	float frac_x;
 	float frac_y;
-	double ignore; // needed for modf for some reason...
+	double ignore;
 
-	// rest of float 5.7 = 0.7
-	frac_x = (float)modf(data->plx, &ignore); // move to draw-small-minimap
-	frac_y = (float)modf(data->ply, &ignore); // cause this is heavy computing for no reason
+	frac_x = (float)modf(data->plx, &ignore);
+	frac_y = (float)modf(data->ply, &ignore);
 
-	// world-space to minimap-pixel, // I swear i'll make this norminette approved.
 	float dx = (tilex - data->plx) * MAPSCALE - frac_x * MAPSCALE;
 	float dy = (tiley - data->ply) * MAPSCALE - frac_y * MAPSCALE;
 
-	// screen center // this can just be in drawx. wich makes it a lil unreadable.
 	int centerx = data->layer1->width / 2;
 	int centery = data->layer1->height / 2;
 
-	uint32_t drawx = centerx + (int)dx; // maybe create a struct & setter function.
-	uint32_t drawy = centery + (int)dy;	// for this & all needed shit above.
+	uint32_t drawx = centerx + (int)dx;
+	uint32_t drawy = centery + (int)dy;
 
-	// actual drawing of block lines
 	i = 0;
 	while (i < MAPSCALE)
 	{
 		j = 0;
 		while (j < MAPSCALE)
 		{
-			if (i == 0 || j == 0 || i == MAPSCALE - 2 || j == MAPSCALE - 2)
-			{
-				if (drawx + i >= 0 && drawx + i < data->layer1->width &&
-					drawy + j >= 0 && drawy + j < data->layer1->height)
-					mlx_put_pixel(data->layer1, drawx + i, drawy + j, color);
-			}
+			if (drawx + i >= 0 && drawx + i < data->layer1->width &&
+				drawy + j >= 0 && drawy + j < data->layer1->height)
+				mlx_put_pixel(data->layer1, drawx + i, drawy + j, color);
 			j++;
 		}
 		i++;
 	}
 }
+
 
 // change this out for new DDA logic.
 static t_line get_line_coordinates(t_vars *data, double angle)
@@ -104,7 +141,7 @@ static t_line get_line_coordinates(t_vars *data, double angle)
 		map_x = (int)(ray_x);
 		map_y = (int)(ray_y);
 		distance += step;
-		if (data->themap[map_y][map_x] == '1')
+		if (data->themap[map_y][map_x] == '1' || data->themap[map_y][map_x] == 'D')
 			break;
 	}
 
@@ -161,9 +198,11 @@ void	draw_small_minimap(t_vars *data)
 			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
 			{
 				if (data->themap[map_y][map_x] == '1')
-					draw_block(data, tile_x, tile_y, 0xFF0000FF);
-				else if (data->themap[map_y][map_x] == '0')
-					draw_block(data, tile_x, tile_y, 0x87CEEB12);
+					draw_filled_block(data, tile_x, tile_y, 0xFFFFFFFF);
+				// else if (data->themap[map_y][map_x] == '0')
+				// 	draw_block(data, tile_x, tile_y, 0xFFFFFF09);
+				else if (data->themap[map_y][map_x] == 'D')
+					draw_filled_block(data, tile_x, tile_y, 0xFF0000FF);
 			}
 			offset_x++;
 		}

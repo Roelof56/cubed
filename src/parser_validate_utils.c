@@ -37,7 +37,7 @@ void	reset_map_fields(char **map)
 // return 0 for yes, 1 for no.
 static int	char_checker(char c)
 {
-	if (c == '0' || c == '1' || c == ' ')
+	if (c == '0' || c == '1' || c == ' ' || c == 'D')
 		return (0);
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (0);

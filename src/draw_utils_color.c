@@ -1,7 +1,7 @@
 #include "header.h"
 
 // convert color struct to int vallue
-int	ft_get_rgba(t_color color)
+uint32_t	ft_get_rgba(t_color color)
 {
 	return (color.r << 24 | color.g << 16 | color.b << 8 | color.a);
 }
