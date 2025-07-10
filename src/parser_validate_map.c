@@ -135,7 +135,7 @@ int validate_that_map(t_vars *data)
 		return (ft_strerror("Error\nUnreachable tiles in map."));
 	// if (check_for_diagonal_gaps(data) == 1)
 	// 	return (ft_strerror("Error\nDiagonal gap found."));
-	print_map_color(data->themap, data->mapheight);
+	// print_map_color(data->themap, data->mapheight);
 	reset_map_fields(data->themap);
 	return (0);
 }

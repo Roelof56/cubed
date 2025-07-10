@@ -64,7 +64,6 @@ typedef struct s_vars
 	double			pdy; // player delta y
 	// mlx_image_t		*fovlines; // old & unused.
 	mlx_image_t		*layer1; // small minimap
-	mlx_image_t		*layer2;// testing color.
 	mlx_image_t		*view3d;
 }				t_vars;
 

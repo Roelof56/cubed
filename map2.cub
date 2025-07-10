@@ -1,7 +1,7 @@
   
  
-F   255,0,0
-C     50,50,255
+F   200,100,100
+C     80,80,255
 NO   ./textures/no.png
 
 WE    ./textures/we.png
