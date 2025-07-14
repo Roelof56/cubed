@@ -13,7 +13,7 @@
 #include "header.h"
 
 // save em in data struct t_vars *data->textures
-int save_textures_in_struct(t_textures *dest, char **arr)
+int	save_textures_in_struct(t_textures *dest, char **arr)
 {
 	dest->no = mlx_load_png(arr[0]);
 	if (!dest->no)
@@ -31,12 +31,12 @@ int save_textures_in_struct(t_textures *dest, char **arr)
 }
 
 // use .png or leave.
-int enforce_texture_file_extension(char **arr)
+int	enforce_texture_file_extension(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i < 4) 
+	while (i < 4)
 	{
 		if (check_file_extension(arr[i], ".png") == 1)
 			return (1);

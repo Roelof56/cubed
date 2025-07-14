@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 15:59:04 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/14 22:46:33 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_walkable_space(char **map)
 {
 	int	i;
 	int	j;
-	int count;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -63,7 +63,8 @@ static int	check_walkable_space(char **map)
 }
 
 // wrapper for all checker funtions for map validation.
-int validate_that_map(t_vars *data)
+// print_map_color(data->themap, data->mapheight);
+int	validate_that_map(t_vars *data)
 {
 	if (check_map_for_invalid_chars(data->themap) == 1)
 		return (ft_strerror("Error\nInvalid char on map."));
@@ -75,7 +76,6 @@ int validate_that_map(t_vars *data)
 		return (ft_strerror("Error\nWalls do not enclose map."));
 	if (check_for_unreachable_tiles(data) == 1)
 		return (ft_strerror("Error\nUnreachable tiles in map."));
-	// print_map_color(data->themap, data->mapheight);
 	reset_map_fields(data->themap);
 	return (0);
 }

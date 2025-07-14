@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/08 16:02:13 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/14 22:46:52 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_map_for_invalid_chars(char **themap)
 // new -> probably angle here also ?
 static void	save_player_location(t_vars *data, int x, int y)
 {
-	char dir;
+	char	dir;
 
 	data->plx = x;
 	data->ply = y;
