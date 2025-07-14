@@ -140,17 +140,21 @@ void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
-/* draw_utils_color.c */
-int			ft_get_rgba(t_color color);
-void		fill_image_color(mlx_image_t *img, uint32_t color);
+/* draw_utils_bresenham.c */
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
+
+/* draw_utils.c */
+void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+int			ft_get_rgba(t_color color);
+void		draw_image_outline(mlx_image_t *img, uint32_t color);
+void		clear_image(mlx_image_t *img);
+void		fill_image_color(mlx_image_t *img, uint32_t color);
+
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
-void		clear_image(mlx_image_t *img);
 // void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);
-void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 double		normalize_angle(double angle); //thanks, needed for parser.
 
 /* draw_small_minimap.c */

@@ -12,28 +12,6 @@
 
 #include "header.h"
 
-// Outline img -> tmp for placement in window
-static void draw_image_outline(mlx_image_t *img, uint32_t color)
-{
-	uint32_t x;
-	uint32_t y;
-
-	x = 0;
-	while (x < img->width)
-	{
-		mlx_put_pixel(img, x, 0, color);
-		mlx_put_pixel(img, x, img->height - 1, color);
-		x++;
-	}
-	y = 1;
-	while (y < img->height - 1)
-	{
-		mlx_put_pixel(img, 0, y, color);
-		mlx_put_pixel(img, img->width - 1, y, color); 
-		y++;
-	}
-}
-
 // draw floors & walls based on distance to player.
 // todo: make outer 2 blocks more transparent last 2 characters of hex code.
 static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)

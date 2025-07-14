@@ -13,13 +13,6 @@
 #include "header.h"
 #include <stdio.h>
 
-// Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
-		mlx_put_pixel(img, x, y, color);
-}
-
 // dda to calculate rays 
 static t_ray ray_wall(t_vars *data, double angle)
 {
@@ -94,20 +87,6 @@ static t_ray ray_wall(t_vars *data, double angle)
     ray.line.y2 = (int)((data->ply + ray_dir_y * perp_wall_dist) * 32);
 
     return (ray);
-}
-
-void	clear_image(mlx_image_t *img)
-{
-	uint32_t i = 0;
-	while (i < img->width * img->height)
-	{
-		// Each pixel = 4 bytes (RGBA)
-		img->pixels[i * 4 + 0] = 0; // R
-		img->pixels[i * 4 + 1] = 0; // G
-		img->pixels[i * 4 + 2] = 0; // B
-		img->pixels[i * 4 + 3] = 0; // A
-		i++;
-	}
 }
 
 // original fov for non zoomed minimap
