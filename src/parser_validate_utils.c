@@ -6,32 +6,11 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:46:52 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/14 22:50:51 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-//set 3 fields back to 0
-void	reset_map_fields(char **map)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (map[i] != NULL)
-	{
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == '2')
-				map[i][j] = '0';
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
 
 // check if char c is allowed.
 // return 0 for yes, 1 for no.

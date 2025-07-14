@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 18:26:28 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/14 22:51:16 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ int			load_that_map(t_vars *data, t_maplst *head);
 int			validate_that_map(t_vars *data);
 
 /* parser_validate_utils.c */
-void		reset_map_fields(char **map);
 int			check_map_for_invalid_chars(char **themap);
 int			check_for_player(t_vars *data, char **themap);
 
 /* parser_floodfill.c */
+void		reset_map_fields(char **map);
 int			check_if_enclosed(t_vars *data);
 
 /* parser_printer.c */

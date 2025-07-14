@@ -6,11 +6,32 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/03 16:28:36 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/14 22:51:03 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+//set 2 fields back to 0
+void	reset_map_fields(char **map)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (map[i] != NULL)
+	{
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == '2')
+				map[i][j] = '0';
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
 
 static void	flood_fill(t_vars *data, int x, int y, int *retval)
 {
