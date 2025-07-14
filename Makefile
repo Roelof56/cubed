@@ -27,6 +27,7 @@ SRCS		:=	main.c \
 				draw_utils.c \
 				draw_fov.c \
 				parser_square_map.c \
+				parser_textures.c \
 				draw_small_minimap.c \
 				parser_import_color.c
 

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 19:06:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 19:22:46 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/14 19:21:21 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ int	print_map_color(char **map, int len)
 	}
 	return (0);
 }
-
