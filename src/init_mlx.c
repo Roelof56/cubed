@@ -3,7 +3,7 @@
 // save some space in main.
 int	init_mlx_images(t_vars *data)
 {
-	data->view3d = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->view3d = mlx_new_image(data->mlx, 960, 540);
 	mlx_image_to_window(data->mlx, data->view3d, 0, 0);
 
 	data->minimapbg = mlx_new_image(data->mlx, 320, 320);

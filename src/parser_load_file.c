@@ -6,12 +6,13 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 18:54:34 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/14 22:36:54 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
+// helper func to not import empty lines.
 static int	check_for_empty_line(char *str)
 {
 	int	i;
@@ -21,6 +22,19 @@ static int	check_for_empty_line(char *str)
 		i++;
 	if (str[i] == '\0')
 		return (0);
+	return (1);
+}
+
+// split off error handling to shorten function.
+static int handle_error(char *line, t_maplst **head, int fd)
+{
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	ll_clean_list(head);
 	return (1);
 }
 
@@ -40,16 +54,7 @@ int	file_to_linkedlist(int fd, t_maplst **head)
 		{
 			new = ll_new_node(line);
 			if (!new)
-			{
-				while (line != NULL)
-				{
-					free(line);
-					line = get_next_line(fd);
-				}
-				close(fd);
-				ll_clean_list(head);
-				return (1);
-			}
+				return(handle_error(line, head, fd));
 			else
 				ll_add_back(head, new);
 		}
