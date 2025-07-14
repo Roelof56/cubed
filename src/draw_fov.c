@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/14 16:05:27 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/14 17:11:53 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void draw_3d_view(t_vars *data)
     int		screen_h   = data->view3d->height;
     double	fov      = PI / 3.0;
     double	start_a  = data->pla - fov / 2.0;
-    double	proj_plane = (screen_w / 2.0) / tan(fov / 2.0);
+    // double	proj_plane = (screen_w / 2.0) / tan(fov / 2.0);
 
     clear_image(data->view3d);
 	
@@ -141,16 +141,14 @@ void draw_3d_view(t_vars *data)
         if (dist < 0.01)
 			dist = 0.01;
 
-        int		wall_h = (int)((1.0 * proj_plane) / dist);
-        if (wall_h > screen_h)
-			wall_h = screen_h;
-
-        int		top = (screen_h / 2) - (wall_h / 2);
-        int		bottom = top + wall_h;
-        if (top < 0)
-			top = 0;
-        if (bottom > screen_h)
-			bottom = screen_h;
+		double line_height = screen_h / dist;
+		int draw_start = (int)(-line_height / 2 + screen_h / 2);
+		int draw_end   = (int)(line_height / 2 + screen_h / 2);
+		
+		if (draw_start < 0) 
+			draw_start = 0;
+		if (draw_end > screen_h)
+			draw_end = screen_h;
 
 		/*Choose which texture based on direction*/
 		mlx_texture_t *tex;
@@ -158,7 +156,6 @@ void draw_3d_view(t_vars *data)
 		{
 			if (cos(angle) > 0)
 				tex = data->textures.ea;
-
 			else
 				tex = data->textures.we;
 		}
@@ -190,47 +187,12 @@ void draw_3d_view(t_vars *data)
 
         // draw this single‐px slice
 		int		y = 0;
-		while (y < top)
+		while (y < draw_start)
 		{
 			set_pixel(data->view3d, px, y, ceil_col);
 			y++;
 		}
 		
-		// y = top;
-		// while (y < bottom)
-		// {
-		// 	int d = y * 256 - screen_h * 128 + wall_h * 128;
-		// 	int tex_y = (d * tex_height) / wall_h / 256;
-
-		// 	int i = (tex_y * tex_width + tex_x) * 4;
-		// 	uint8_t r = tex->pixels[i + 0];
-		// 	uint8_t g = tex->pixels[i + 1];
-		// 	uint8_t b = tex->pixels[i + 2];
-		// 	uint8_t a = tex->pixels[i + 3];
-
-		// 	uint32_t color = (r << 24) | (g << 16) | (b << 8) | a;
-
-		// 	// Optional: darken horizontal walls slightly
-		// 	if (info.side == 1)
-		// 	{
-		// 		r = (uint8_t)(r * 0.7);
-		// 		g = (uint8_t)(g * 0.7);
-		// 		b = (uint8_t)(b * 0.7);
-		// 		color = (r << 24) | (g << 16) | (b << 8) | a;
-		// 	}
-
-		// 	set_pixel(data->view3d, px, y, color);
-		// 	y++;
-		// }
-
-		double line_height = screen_h / dist;
-		int draw_start = (int)(-line_height / 2 + screen_h / 2);
-		int draw_end   = (int)(line_height / 2 + screen_h / 2);
-		if (draw_start < 0) 
-			draw_start = 0;
-		if (draw_end > screen_h)
-			draw_end = screen_h;
-
 		double step = (double)tex->height / line_height;
 		double tex_pos = (draw_start - screen_h / 2 + line_height / 2) * step;
 
@@ -249,8 +211,8 @@ void draw_3d_view(t_vars *data)
 			uint8_t g = tex->pixels[i + 1];
 			uint8_t b = tex->pixels[i + 2];
 			uint8_t a = tex->pixels[i + 3];
-
 			uint32_t color = (r << 24) | (g << 16) | (b << 8) | a;
+			
 			// Optional: darken horizontal walls slightly
 			if (info.side == 1)
 			{
@@ -259,12 +221,11 @@ void draw_3d_view(t_vars *data)
 				b = (uint8_t)(b * 0.7);
 				color = (r << 24) | (g << 16) | (b << 8) | a;
 			}
-			
 			set_pixel(data->view3d, px, y, color);
 			y++;
 		}
 
-		y = bottom;
+		y = draw_end;
 		while (y < screen_h)
 		{
 			set_pixel(data->view3d, px, y, floor_col);
@@ -273,3 +234,4 @@ void draw_3d_view(t_vars *data)
 		px++;
     }
 }
+
