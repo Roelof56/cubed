@@ -34,7 +34,7 @@ static void	flood_fill(t_vars *data, int x, int y, int *retval)
 }
 
 // Wrapper for floodfill.
-int	call_floodfill_thing(t_vars *data)
+int	check_if_enclosed(t_vars *data)
 {
 	int	retval;
 	int	flatx;

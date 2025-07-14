@@ -126,7 +126,7 @@ int			check_map_for_invalid_chars(char **themap);
 int			check_for_player(t_vars *data, char **themap);
 
 /* parser_floodfill.c */
-int			call_floodfill_thing(t_vars *data);
+int			check_if_enclosed(t_vars *data);
 
 /* parser_printer.c */
 int			print_2d_char_array(char **map, int len);
