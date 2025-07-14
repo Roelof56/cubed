@@ -62,8 +62,8 @@ typedef struct s_vars
 	double			pla; // player angle -> in radians 0 - 2pi
 	double			pdx; // player delta x
 	double			pdy; // player delta y
-	// mlx_image_t		*fovlines; // old & unused.
-	mlx_image_t		*layer1; // small minimap
+	mlx_image_t		*minimap;
+	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
 }				t_vars;
 
@@ -133,6 +133,7 @@ int			print_2d_char_array(char **map, int len);
 int			print_map_color(char **map, int len);
 
 /*_ init_mlx.c _*/
+int			init_mlx_images(t_vars *data);
 int			start_mlx(t_vars *data);
 
 /* key_input_handler.c */
