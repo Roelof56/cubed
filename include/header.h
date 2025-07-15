@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:51:16 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/15 17:16:18 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159
-# define SCALE 32	// OG map scale
+// # define SCALE 32	// old & unused
 
 # define MAPSCALE 16	// size of wall & floor blocks minimap
-# define VIEW 10	// ammount of blocks to draw arround player x & y
+# define VIEW 10			// ammount of blocks to draw arround player x & y
 
 /* colour */
 typedef struct	s_color
