@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/09 16:53:12 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/14 22:51:16 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct s_vars
 	double			pla; // player angle -> in radians 0 - 2pi
 	double			pdx; // player delta x
 	double			pdy; // player delta y
-	// mlx_image_t		*fovlines; // old & unused.
-	mlx_image_t		*layer1; // small minimap
+	mlx_image_t		*minimap;
+	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
 }				t_vars;
 
@@ -121,18 +121,19 @@ int			load_that_map(t_vars *data, t_maplst *head);
 int			validate_that_map(t_vars *data);
 
 /* parser_validate_utils.c */
-void		reset_map_fields(char **map);
 int			check_map_for_invalid_chars(char **themap);
 int			check_for_player(t_vars *data, char **themap);
 
 /* parser_floodfill.c */
-int			call_floodfill_thing(t_vars *data);
+void		reset_map_fields(char **map);
+int			check_if_enclosed(t_vars *data);
 
 /* parser_printer.c */
 int			print_2d_char_array(char **map, int len);
 int			print_map_color(char **map, int len);
 
 /*_ init_mlx.c _*/
+int			init_mlx_images(t_vars *data);
 int			start_mlx(t_vars *data);
 
 /* key_input_handler.c */
@@ -140,17 +141,21 @@ void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
 
-/* draw_utils_color.c */
-int			ft_get_rgba(t_color color);
-void		fill_image_color(mlx_image_t *img, uint32_t color);
+/* draw_utils_bresenham.c */
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
+
+/* draw_utils.c */
+void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+int			ft_get_rgba(t_color color);
+void		draw_image_outline(mlx_image_t *img, uint32_t color);
+void		clear_image(mlx_image_t *img);
+void		fill_image_color(mlx_image_t *img, uint32_t color);
+
 
 /* draw_fov.c */
 double		degree_to_radians(double degree);
-void		clear_image(mlx_image_t *img);
 // void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);
-void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 double		normalize_angle(double angle); //thanks, needed for parser.
 
 /* draw_small_minimap.c */
@@ -158,6 +163,11 @@ void		draw_small_minimap(t_vars *data);
 
 /* parser_square_map.c */
 int			make_map_square(t_vars *data);
+
+/* parser_textures.c */
+int			save_textures_in_struct(t_textures *dest, char **arr);
+int			enforce_texture_file_extension(char **arr);
+int			validate_texture_files(char **map_info);
 
 /* parser_import_color.c */
 int			get_colours(t_vars *data, char **cf);
