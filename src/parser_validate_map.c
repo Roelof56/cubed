@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:46:33 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/15 15:28:26 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,35 @@ static int	check_walkable_space(char **map)
 	return (0);
 }
 
+static int	check_for_player_duplicates(char **themap)
+{
+	int		i;
+	int		j;
+	char	player;
+
+	i = 0;
+	player = '\0';
+	while (themap[i] != NULL)
+	{
+		j = 0;
+		while (themap[i][j])
+		{
+			if (themap[i][j] == 'N' || themap[i][j] == 'S' ||
+				themap[i][j] == 'E' || themap[i][j] == 'W')
+			{
+				if (player == '\0')
+					player = themap[i][j];
+				else
+					return (1);
+				
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 // wrapper for all checker funtions for map validation.
 // print_map_color(data->themap, data->mapheight);
 int	validate_that_map(t_vars *data)
@@ -70,8 +99,10 @@ int	validate_that_map(t_vars *data)
 		return (ft_strerror("Error\nInvalid char on map."));
 	if (check_walkable_space(data->themap) == 1)
 		return (ft_strerror("Error\nNo walkable space"));
+	if (check_for_player_duplicates(data->themap) == 1)
+		return (ft_strerror("Error\nMore than 1 player on map"));
 	if (check_for_player(data, data->themap) == 1)
-		return (1);
+		return (ft_strerror("Error\nNo player identifier on map"));
 	if (check_if_enclosed(data) == 1)
 		return (ft_strerror("Error\nWalls do not enclose map."));
 	if (check_for_unreachable_tiles(data) == 1)
