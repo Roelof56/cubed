@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 15:28:26 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/15 15:31:59 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	check_for_player_duplicates(char **themap)
 					player = themap[i][j];
 				else
 					return (1);
-				
 			}
 			j++;
 		}
