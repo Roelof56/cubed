@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 17:16:18 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/15 21:16:32 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ typedef struct s_vars
 	mlx_image_t		*minimap;
 	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
+	struct timeval	time_prev; //tmp fps
+	struct timeval	time_now; //tmp fps
+	double			deltatime; //tmp fps
+	double			fps; //tmp fps
+	double			time_accum; //tmp fps
+	int				frame_count; //tmp fps
 }				t_vars;
 
 /* linkedlist - for map import*/
