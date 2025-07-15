@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/14 17:11:53 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/15 15:45:57 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ static t_ray ray_wall(t_vars *data, double angle)
     if (side == 0)
         perp_wall_dist = (map_x - data->plx + (1 - step_x) / 2.0) / ray_dir_x;
     else
+	{
         perp_wall_dist = (map_y - data->ply + (1 - step_y) / 2.0) / ray_dir_y;
+	}
 
-    ray.hit_x = map_x;
-    ray.hit_y = map_y;
+	ray.hit_x = map_x;
+	ray.hit_y = map_y;
     ray.distance = perp_wall_dist;
     ray.side = side;
     ray.line.x1 = (int)(data->plx * 32);
@@ -137,11 +139,13 @@ void draw_3d_view(t_vars *data)
         double	angle    = normalize_angle(start_a + ray_frac * fov);
         t_ray	info      = ray_wall(data, angle);
 
-        double	dist = info.distance * cos(angle - data->pla); // multiplying it with cos solves fisheye effect
-        if (dist < 0.01)
-			dist = 0.01;
-
-		double line_height = screen_h / dist;
+		double raw_dist = info.distance;
+		double proj_dist = raw_dist * cos(angle - data->pla);
+		if (proj_dist < 0.01)
+			proj_dist = 0.01;
+			
+		double line_height = screen_h / proj_dist;
+			
 		int draw_start = (int)(-line_height / 2 + screen_h / 2);
 		int draw_end   = (int)(line_height / 2 + screen_h / 2);
 		
@@ -170,9 +174,9 @@ void draw_3d_view(t_vars *data)
 		/*Compute exact X hit point on wall*/
 		double wall_x;
 		if (info.side == 0)
-			wall_x = data->ply + dist * sin(angle);
+			wall_x = data->ply + raw_dist * sin(angle);
 		else
-			wall_x = data->plx + dist * cos(angle);
+			wall_x = data->plx + raw_dist * cos(angle);
 		wall_x -= floor(wall_x);
 		
 		int tex_width = tex->width;
