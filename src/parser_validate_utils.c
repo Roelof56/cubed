@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:50:51 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/15 15:44:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ int	check_map_for_invalid_chars(char **themap)
 	return (0);
 }
 
-// new -> probably angle here also ?
+// save player location & angle
+// data plx/y + lil offset seems like a bit of a dirty fix.
 static void	save_player_location(t_vars *data, int x, int y)
 {
 	char	dir;
 
-	data->plx = x;
-	data->ply = y;
+	data->plx = x + 0.001;
+	data->ply = y + 0.001;
 	dir = data->themap[y][x];
 	if (dir == 'N')
 		data->pla = (3 * PI) / 2;
@@ -83,13 +84,8 @@ int	check_for_player(t_vars *data, char **themap)
 			if (themap[i][j] == 'N' || themap[i][j] == 'S' ||
 				themap[i][j] == 'E' || themap[i][j] == 'W')
 			{
-				if (player == '\0')
-				{
-					player = themap[i][j];
-					save_player_location(data, j, i);
-				}
-				else
-					return (ft_strerror("Error\nMore than 1 player on map"));
+				player = themap[i][j];
+				save_player_location(data, j, i);
 			}
 			j++;
 		}
@@ -97,6 +93,6 @@ int	check_for_player(t_vars *data, char **themap)
 		i++;
 	}
 	if (player == '\0')
-		return (ft_strerror("Error\nNo player identifier on map"));
+		return (1);
 	return (0);
 }

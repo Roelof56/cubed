@@ -1,5 +1,16 @@
-#include "header.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser_square_map.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: roelof <roelof@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/07/15 12:42:00 by roelof        #+#    #+#                 */
+/*   Updated: 2025/07/15 12:43:42 by roelof        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "header.h"
 
 char	*strdup_to_len(char *s, int len)
 {
@@ -24,29 +35,37 @@ char	*strdup_to_len(char *s, int len)
 	return (dest);
 }
 
+static int	find_longest_line(char **map)
+{
+	int	i;
+	int	longest;
+	int	tmp;
+
+	i = 0;
+	longest = 0;
+	tmp = 0;
+	while (map[i])
+	{
+		tmp = ft_strlen(map[i]);
+		if (tmp > longest)
+			longest = tmp;
+		i++;
+	}
+	return (longest);
+}
+
 // new func to make every linelen the same - Think I need for zoomed minimap.
 int	make_map_square(t_vars *data)
 {
-	char **new;
-	int y = 0;
-	int x = 0;
-	int longest = -1;
-	
-	// find longest line len. 
-	while (data->themap[y])
-	{
-		x = ft_strlen(data->themap[y]);
-		if (x > longest)
-			longest = x;
-		y++;
-	}
-	// create new
-	new = malloc((y + 1) * sizeof(char *));
+	char	**new;
+	int		y;
+	int		longest;
+
+	y = 0;
+	longest = find_longest_line(data->themap);
+	new = malloc((data->mapheight + 1) * sizeof(char *));
 	if (!new)
 		return (ft_strerror("Error\nMalloc failed."));
-	
-	// copy time
-	y = 0;
 	while (y < data->mapheight)
 	{
 		new[y] = strdup_to_len(data->themap[y], longest);
@@ -55,7 +74,6 @@ int	make_map_square(t_vars *data)
 		y++;
 	}
 	new[y] = NULL;
-	// clean old one.
 	clean_2dchar_array(data, y + 1);
 	data->themap = new;
 	data->mapwidth = longest;
