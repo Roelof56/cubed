@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 15:34:29 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/15 15:44:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ int	check_map_for_invalid_chars(char **themap)
 }
 
 // save player location & angle
+// data plx/y + lil offset seems like a bit of a dirty fix.
 static void	save_player_location(t_vars *data, int x, int y)
 {
 	char	dir;
 
-	// data->plx = x + 0.001;
-	// data->ply = y + 0.001;
-	data->plx = x;
-	data->ply = y;
+	data->plx = x + 0.001;
+	data->ply = y + 0.001;
 	dir = data->themap[y][x];
 	if (dir == 'N')
 		data->pla = (3 * PI) / 2;
