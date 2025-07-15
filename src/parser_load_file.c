@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:36:54 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/15 12:08:59 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_for_empty_line(char *str)
 }
 
 // split off error handling to shorten function.
-static int handle_error(char *line, t_maplst **head, int fd)
+static int	handle_error(char *line, t_maplst **head, int fd)
 {
 	while (line != NULL)
 	{
@@ -54,7 +54,7 @@ int	file_to_linkedlist(int fd, t_maplst **head)
 		{
 			new = ll_new_node(line);
 			if (!new)
-				return(handle_error(line, head, fd));
+				return (handle_error(line, head, fd));
 			else
 				ll_add_back(head, new);
 		}
