@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/17 18:02:58 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/17 18:08:45 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int	main(int argc, char **argv)
 
 	//end of program clean.
 	// mlx_terminate(data.mlx);
+
+	// add clean for textures here(end of program clean).
+	
 	clean_map_info(&data);
 	clean_2dchar_array(&data, data.mapheight);
 	return (0);
