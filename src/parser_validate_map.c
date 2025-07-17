@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 15:31:59 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/17 18:38:06 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	validate_that_map(t_vars *data)
 	if (check_if_enclosed(data) == 1)
 		return (ft_strerror("Error\nWalls do not enclose map."));
 	if (check_for_unreachable_tiles(data) == 1)
+	{
+		print_map_color(data->themap, data->mapheight);
 		return (ft_strerror("Error\nUnreachable tiles in map."));
+	}
 	reset_map_fields(data->themap);
 	return (0);
 }
