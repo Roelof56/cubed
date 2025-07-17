@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 17:16:18 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/17 17:47:36 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_vars
 	char			**map_info; // texture loc & colors
 	char			**themap;	// actual map
 	int				mapheight;	// y columns
-	int				mapwidth; // x -width = constant now.
+	int				mapwidth;	// x -width = constant now.
 	t_textures		textures;
 	double			plx; //player x location
 	double			ply; // player y location
