@@ -6,33 +6,35 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 21:23:41 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/17 16:34:04 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <sys/time.h>
 
-void	look_at_my_fps(t_vars *data)
-{
-	gettimeofday(&data->time_now, NULL);
 
-	long sec = data->time_now.tv_sec - data->time_prev.tv_sec;
-	long usec = data->time_now.tv_usec - data->time_prev.tv_usec;
-	data->deltatime = sec + usec / 1000000.0;
 
-	if (data->deltatime > 0)
-		data->fps = 1.0 / data->deltatime;
+static void	look_at_my_fps(t_vars *data)
+{	
+	gettimeofday(&data->fpsdata.time_now, NULL);
 
-	data->time_prev = data->time_now;
-	data->time_accum += data->deltatime;
-	data->frame_count++;
-	if (data->time_accum >= 1.0)
+	long sec = data->fpsdata.time_now.tv_sec - data->fpsdata.time_prev.tv_sec;
+	long usec = data->fpsdata.time_now.tv_usec - data->fpsdata.time_prev.tv_usec;
+	data->fpsdata.deltatime = sec + usec / 1000000.0;
+
+	if (data->fpsdata.deltatime > 0)
+		data->fpsdata.fps = 1.0 / data->fpsdata.deltatime;
+
+	data->fpsdata.time_prev = data->fpsdata.time_now;
+	data->fpsdata.time_accum += data->fpsdata.deltatime;
+	data->fpsdata.frame_count++;
+	if (data->fpsdata.time_accum >= 1.0)
 	{
-		data->fps = data->frame_count / data->time_accum;
-		printf("FPS: %.1f\n", data->fps);
-		data->frame_count = 0;
-		data->time_accum = 0.0;
+		data->fpsdata.fps = data->fpsdata.frame_count / data->fpsdata.time_accum;
+		printf("FPS: %.1f\n", data->fpsdata.fps);
+		data->fpsdata.frame_count = 0;
+		data->fpsdata.time_accum = 0.0;
 	}
 }
 
@@ -71,7 +73,7 @@ int	main(int argc, char **argv)
 		return (1);
 
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func
-	gettimeofday(&data.time_prev, NULL);
+	gettimeofday(&data.fpsdata.time_prev, NULL);
 	
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);

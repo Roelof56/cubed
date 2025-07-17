@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 21:16:32 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/17 16:33:08 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_color
 	int		a;
 }			t_color;
 
+/* textures & colors from file. */
 typedef struct s_textures 
 {
 	mlx_texture_t *no;
@@ -48,7 +49,18 @@ typedef struct s_textures
 	t_color c;
 }				t_textures;
 
-/* map data struct */
+/* for the temp fps counter. */
+typedef struct s_fpscount
+{
+	struct timeval	time_prev;
+	struct timeval	time_now;
+	double			deltatime;
+	double			fps;
+	double			time_accum;
+	int				frame_count;
+}					t_fpscount;
+
+/* map data struct. */
 typedef struct s_vars
 {
 	mlx_t			*mlx;
@@ -65,22 +77,17 @@ typedef struct s_vars
 	mlx_image_t		*minimap;
 	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
-	struct timeval	time_prev; //tmp fps
-	struct timeval	time_now; //tmp fps
-	double			deltatime; //tmp fps
-	double			fps; //tmp fps
-	double			time_accum; //tmp fps
-	int				frame_count; //tmp fps
+	t_fpscount		fpsdata;
 }				t_vars;
 
-/* linkedlist - for map import*/
+/* linkedlist - for map import. */
 typedef struct s_maplst
 {
 	char			*line;
 	struct s_maplst	*next;
 }					t_maplst;
 
-/* for bresenhams line algo */
+/* for bresenhams line algo. */
 typedef struct s_line
 {
 	int		x1; // Start point
