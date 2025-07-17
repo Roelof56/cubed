@@ -6,119 +6,134 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/15 15:45:57 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/17 10:38:39 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-#include <stdio.h>
+#include "ray_caster.h"
 
 // Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void	set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
 	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 		mlx_put_pixel(img, x, y, color);
 }
 
-// dda to calculate rays 
-static t_ray ray_wall(t_vars *data, double angle)
+static void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle)
 {
-    t_ray	ray;
-    double	ray_dir_x = cos(angle);
-    double	ray_dir_y = sin(angle);
+	dir->x = cos(angle);
+	dir->y = sin(angle);
+	map->x = (int)data->plx;
+	map->y = (int)data->ply;
+}
 
-    int		map_x = (int)data->plx;
-    int		map_y = (int)data->ply;
-
-    double	delta_dist_x = fabs(1.0 / ray_dir_x);
-    double	delta_dist_y = fabs(1.0 / ray_dir_y);
-    double	side_dist_x;
-	double	side_dist_y;
-
-	int		step_x = 0;
-	if (ray_dir_x < 0)
-		step_x = -1;
-	else
-		step_x = 1;
- 
-	int		step_y = 0;
-	if (ray_dir_y < 0)
-		step_y = -1;
-	else
-		step_y = 1;
-
-    if (ray_dir_x < 0)
-        side_dist_x = (data->plx - map_x) * delta_dist_x;
-    else
-        side_dist_x = (map_x + 1.0 - data->plx) * delta_dist_x;
-
-    if (ray_dir_y < 0)
-        side_dist_y = (data->ply - map_y) * delta_dist_y;
-    else
-        side_dist_y = (map_y + 1.0 - data->ply) * delta_dist_y;
-
-    int		hit = 0;
-	int		side;
-    while (!hit)
-    {
-        if (side_dist_x < side_dist_y)
-        {
-            side_dist_x += delta_dist_x;
-            map_x += step_x;
-            side = 0;
-        }
-        else
-        {
-            side_dist_y += delta_dist_y;
-            map_y += step_y;
-            side = 1;
-        }
-        if (data->themap[map_y][map_x] == '1')
-            hit = 1;
-    }
-
-    // PERPENDICULAR DISTANCE to the wall:
-    double	perp_wall_dist;
-    if (side == 0)
-        perp_wall_dist = (map_x - data->plx + (1 - step_x) / 2.0) / ray_dir_x;
-    else
+static void	init_step_data(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
+{
+	step->delta_x = fabs(1.0 / dir->x);
+	step->delta_y = fabs(1.0 / dir->y);
+	if (dir->x < 0)
 	{
-        perp_wall_dist = (map_y - data->ply + (1 - step_y) / 2.0) / ray_dir_y;
+		step->x = -1;
+		step->side_x = (data->plx - map->x) * step->delta_x;
 	}
+	else
+	{
+		step->x = 1;
+		step->side_x = (map->x + 1.0 - data->plx) * step->delta_x;
+	}
+	if (dir->y < 0)
+	{
+		step->y = -1;
+		step->side_y = (data->ply - map->y) * step->delta_y;
+	}
+	else
+	{
+		step->y = 1;
+		step->side_y = (map->y + 1.0 - data->ply) * step->delta_y;
+	}
+}
 
-	ray.hit_x = map_x;
-	ray.hit_y = map_y;
-    ray.distance = perp_wall_dist;
-    ray.side = side;
-    ray.line.x1 = (int)(data->plx * 32);
-    ray.line.y1 = (int)(data->ply * 32);
-    ray.line.x2 = (int)((data->plx + ray_dir_x * perp_wall_dist) * 32);
-    ray.line.y2 = (int)((data->ply + ray_dir_y * perp_wall_dist) * 32);
+static void	dda(t_vars *data, t_map *map, t_step *step)
+{
+	while (1)
+	{
+		if (step->side_x < step->side_y)
+		{
+			step->side_x += step->delta_x;
+			map->x += step->x;
+			map->side = 0;
+		}
+		else
+		{
+			step->side_y += step->delta_y;
+			map->y += step->y;
+			map->side = 1;
+		}
+		if (data->themap[map->y][map->x] == '1')
+			break ;
+	}
+}
 
-    return (ray);
+static double	calculate_distance(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
+{
+	if (map->side == 0)
+		return ((map->x - data->plx + (1 - step->x) / 2.0) / dir->x);
+	else
+		return ((map->y - data->ply + (1 - step->y) / 2.0) / dir->y);
+}
+
+static t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist)
+{
+	t_ray	ray;
+
+	ray.hit_x = map->x;
+	ray.hit_y = map->y;
+	ray.side = map->side;
+	ray.distance = dist;
+	ray.line.x1 = (int)(data->plx * 32);
+	ray.line.y1 = (int)(data->ply * 32);
+	ray.line.x2 = (int)((data->plx + dir->x * dist) * 32);
+	ray.line.y2 = (int)((data->ply + dir->y * dist) * 32);
+	return (ray);
+}
+
+static t_ray	ray_wall(t_vars *data, double angle)
+{
+	t_raydir	dir;
+	t_map		map;
+	t_step		step;
+	double		dist;
+
+	init_structs(data, &dir, &map, angle);
+	init_step_data(data, &dir, &map, &step);
+	dda(data, &map, &step);
+	dist = calculate_distance(data, &map, &step, &dir);
+	return (build_ray(data, &dir, &map, dist));
 }
 
 void	clear_image(mlx_image_t *img)
 {
-	uint32_t i = 0;
+	uint32_t	i;
+
+	i = 0;
 	while (i < img->width * img->height)
 	{
-		// Each pixel = 4 bytes (RGBA)
-		img->pixels[i * 4 + 0] = 0; // R
-		img->pixels[i * 4 + 1] = 0; // G
-		img->pixels[i * 4 + 2] = 0; // B
-		img->pixels[i * 4 + 3] = 0; // A
+		img->pixels[i * 4 + 0] = 0;
+		img->pixels[i * 4 + 1] = 0;
+		img->pixels[i * 4 + 2] = 0;
+		img->pixels[i * 4 + 3] = 0;
 		i++;
 	}
 }
 
-double normalize_angle(double angle)
+double	normalize_angle(double angle)
 {
-    while (angle < 0)
-        angle += 2 * PI;
-    while (angle >= 2 * PI)
-        angle -= 2 * PI;
-    return angle;
+	while (angle < 0)
+		angle += 2 * PI;
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
+	return (angle);
 }
 
 void draw_3d_view(t_vars *data)
@@ -239,3 +254,4 @@ void draw_3d_view(t_vars *data)
     }
 }
 
+		// Each pixel = 4 bytes (RGB		// Each pixel = 4 bytes (RGBA))
