@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/17 17:47:36 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/17 21:31:22 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define HEIGHT 1080
 # define PI 3.14159
 // # define SCALE 32	// old & unused
-
 # define MAPSCALE 16	// size of wall & floor blocks minimap
 # define VIEW 10			// ammount of blocks to draw arround player x & y
 
