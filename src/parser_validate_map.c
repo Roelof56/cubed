@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:45:14 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:28:44 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ static int	check_for_player_duplicates(char **themap)
 int	validate_that_map(t_vars *data)
 {
 	if (check_map_for_invalid_chars(data->themap) == 1)
-		return (ft_strerror("Error\nInvalid char on map."));
+		return (ft_strerror("Invalid char on map."));
 	if (check_walkable_space(data->themap) == 1)
-		return (ft_strerror("Error\nNo walkable space"));
+		return (ft_strerror("No walkable space"));
 	if (check_for_player_duplicates(data->themap) == 1)
-		return (ft_strerror("Error\nMore than 1 player on map"));
+		return (ft_strerror("More than 1 player on map"));
 	if (check_for_player(data, data->themap) == 1)
-		return (ft_strerror("Error\nNo player identifier on map"));
+		return (ft_strerror("No player identifier on map"));
 	if (check_if_enclosed(data) == 1)
-		return (ft_strerror("Error\nWalls do not enclose map."));
+		return (ft_strerror("Walls do not enclose map."));
 	reset_map_fields(data->themap);
 	return (0);
 }

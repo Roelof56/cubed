@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:22:06 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:28:18 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	main(int argc, char **argv)
 	t_vars	data;
 
 	if (argc != 2)
-		return (ft_strerror("Error\nGive 1 map argument please."));
+		return (ft_strerror("Give 1 map argument please."));
 	// if (start_mlx(&data) == 1) //changed order with import_mapfile
-	// 	return (ft_strerror("Error\nCould not start mlx instance.\n"));
+	// 	return (ft_strerror("Could not start mlx instance.\n"));
 	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
 		return (1);
 

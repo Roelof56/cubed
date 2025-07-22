@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/15 12:42:00 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/22 15:21:54 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:28:39 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	make_map_square(t_vars *data)
 	longest = find_longest_line(data->themap);
 	new = malloc((data->mapheight + 1) * sizeof(char *));
 	if (!new)
-		return (ft_strerror("Error\nMalloc failed."));
+		return (ft_strerror("Malloc failed."));
 	while (y < data->mapheight)
 	{
 		new[y] = strdup_to_len(data->themap[y], longest); // clean on error
 		if (!new[y])
-			return (ft_strerror("Error\nOn making map square."));
+			return (ft_strerror("On making map square."));
 		y++;
 	}
 	new[y] = NULL;

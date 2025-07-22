@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:23:59 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:28:00 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // print string return 1.
 int	ft_strerror(char *str)
 {
-	printf("%s\n", str);
+	printf("Error\n%s\n", str);
 	return (1);
 }
 
