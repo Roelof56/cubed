@@ -6,13 +6,13 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:37:27 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 14:45:55 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-// move to parser_utils ofzo ?
+// check if string has file extension - char *ext. for .cub & .png
 int	check_file_extension(char *str, char *ext)
 {
 	int		i;
@@ -38,7 +38,9 @@ int	check_file_extension(char *str, char *ext)
 	return (0);
 }
 
-static int error_clean(t_vars *data, t_maplst **head, int len)
+// handle cleaning for import_mapfile
+// from get_map_info & everything below it.
+static int	error_clean(t_vars *data, t_maplst **head, int len)
 {
 	ll_clean_list(head);
 	clean_map_info(data);
@@ -62,9 +64,9 @@ int	import_mapfile(t_vars *data, char *str)
 	if (file_to_linkedlist(fd, &head) == 1)
 		return (ft_strerror("Error\nFailed to copy file to linkedlist"));
 	if (get_map_info(head, data) == 1)
-		return(error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0));
 	if (load_that_map(data, head) == 1)
-		return(error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0));
 	if (validate_that_map(data) == 1)
 		return (error_clean(data, &head, (ll_listsize(head) - 6)));
 	if (make_map_square(data) == 1)

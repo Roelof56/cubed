@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/17 18:02:31 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/22 14:44:54 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int	save_to_struct(t_vars *data, int *intarr, int c)
 }
 
 // handle cleaning on error.
+// can i use one of my 2 other clean 2d char array funcs ? !
 static int	clean_split_array(char **cleanme)
 {
 	int	i;

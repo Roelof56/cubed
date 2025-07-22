@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:02:12 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 14:42:17 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	open_that_file(char *file, int *map_fd)
 	*map_fd = fd;
 	return (0);
 }
-
 
 // helper func to not import empty lines.
 // return 0 for empty
