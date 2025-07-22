@@ -63,7 +63,46 @@ static void	handle_front_back_movement(t_vars *data, int key)
 
 }
 
-static void	handle_side_movement(t_vars *data, int key)
+// static void	handle_side_movement(t_vars *data, int key)
+// {
+// 	float xo;
+// 	float yo;
+// 	float new_angle;
+// 	float new_pdx;
+// 	float new_pdy;
+
+// 	xo = 0.5;
+// 	yo = 0.5;
+// 	if (key == MLX_KEY_D)
+// 		new_angle = data->pla + (PI / 2);
+// 	if (key == MLX_KEY_A)
+// 		new_angle = data->pla - (PI / 2);
+	
+// 	new_angle = normalize_angle(new_angle);
+// 	new_pdx = cos(new_angle) * 5;
+// 	new_pdy = sin(new_angle) * 5;
+// 	if (new_pdx < 0)
+// 		xo = -0.5;
+// 	if (new_pdy < 0)
+// 		yo = -0.5;
+// 	if (key == MLX_KEY_D)
+// 	{
+// 		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
+// 			data->plx += -data->pdy / 60;
+// 		if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
+// 			data->ply += data->pdx / 60;
+// 	}
+// 	if (key == MLX_KEY_A)
+// 	{
+// 		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
+// 			data->plx += data->pdy / 60;
+// 		if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
+// 			data->ply += -data->pdx / 60;
+// 	}
+
+// }
+
+static void	handle_right_movement(t_vars *data)
 {
 	float xo;
 	float yo;
@@ -73,11 +112,7 @@ static void	handle_side_movement(t_vars *data, int key)
 
 	xo = 0.5;
 	yo = 0.5;
-	if (key == MLX_KEY_D)
-		new_angle = data->pla + (PI / 2);
-	if (key == MLX_KEY_A)
-		new_angle = data->pla - (PI / 2);
-	
+	new_angle = data->pla + (PI / 2);
 	new_angle = normalize_angle(new_angle);
 	new_pdx = cos(new_angle) * 5;
 	new_pdy = sin(new_angle) * 5;
@@ -85,22 +120,36 @@ static void	handle_side_movement(t_vars *data, int key)
 		xo = -0.5;
 	if (new_pdy < 0)
 		yo = -0.5;
-	if (key == MLX_KEY_D)
-	{
-		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
-			data->plx += -data->pdy / 60;
-		if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
-			data->ply += data->pdx / 60;
-	}
-	if (key == MLX_KEY_A)
-	{
-		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
-			data->plx += data->pdy / 60;
-		if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
-			data->ply += -data->pdx / 60;
-	}
-
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
+		data->plx += -data->pdy / 60;
+	if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
+		data->ply += data->pdx / 60;
 }
+
+static void	handle_left_movement(t_vars *data)
+{
+	float xo;
+	float yo;
+	float new_angle;
+	float new_pdx;
+	float new_pdy;
+
+	xo = 0.5;
+	yo = 0.5;
+	new_angle = data->pla - (PI / 2);
+	new_angle = normalize_angle(new_angle);
+	new_pdx = cos(new_angle) * 5;
+	new_pdy = sin(new_angle) * 5;
+	if (new_pdx < 0)
+		xo = -0.5;
+	if (new_pdy < 0)
+		yo = -0.5;
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')
+		data->plx += data->pdy / 60;
+	if (data->themap[(int)floor(data->ply + yo)][(int)floor(data->plx)] == '0')
+		data->ply += -data->pdx / 60;
+}
+
 
 void	input_hook(void *param)
 {
@@ -113,10 +162,14 @@ void	input_hook(void *param)
 		handle_front_back_movement(data, MLX_KEY_W);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		handle_front_back_movement(data, MLX_KEY_S);
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	// 	handle_side_movement(data, MLX_KEY_A);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		handle_side_movement(data, MLX_KEY_A);
+		handle_left_movement(data);
+	// if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	// 	handle_side_movement(data, MLX_KEY_D);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		handle_side_movement(data, MLX_KEY_D);
+		handle_right_movement(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		change_player_angle(data, 1);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

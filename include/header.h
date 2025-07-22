@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 17:19:27 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 17:37:17 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,17 @@ void		ll_add_back(t_maplst **head, t_maplst *new);
 int			ll_listsize(t_maplst *head);
 void		ll_clean_list(t_maplst **head);
 
+/* parser_square_map.c */
+int			make_map_square(t_vars *data);
+
+/* parser_textures.c */
+int			save_textures_in_struct(t_textures *dest, char **arr);
+int			enforce_texture_file_extension(char **arr);
+int			validate_texture_files(char **map_info);
+
+/* parser_import_color.c */
+int			get_colours(t_vars *data, char **cf);
+
 /* parser_get_mapinfo.c */
 int			get_map_info(t_maplst *head, t_vars *data);
 
@@ -161,16 +172,5 @@ double		normalize_angle(double angle);
 
 /* draw_small_minimap.c */
 void		draw_small_minimap(t_vars *data);
-
-/* parser_square_map.c */
-int			make_map_square(t_vars *data);
-
-/* parser_textures.c */
-int			save_textures_in_struct(t_textures *dest, char **arr);
-int			enforce_texture_file_extension(char **arr);
-int			validate_texture_files(char **map_info);
-
-/* parser_import_color.c */
-int			get_colours(t_vars *data, char **cf);
 
 #endif
