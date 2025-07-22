@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:28:34 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:39:55 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_file_extension(char *str, char *ext)
 	if (ft_strncmp(type, ext, 4) != 0)
 	{
 		free(type);
-		return (1);
+		return (ft_strerror("nvalid extension use '<name>.cub'"));
 	}
 	free(type);
 	return (0);
@@ -58,7 +58,7 @@ int	import_mapfile(t_vars *data, char *str)
 
 	head = NULL;
 	if (check_file_extension(str, ".cub") == 1)
-		return (ft_strerror("nvalid extension use '<name>.cub'"));
+		return (1);
 	if (open_that_file(str, &fd) == 1)
 		return (ft_strerror("Can't open file"));
 	if (file_to_linkedlist(fd, &head) == 1)
