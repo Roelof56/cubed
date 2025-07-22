@@ -6,13 +6,14 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 12:08:59 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 13:53:34 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // helper func to not import empty lines.
+// return 0 for empty
 static int	check_for_empty_line(char *str)
 {
 	int	i;

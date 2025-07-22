@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:01:04 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 17:01:39 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/22 13:50:41 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	*take_string(char *str)
 		len++;
 	if (str[len] == '\n')
 		len++;
-	nstr = malloc(len);
+	nstr = malloc(len + 1);
 	if (!nstr)
 		return (NULL);
 	while (str[i] != '\n' && str[i])
