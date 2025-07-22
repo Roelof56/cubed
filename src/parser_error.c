@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 19:08:18 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/22 15:28:00 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // print string return 1.
 int	ft_strerror(char *str)
 {
-	printf("%s\n", str);
+	printf("Error\n%s\n", str);
 	return (1);
 }
 
@@ -34,16 +34,32 @@ void	clean_map_info(t_vars *data)
 	free(data->map_info);
 }
 
-int	clean_2dchar_array(t_vars *data, int length)
+// new clean array that takes variable length 2d char array.
+int	clean_array(char **cleanme)
 {
 	int	i;
 
 	i = 0;
-	while (i < length)
-	{
-		free(data->themap[i]);
+	while (cleanme[i])
 		i++;
+	i -= 1;
+	while (i >= 0)
+	{
+		free(cleanme[i]);
+		i--;
 	}
-	free(data->themap);
+	free(cleanme);
 	return (1);
+}
+
+// clean textures & imgs 
+void	clean_textures(t_vars *data)
+{
+	mlx_delete_texture(data->textures.no);
+	mlx_delete_texture(data->textures.so);
+	mlx_delete_texture(data->textures.we);
+	mlx_delete_texture(data->textures.ea);
+	// mlx_delete_image(data->minimap);
+	// mlx_delete_image(data->minimapbg);
+	// mlx_delete_image(data->view3d);
 }

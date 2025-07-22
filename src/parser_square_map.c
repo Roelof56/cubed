@@ -6,12 +6,13 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/15 12:42:00 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/15 12:43:42 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:36:48 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
+// strdup but fill with spaces till desired length is reached
 char	*strdup_to_len(char *s, int len)
 {
 	int		i;
@@ -35,6 +36,8 @@ char	*strdup_to_len(char *s, int len)
 	return (dest);
 }
 
+// find longest line in map array
+// used for making map square.
 static int	find_longest_line(char **map)
 {
 	int	i;
@@ -65,16 +68,19 @@ int	make_map_square(t_vars *data)
 	longest = find_longest_line(data->themap);
 	new = malloc((data->mapheight + 1) * sizeof(char *));
 	if (!new)
-		return (ft_strerror("Error\nMalloc failed."));
+		return (ft_strerror("Malloc failed."));
 	while (y < data->mapheight)
 	{
 		new[y] = strdup_to_len(data->themap[y], longest);
 		if (!new[y])
-			return (ft_strerror("Error\nOn making map square."));
+		{
+			clean_array(new);
+			return (ft_strerror("On making map square."));
+		}
 		y++;
 	}
 	new[y] = NULL;
-	clean_2dchar_array(data, y + 1);
+	clean_array(data->themap);
 	data->themap = new;
 	data->mapwidth = longest;
 	return (0);

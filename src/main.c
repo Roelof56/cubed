@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/09 17:09:04 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/22 15:45:49 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,21 @@ int	main(int argc, char **argv)
 	t_vars	data;
 
 	if (argc != 2)
-		return (ft_strerror("Error\nGive 1 map argument please."));
-	if (start_mlx(&data) == 1) //changed order with import_mapfile
-		return (ft_strerror("Error\nCould not start mlx instance.\n"));
-	if (import_mapfile(&data, argv[1]) == 1) //maybe neat close mlx on error in here.
+		return (ft_strerror("Give 1 map argument please."));
+	if (start_mlx(&data) == 1)
+		return (ft_strerror("Could not start mlx instance.\n"));
+	if (import_mapfile(&data, argv[1]) == 1)
+	{
+		printf("exit mlx maybe ?\n");
 		return (1);
-
-	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // move to init func
+	}
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
 
 	//end of program clean.
 	mlx_terminate(data.mlx);
+	clean_textures(&data);
 	clean_map_info(&data);
-	clean_2dchar_array(&data, data.mapheight);
+	clean_array(data.themap);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/14 22:44:22 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:22:53 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,14 @@ int	get_colours(t_vars *data, char **cf)
 	{
 		split = ft_split(cf[i], ',');
 		if (check_array_length(split) == 1)
-			return (1);
+			return (clean_array(split));
 		convert_to_intarray(split, intarr);
 		if (are_those_ints_in_range(intarr) == 1)
-			return (1);
+			return (clean_array(split));
 		if (save_to_struct(data, intarr, i) == 1)
-			return (1);
+			return (clean_array(split));
 		i++;
+		clean_array(split);
 	}
 	return (0);
 }

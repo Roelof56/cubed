@@ -24,5 +24,6 @@ int	start_mlx(t_vars *data)
 	if (!data->mlx)
 		return (1);
 	init_mlx_images(data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	return (0);
 }
