@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:27:33 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:23:59 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,21 @@ void	clean_map_info(t_vars *data)
 	free(data->map_info);
 }
 
-int	clean_2dchar_array(t_vars *data, int length)
+// new clean array that takes variable length 2d char array.
+int	clean_array(char **cleanme)
 {
 	int	i;
 
 	i = 0;
-	while (i < length)
-	{
-		free(data->themap[i]);
+	while (cleanme[i])
 		i++;
+	i -= 1;
+	while (i >= 0)
+	{
+		free(cleanme[i]);
+		i--;
 	}
-	free(data->themap);
+	free(cleanme);
 	return (1);
 }
 

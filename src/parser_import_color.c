@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/22 14:44:54 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:22:53 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,6 @@ static int	save_to_struct(t_vars *data, int *intarr, int c)
 	return (0);
 }
 
-// handle cleaning on error.
-// can i use one of my 2 other clean 2d char array funcs ? !
-static int	clean_split_array(char **cleanme)
-{
-	int	i;
-
-	i = 0;
-	while (cleanme[i])
-		i++;
-	i -= 1;
-	while (i >= 0)
-	{
-		free(cleanme[i]);
-		i--;
-	}
-	free(cleanme);
-	return (1);
-}
-
 // get color numbers from mapfile
 // save em in color struct in data.
 int	get_colours(t_vars *data, char **cf)
@@ -108,14 +89,14 @@ int	get_colours(t_vars *data, char **cf)
 	{
 		split = ft_split(cf[i], ',');
 		if (check_array_length(split) == 1)
-			return (clean_split_array(split));
+			return (clean_array(split));
 		convert_to_intarray(split, intarr);
 		if (are_those_ints_in_range(intarr) == 1)
-			return (clean_split_array(split));
+			return (clean_array(split));
 		if (save_to_struct(data, intarr, i) == 1)
-			return (clean_split_array(split));
+			return (clean_array(split));
 		i++;
-		clean_split_array(split);
+		clean_array(split);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:37 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:31:24 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:22:03 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	load_that_map(t_vars *data, t_maplst *head)
 	{
 		data->themap[i] = ft_strdup(cpy->line);
 		if (!data->themap[i])
-			return (clean_2dchar_array(data, i));
+			return (clean_array(data->themap));
 		i++;
 		cpy = cpy->next;
 	}

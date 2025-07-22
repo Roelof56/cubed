@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:27:44 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:24:03 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ typedef struct	s_ray
 	t_line	line; // line from player to hit point (for 2D drawing)
 }	t_ray;
 
-/* error.c */
+/* parser_error.c */
 int			ft_strerror(char *str);
 void		clean_map_info(t_vars *data);
-int			clean_2dchar_array(t_vars *data, int length);
 void		clean_textures(t_vars *data);
+int			clean_array(char **cleanme);
 
 /* parser_main.c */
 int			check_file_extension(char *str, char *ext);

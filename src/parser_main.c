@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:45:55 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:22:00 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	error_clean(t_vars *data, t_maplst **head, int len)
 	clean_map_info(data);
 	clean_textures(data);
 	if (len > 0)
-		clean_2dchar_array(data, len);
+		clean_array(data->themap);
 	return (1);
 }
 

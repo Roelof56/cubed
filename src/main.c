@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 14:36:13 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 15:22:06 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int	main(int argc, char **argv)
 	// add clean for textures here(end of program clean).
 	clean_textures(&data);
 	clean_map_info(&data);
-	clean_2dchar_array(&data, data.mapheight);
+	clean_array(data.themap);
 	return (0);
 }
