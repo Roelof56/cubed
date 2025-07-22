@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:24:03 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 17:19:27 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,11 @@ int			check_if_enclosed(t_vars *data);
 int			print_2d_char_array(char **map, int len);
 int			print_map_color(char **map, int len);
 
-/*_ init_mlx.c _*/
+/* init_mlx.c */
 int			init_mlx_images(t_vars *data);
 int			start_mlx(t_vars *data);
 
-/* key_input_handler.c */
+/* input.c */
 void		change_player_angle(t_vars *data, int dir);
 void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
@@ -157,7 +157,7 @@ void		fill_image_color(mlx_image_t *img, uint32_t color);
 double		degree_to_radians(double degree);
 // void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);
-double		normalize_angle(double angle); //thanks, needed for parser.
+double		normalize_angle(double angle);
 
 /* draw_small_minimap.c */
 void		draw_small_minimap(t_vars *data);

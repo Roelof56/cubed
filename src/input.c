@@ -19,23 +19,20 @@ void	change_player_angle(t_vars *data, int dir)
 	data->pdy = sin(data->pla) * 5;
 }
 
-//todo: Find way to keep mouse in screen.
+// a bit more smooth edition
 void mouse_hook(double xpos, double ypos, void *param)
 {
-	(void) ypos;
-	(void) xpos;
-	(void) param;
+	double	center;
+	t_vars	*data;
 
-	t_vars			*data;
-	static double	lastpos;
-
+	(void)ypos;
 	data = (t_vars *)param;
-	if (lastpos > xpos)
+	center = WIDTH / 2;
+	if (xpos + 30 < center)
 		change_player_angle(data, 0);
-	if (lastpos < xpos)
+	else if (xpos - 30 > center)
 		change_player_angle(data, 1);
-	lastpos = xpos;
-	mlx_set_mouse_pos(data->mlx, WIDTH / 2, HEIGHT / 2); // keep mouse in screen.
+	mlx_set_mouse_pos(data->mlx, center, HEIGHT / 2);
 }
 
 static void	handle_front_back_movement(t_vars *data, int key)
@@ -78,23 +75,16 @@ static void	handle_side_movement(t_vars *data, int key)
 	yo = 0.5;
 	if (key == MLX_KEY_D)
 		new_angle = data->pla + (PI / 2);
-	
 	if (key == MLX_KEY_A)
 		new_angle = data->pla - (PI / 2);
 	
-	if (new_angle > (2 * PI))
-		new_angle -= (2 * PI); //make general normalize angle function, cause i do this a lot.
-	if (new_angle < 0)
-		new_angle += (2 * PI);
-
+	new_angle = normalize_angle(new_angle);
 	new_pdx = cos(new_angle) * 5;
 	new_pdy = sin(new_angle) * 5;
-
 	if (new_pdx < 0)
 		xo = -0.5;
 	if (new_pdy < 0)
 		yo = -0.5;
-
 	if (key == MLX_KEY_D)
 	{
 		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + xo)] == '0')

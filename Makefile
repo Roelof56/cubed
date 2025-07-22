@@ -22,7 +22,7 @@ SRCS		:=	main.c \
 				parser_floodfill.c \
 				parser_printer.c \
 				init_mlx.c \
-				key_input_handler.c \
+				input.c \
 				draw_utils_bresenham.c \
 				draw_utils.c \
 				draw_fov.c \
