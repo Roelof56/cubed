@@ -6,36 +6,36 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/17 18:38:06 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/22 13:00:43 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // after floodfilling to '2s' -> check if there are zeros on map
-static int	check_for_unreachable_tiles(t_vars *data)
-{
-	int		i;
-	int		j;
+// static int	check_for_unreachable_tiles(t_vars *data)
+// {
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	j = 0;
-	while (data->themap[i] != NULL)
-	{
-		while (data->themap[i][j] != '\0')
-		{
-			if (data->themap[i][j] == '0')
-			{
-				data->themap[i][j] = '5';
-				return (1);
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (data->themap[i] != NULL)
+// 	{
+// 		while (data->themap[i][j] != '\0')
+// 		{
+// 			if (data->themap[i][j] == '0')
+// 			{
+// 				data->themap[i][j] = '5';
+// 				return (1);
+// 			}
+// 			j++;
+// 		}
+// 		j = 0;
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 // error out if no walkable tiles in map
 static int	check_walkable_space(char **map)
@@ -104,11 +104,11 @@ int	validate_that_map(t_vars *data)
 		return (ft_strerror("Error\nNo player identifier on map"));
 	if (check_if_enclosed(data) == 1)
 		return (ft_strerror("Error\nWalls do not enclose map."));
-	if (check_for_unreachable_tiles(data) == 1)
-	{
-		print_map_color(data->themap, data->mapheight);
-		return (ft_strerror("Error\nUnreachable tiles in map."));
-	}
+	// if (check_for_unreachable_tiles(data) == 1)
+	// {
+	// 	print_map_color(data->themap, data->mapheight);
+	// 	return (ft_strerror("Error\nUnreachable tiles in map."));
+	// }
 	reset_map_fields(data->themap);
 	return (0);
 }
