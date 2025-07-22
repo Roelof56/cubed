@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/21 20:14:04 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 14:36:13 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@
 // 	draw_hook(data); // draw minimap & draw 3d cast
 // }
 
-// clean textures & imgs 
-static void	clean_textures(t_vars *data)
-{
-	mlx_delete_texture(data->textures.no);
-	mlx_delete_texture(data->textures.so);
-	mlx_delete_texture(data->textures.we);
-	mlx_delete_texture(data->textures.ea);
-	// mlx_delete_image(data->minimap);
-	// mlx_delete_image(data->minimapbg);
-	// mlx_delete_image(data->view3d);
-}
 
 int	main(int argc, char **argv)
 {

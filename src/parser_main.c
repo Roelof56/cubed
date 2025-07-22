@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 12:10:57 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 14:37:27 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,14 @@ int	check_file_extension(char *str, char *ext)
 	return (0);
 }
 
-static int	open_that_file(char *file, int *map_fd)
+static int error_clean(t_vars *data, t_maplst **head, int len)
 {
-	int	fd;
-
-	fd = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		*map_fd = -1;
-		return (1);
-	}
-	*map_fd = fd;
-	return (0);
+	ll_clean_list(head);
+	clean_map_info(data);
+	clean_textures(data);
+	if (len > 0)
+		clean_2dchar_array(data, len);
+	return (1);
 }
 
 // maybe move map square.
@@ -67,31 +62,13 @@ int	import_mapfile(t_vars *data, char *str)
 	if (file_to_linkedlist(fd, &head) == 1)
 		return (ft_strerror("Error\nFailed to copy file to linkedlist"));
 	if (get_map_info(head, data) == 1)
-	{
-		ll_clean_list(&head);
-		clean_map_info(data);
-		return (1);
-	}
+		return(error_clean(data, &head, 0));
 	if (load_that_map(data, head) == 1)
-	{
-		ll_clean_list(&head);
-		clean_map_info(data);
-		return (1);
-	}
+		return(error_clean(data, &head, 0));
 	if (validate_that_map(data) == 1)
-	{
-		clean_map_info(data);
-		clean_2dchar_array(data, (ll_listsize(head) - 6));
-		ll_clean_list(&head);
-		return (1);
-	}
+		return (error_clean(data, &head, (ll_listsize(head) - 6)));
 	if (make_map_square(data) == 1)
-	{
-		clean_map_info(data);
-		clean_2dchar_array(data, (ll_listsize(head) - 6));
-		ll_clean_list(&head);
-		return (1);
-	}
+		return (error_clean(data, &head, (ll_listsize(head) - 6)));
 	ll_clean_list(&head);
 	return (0);
 }

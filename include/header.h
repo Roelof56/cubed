@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/17 21:31:22 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 14:27:44 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ typedef struct	s_ray
 int			ft_strerror(char *str);
 void		clean_map_info(t_vars *data);
 int			clean_2dchar_array(t_vars *data, int length);
+void		clean_textures(t_vars *data);
 
 /* parser_main.c */
 int			check_file_extension(char *str, char *ext);
 int			import_mapfile(t_vars *data, char *str);
 
 /* parser_load_file.c */
+int			open_that_file(char *file, int *map_fd);
 int			file_to_linkedlist(int fd, t_maplst **head);
 
 /* new_linkedlist.c */
@@ -170,4 +172,5 @@ int			validate_texture_files(char **map_info);
 
 /* parser_import_color.c */
 int			get_colours(t_vars *data, char **cf);
+
 #endif
