@@ -6,14 +6,14 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/22 18:53:19 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/22 18:53:24 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 18:55:44 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // a bit more smooth edition
-void mouse_hook(double xpos, double ypos, void *param)
+void	mouse_hook(double xpos, double ypos, void *param)
 {
 	double	center;
 	t_vars	*data;
