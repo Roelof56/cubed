@@ -21,15 +21,16 @@ SRCS		:=	main.c \
 				parser_validate_utils.c \
 				parser_floodfill.c \
 				parser_printer.c \
+				parser_import_color.c \
+				parser_square_map.c \
+				parser_textures.c \
 				init_mlx.c \
 				input.c \
+				input_mouse.c \
 				draw_utils_bresenham.c \
 				draw_utils.c \
 				draw_fov.c \
-				parser_square_map.c \
-				parser_textures.c \
-				draw_small_minimap.c \
-				parser_import_color.c
+				draw_small_minimap.c
 
 
 OBJ			:=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 17:37:17 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/22 18:53:32 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,10 @@ int			start_mlx(t_vars *data);
 
 /* input.c */
 void		change_player_angle(t_vars *data, int dir);
-void		mouse_hook(double xpos, double ypos, void *param);
 void		input_hook(void *param);
+
+/* input_mouse.c */
+void		mouse_hook(double xpos, double ypos, void *param);
 
 /* draw_utils_bresenham.c */
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
