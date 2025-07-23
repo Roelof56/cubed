@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/17 17:08:19 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/23 09:44:23 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,22 +290,108 @@ static mlx_texture_t *get_wall_texture(t_vars *data, int side, double angle)
 	}
 }
 
-static t_texinfo	prepare_texture(t_ray *info, double angle, t_proj *proj, t_vars *data, mlx_texture_t *tex)
+static t_texinfo prepare_texture_info(t_tex_input *in)
 {
-	t_texinfo	tinfo;
-	double		wall_x;
-
-	if (info->side == 0)
-		wall_x = data->ply + proj->raw_dist * sin(angle);
+	t_texinfo tinfo;
+	double wall_x;
+	
+	if (in->info->side == 0)
+		wall_x = in->data->ply + in->proj->raw_dist * sin(in->angle);
 	else
-		wall_x = data->plx + proj->raw_dist * cos(angle);
+		wall_x = in->data->plx + in->proj->raw_dist * cos(in->angle);
 	wall_x -= floor(wall_x);
-	tinfo.tex = tex;
-	tinfo.tex_x = (int)(wall_x * tex->width);
-	if ((info->side == 0 && cos(angle) > 0) || (info->side == 1 && sin(angle) < 0))
-		tinfo.tex_x = tex->width - tinfo.tex_x - 1;
-	tinfo.step = (double)tex->height / proj->line_height;
-	tinfo.pos = (proj->start - data->view3d->height / 2 + proj->line_height / 2) * tinfo.step;
+	tinfo.tex = in->tex;
+	tinfo.tex_x = (int)(wall_x * in->tex->width);
+	if ((in->info->side == 0 && cos(in->angle) > 0) ||
+		(in->info->side == 1 && sin(in->angle) < 0))
+		tinfo.tex_x = in->tex->width - tinfo.tex_x - 1;
+	tinfo.step = (double)in->tex->height / in->proj->line_height;
+	tinfo.pos = (in->proj->start - (int)(in->data->view3d->height / 2)
+				+ (in->proj->line_height / 2)) * tinfo.step;
 	return (tinfo);
 }
+
+static void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
+{
+	int			y;
+	uint32_t	ceil_color;
+	uint32_t	floor_col;
+
+	y = 0;
+	ceil_color = ft_get_rgba(data->textures.c);
+	while (y < proj->start)
+		set_pixel(data->view3d, px, y++, ceil_color);
+	y = proj->end;
+	floor_col = 0;
+	while (y < (int)data->view3d->height)
+		set_pixel(data->view3d, px, y++, floor_col);
+}
+
+static void	draw_wall(t_vars*data, int px, t_render_data *r)
+{
+	int			y;
+	int			tex_y;
+	int			i;
+	uint8_t		r_val;
+	uint8_t		g;
+	uint8_t		b;
+	uint8_t		a;
+	uint32_t	color;
+
+	y = r->proj->start;
+	while (y < r->proj->end)
+	{
+		tex_y = (int)(r->tinfo->pos);
+		r->tinfo->pos += r->tinfo->step;
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= (int)r->tinfo->tex->height)
+			tex_y = r->tinfo->tex->height - 1;
+		i = (tex_y * r->tinfo->tex->width + r->tinfo->tex_x) * 4;
+		r_val = r->tinfo->tex->pixels[i];
+		g = r->tinfo->tex->pixels[i + 1];
+		b = r->tinfo->tex->pixels[i + 2];
+		a = r->tinfo->tex->pixels[i + 3];
+		if (r->info->side == 1)
+		{
+			r_val *= 0.7;
+			g *= 0.7;
+			b *= 0.7;
+		}
+		color = (r_val << 24) | (g << 16) | (b << 8) | a;
+		set_pixel(data->view3d, px, y++, color);
+	}
+}
+
+static void	draw_slice(t_vars *data, int px, t_render_data *r)
+{
+	draw_ceiling_and_floor(data, px, r->proj);
+	draw_wall(data, px, r);
+}
+
+void draw_3d_view(t_vars *data)
+{
+	int		screen_w = data->view3d->width;
+	int		screen_h = data->view3d->height;
+	double	fov = PI / 3.0;
+	double	start_a = data->pla - fov / 2.0;
+
+	clear_image(data->view3d);
+	for (int px = 0; px < screen_w; px++)
+	{
+		double ray_frac = (double)px / (double)screen_w;
+		double angle = normalize_angle(start_a + ray_frac * fov);
+		t_ray info = ray_wall(data, angle);
+		t_proj proj = project(&info, angle, screen_h, data);
+		mlx_texture_t *tex = get_wall_texture(data, info.side, angle);
+
+		t_tex_input tin = { .info = &info, .angle = angle, .proj = &proj, .data = data, .tex = tex };
+		t_texinfo tinfo = prepare_texture_info(&tin);
+
+		t_render_data rdata = { .proj = &proj, .tinfo = &tinfo, .info = &info };
+		draw_slice(data, px, &rdata);
+	}
+}
+
+
 
