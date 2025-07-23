@@ -6,14 +6,14 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 12:08:25 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/23 16:36:21 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
 
-static t_ray	ray_wall(t_vars *data, double angle)
+t_ray	ray_wall(t_vars *data, double angle)
 {
 	t_raydir	dir;
 	t_map		map;

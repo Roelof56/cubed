@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/23 10:23:17 by jaimeilustr   ########   odam.nl         */
+/*   Updated: 2025/07/23 16:48:36 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct	s_ray
 	double	distance; // perpedicular distance from player's position to the point where the ray hits the wall
 	int		side; // 0 = vertical wall (NS), 1 = horizontal (EW)
 	t_line	line; // line from player to hit point (for 2D drawing)
+	double		wall_hit_x;
+	double		wall_hit_y;
 }	t_ray;
 
 /* error.c */

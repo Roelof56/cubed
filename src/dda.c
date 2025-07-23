@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:05:00 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 12:07:07 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/23 16:45:03 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist)
 	ray.hit_y = map->y;
 	ray.side = map->side;
 	ray.distance = dist;
+	ray.wall_hit_x = data->plx + dir->x * dist;
+	ray.wall_hit_y = data->ply + dir->y * dist;
 	ray.line.x1 = (int)(data->plx * 32);
 	ray.line.y1 = (int)(data->ply * 32);
 	ray.line.x2 = (int)((data->plx + dir->x * dist) * 32);

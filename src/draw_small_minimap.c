@@ -6,11 +6,12 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/10 08:07:04 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/23 16:47:03 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+#include "ray_caster.h"
 
 // Outline img -> tmp for placement in window
 static void draw_image_outline(mlx_image_t *img, uint32_t color)
@@ -80,59 +81,73 @@ static void draw_block(t_vars *data, float tilex, float tiley, uint32_t color)
 }
 
 // change this out for new DDA logic.
-static t_line get_line_coordinates(t_vars *data, double angle)
+// static t_line get_line_coordinates(t_vars *data, double angle)
+// {
+// 	t_line	line;
+
+// 	double	ray_x = data->plx;
+// 	double	ray_y = data->ply;
+
+// 	double	dx = cos(angle);
+// 	double	dy = sin(angle);
+// 	double	step = 0.05;
+// 	int		map_x; 
+// 	int		map_y;
+// 	double	distance = 0;
+
+// 	line.x1 = data->layer1->width / 2; // change to img center where player is.
+// 	line.y1 = data->layer1->height / 2;
+
+// 	while (distance < VIEW + 5)
+// 	{
+// 		ray_x += dx * step;
+// 		ray_y += dy * step;
+// 		map_x = (int)(ray_x);
+// 		map_y = (int)(ray_y);
+// 		distance += step;
+// 		if (data->themap[map_y][map_x] == '1')
+// 			break;
+// 	}
+
+// 	// add middle-player-position offset to endpoints ? - yes
+// 	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * MAPSCALE;
+// 	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * MAPSCALE;
+
+// 	return (line);
+// }
+
+static t_line get_minimap_fov_line(t_vars *data, double angle)
 {
 	t_line	line;
+	t_ray	ray = ray_wall(data, angle);
 
-	double	ray_x = data->plx;
-	double	ray_y = data->ply;
-
-	double	dx = cos(angle);
-	double	dy = sin(angle);
-	double	step = 0.05;
-	int		map_x; 
-	int		map_y;
-	double	distance = 0;
-
-	line.x1 = data->layer1->width / 2; // change to img center where player is.
+	line.x1 = data->layer1->width / 2;
 	line.y1 = data->layer1->height / 2;
-
-	while (distance < VIEW + 5)
-	{
-		ray_x += dx * step;
-		ray_y += dy * step;
-		map_x = (int)(ray_x);
-		map_y = (int)(ray_y);
-		distance += step;
-		if (data->themap[map_y][map_x] == '1')
-			break;
-	}
-
-	// add middle-player-position offset to endpoints ? - yes
-	line.x2 = data->layer1->width / 2 + (ray_x - data->plx) * MAPSCALE;
-	line.y2 = data->layer1->height / 2 + (ray_y - data->ply) * MAPSCALE;
-
+	double dx = ray.wall_hit_x - data->plx;
+	double dy = ray.wall_hit_y - data->ply;
+	line.x2 = line.x1 + dx * MAPSCALE;
+	line.y2 = line.y1 + dy * MAPSCALE;
 	return (line);
 }
 
 //draw fovlines. maybe use 1 degree to rad as step ? 
-void	draw_fov_minimap(t_vars *data)
+void draw_fov_minimap(t_vars *data)
 {
-	const int num_rays = 60;  // number of rays
-	const double fov = PI / 3;  // 60 degrees field of view
-	const double start_angle = data->pla - fov / 2;
+	const int num_rays = 60;
+	const double fov = PI / 3.0;
+	const double start_angle = data->pla - fov / 2.0;
 	const double step = fov / num_rays;
-	int	i = 0;
-	t_line line;
+	int i = 0;
 
 	while (i < num_rays)
 	{
-		double angle = start_angle + i * step;
-		line = get_line_coordinates(data, angle);
+		double angle = normalize_angle(start_angle + i * step);
+		t_line line = get_minimap_fov_line(data, angle);
 		bresenham_line(data->layer1, line, 0xFFFFFF);
 		i++;
 	}
 }
+
 
 void	fill_minimap_background(mlx_image_t *img, uint32_t color)
 {
