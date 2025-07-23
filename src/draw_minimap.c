@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 12:36:22 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/23 12:42:16 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	draw_fov_minimap(t_vars *data)
 }
 
 //set draw_minimap_vars - norm made me do it.
-static void set_draw_minimap_vars(t_mmdata *mmdata, float plx, float ply)
+static void	set_draw_minimap_vars(t_mmdata *mmdata, float plx, float ply)
 {
 	mmdata->tilex = plx + mmdata->offsetx;
 	mmdata->tiley = ply + mmdata->offsety;
