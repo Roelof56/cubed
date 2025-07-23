@@ -6,90 +6,12 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 10:31:18 by jaimeilustr   ########   odam.nl         */
+/*   Updated: 2025/07/23 12:08:25 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
-
-static void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle)
-{
-	dir->x = cos(angle);
-	dir->y = sin(angle);
-	map->x = (int)data->plx;
-	map->y = (int)data->ply;
-}
-
-static void	init_step_data(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
-{
-	step->delta_x = fabs(1.0 / dir->x);
-	step->delta_y = fabs(1.0 / dir->y);
-	if (dir->x < 0)
-	{
-		step->x = -1;
-		step->side_x = (data->plx - map->x) * step->delta_x;
-	}
-	else
-	{
-		step->x = 1;
-		step->side_x = (map->x + 1.0 - data->plx) * step->delta_x;
-	}
-	if (dir->y < 0)
-	{
-		step->y = -1;
-		step->side_y = (data->ply - map->y) * step->delta_y;
-	}
-	else
-	{
-		step->y = 1;
-		step->side_y = (map->y + 1.0 - data->ply) * step->delta_y;
-	}
-}
-
-static void	dda(t_vars *data, t_map *map, t_step *step)
-{
-	while (1)
-	{
-		if (step->side_x < step->side_y)
-		{
-			step->side_x += step->delta_x;
-			map->x += step->x;
-			map->side = 0;
-		}
-		else
-		{
-			step->side_y += step->delta_y;
-			map->y += step->y;
-			map->side = 1;
-		}
-		if (data->themap[map->y][map->x] == '1')
-			break ;
-	}
-}
-
-static double	calculate_distance(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
-{
-	if (map->side == 0)
-		return ((map->x - data->plx + (1 - step->x) / 2.0) / dir->x);
-	else
-		return ((map->y - data->ply + (1 - step->y) / 2.0) / dir->y);
-}
-
-static t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist)
-{
-	t_ray	ray;
-
-	ray.hit_x = map->x;
-	ray.hit_y = map->y;
-	ray.side = map->side;
-	ray.distance = dist;
-	ray.line.x1 = (int)(data->plx * 32);
-	ray.line.y1 = (int)(data->ply * 32);
-	ray.line.x2 = (int)((data->plx + dir->x * dist) * 32);
-	ray.line.y2 = (int)((data->ply + dir->y * dist) * 32);
-	return (ray);
-}
 
 static t_ray	ray_wall(t_vars *data, double angle)
 {
@@ -99,9 +21,9 @@ static t_ray	ray_wall(t_vars *data, double angle)
 	double		dist;
 
 	init_structs(data, &dir, &map, angle);
-	init_step_data(data, &dir, &map, &step);
+	init_step(data, &dir, &map, &step);
 	dda(data, &map, &step);
-	dist = calculate_distance(data, &map, &step, &dir);
+	dist = calc_dist(data, &map, &step, &dir);
 	return (build_ray(data, &dir, &map, dist));
 }
 
@@ -123,7 +45,7 @@ static t_proj	project(t_ray *info, double angle, int screen_h, t_vars *data)
 	return (proj);
 }
 
-static mlx_texture_t *get_wall_texture(t_vars *data, int side, double angle)
+static mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 {
 	if (side == 0)
 	{
@@ -141,11 +63,11 @@ static mlx_texture_t *get_wall_texture(t_vars *data, int side, double angle)
 	}
 }
 
-static t_texinfo prepare_texture_info(t_tex_input *in)
+static t_texinfo	prepare_texture_info(t_tex_input *in)
 {
-	t_texinfo tinfo;
-	double wall_x;
-	
+	t_texinfo	tinfo;
+	double		wall_x;
+
 	if (in->info->side == 0)
 		wall_x = in->data->ply + in->proj->raw_dist * sin(in->angle);
 	else
@@ -153,12 +75,12 @@ static t_texinfo prepare_texture_info(t_tex_input *in)
 	wall_x -= floor(wall_x);
 	tinfo.tex = in->tex;
 	tinfo.tex_x = (int)(wall_x * in->tex->width);
-	if ((in->info->side == 0 && cos(in->angle) > 0) ||
-		(in->info->side == 1 && sin(in->angle) < 0))
+	if ((in->info->side == 0 && cos(in->angle) > 0)
+		|| (in->info->side == 1 && sin(in->angle) < 0))
 		tinfo.tex_x = in->tex->width - tinfo.tex_x - 1;
 	tinfo.step = (double)in->tex->height / in->proj->line_height;
 	tinfo.pos = (in->proj->start - (int)(in->data->view3d->height / 2)
-				+ (in->proj->line_height / 2)) * tinfo.step;
+			+ (in->proj->line_height / 2)) * tinfo.step;
 	return (tinfo);
 }
 
@@ -220,13 +142,15 @@ static void	draw_slice(t_vars *data, int px, t_render_data *r)
 	draw_wall(data, px, r);
 }
 
-void draw_3d_view(t_vars *data)
+void	draw_3d_view(t_vars *data)
 {
 	int				screen_w;
 	int				screen_h;
 	double			fov;
 	double			start_a;
 	int				px;
+	double			ray_frac;
+	double			angle;
 	t_ray			info;
 	t_proj			proj;
 	t_tex_input		tin;
@@ -242,8 +166,8 @@ void draw_3d_view(t_vars *data)
 	px = 0;
 	while (px < screen_w)
 	{
-		double ray_frac = (double)px / (double)screen_w;
-		double angle = normalize_angle(start_a + ray_frac * fov);
+		ray_frac = (double)px / (double)screen_w;
+		angle = normalize_angle(start_a + ray_frac * fov);
 		info = ray_wall(data, angle);
 		proj = project(&info, angle, screen_h, data);
 		tex = get_wall_texture(data, info.side, angle);
@@ -260,6 +184,3 @@ void draw_3d_view(t_vars *data)
 		px++;
 	}
 }
-
-
-

@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 09:43:44 by jaimeilustr   ########   odam.nl         */
+/*   Updated: 2025/07/23 12:07:58 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,11 @@ typedef struct s_render_data
 	t_texinfo	*tinfo;
 	t_ray		*info;
 }	t_render_data;
+
+void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle);
+void	init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step);
+void	dda(t_vars *data, t_map *map, t_step *step);
+double	calc_dist(t_vars *data, t_map *map, t_step *step, t_raydir *dir);
+t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist);
 
 #endif
