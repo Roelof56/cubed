@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 12:42:16 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/23 12:47:37 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static t_line get_line_coordinates(t_vars *data, double angle)
 	return (line);
 }
 
-//draw fovlines. maybe use 1 degree to rad as step ? 
+//draw fovlines old -> Get new from 3dview.
 void	draw_fov_minimap(t_vars *data)
 {
 	const int num_rays = 60;  // number of rays
@@ -154,40 +154,3 @@ void	draw_minimap(t_vars *data)
 	}
 	draw_fov_minimap(data);
 }
-
-//draw walls/floors arround player.
-// else if (data->themap[map_y][map_x] == 'D')
-// 	draw_filled_block(data, tile_x, tile_y, 0xFF0000FF);
-// void	draw_minimap(t_vars *data)
-// {
-// 	int		offset_x;
-// 	int		offset_y;
-// 	float	tile_x;
-// 	float	tile_y;
-// 	int		map_x;
-// 	int		map_y;
-
-// 	clear_image(data->minimap);
-// 	offset_y = -VIEW;
-// 	while (offset_y <= VIEW)
-// 	{
-// 		offset_x = -VIEW;
-// 		while (offset_x <= VIEW)
-// 		{
-// 			tile_x = data->plx + offset_x;
-// 			tile_y = data->ply + offset_y;
-// 			map_x = (int)floorf(tile_x);
-// 			map_y = (int)floorf(tile_y);
-// 			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
-// 			{
-// 				if (data->themap[map_y][map_x] == '1')
-// 					square_line(data, tile_x, tile_y, 0xFFFFFFFF);
-// 				else if (data->themap[map_y][map_x] == '0')
-// 					draw_square(data, tile_x, tile_y, 0xFFFFFF09);
-// 			}
-// 			offset_x++;
-// 		}
-// 		offset_y++;
-// 	}
-// 	draw_fov_minimap(data);
-// }
