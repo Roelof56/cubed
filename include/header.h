@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/09 16:53:12 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/23 10:23:17 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ void		fill_image_color(mlx_image_t *img, uint32_t color);
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 
 /* draw_fov.c */
-double		degree_to_radians(double degree);
 void		clear_image(mlx_image_t *img);
 // void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);

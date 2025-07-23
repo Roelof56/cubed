@@ -1,15 +1,11 @@
 #include "header.h"
 
-// for mlx_put_pixel
-int	ft_get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
 // set all pixels data to zero.
 void	clear_image(mlx_image_t *img)
 {
-	uint32_t i = 0;
+	uint32_t	i;
+
+	i = 0;
 	while (i < img->width * img->height)
 	{
 		// Each pixel = 4 bytes (RGBA)
@@ -22,10 +18,10 @@ void	clear_image(mlx_image_t *img)
 }
 
 // Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void	set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-    if (x < img->width && y < img->height)
-        mlx_put_pixel(img, x, y, color);
+	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+		mlx_put_pixel(img, x, y, color);
 }
 
 // Outline img -> tmp for placement in window
@@ -48,4 +44,13 @@ void draw_image_outline(mlx_image_t *img, uint32_t color)
 		mlx_put_pixel(img, img->width - 1, y, color); 
 		y++;
 	}
+}
+
+double	normalize_angle(double angle)
+{
+	while (angle < 0)
+		angle += 2 * PI;
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
+	return (angle);
 }
