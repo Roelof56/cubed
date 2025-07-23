@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 18:53:32 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/23 12:15:50 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ double		degree_to_radians(double degree);
 void		draw_3d_view(t_vars *data);
 double		normalize_angle(double angle);
 
-/* draw_small_minimap.c */
-void		draw_small_minimap(t_vars *data);
+/* draw_minimap.c */
+void		draw_minimap(t_vars *data);
 
 #endif

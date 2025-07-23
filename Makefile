@@ -30,7 +30,7 @@ SRCS		:=	main.c \
 				draw_utils_bresenham.c \
 				draw_utils.c \
 				draw_fov.c \
-				draw_small_minimap.c
+				draw_minimap.c
 
 
 OBJ			:=	$(SRCS:.c=.o)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_small_minimap.c                               :+:    :+:            */
+/*   draw_minimap.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/15 17:16:40 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/23 12:36:22 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,42 +119,75 @@ void	draw_fov_minimap(t_vars *data)
 	}
 }
 
+//set draw_minimap_vars - norm made me do it.
+static void set_draw_minimap_vars(t_mmdata *mmdata, float plx, float ply)
+{
+	mmdata->tilex = plx + mmdata->offsetx;
+	mmdata->tiley = ply + mmdata->offsety;
+	mmdata->mapx = (int)floorf(mmdata->tilex);
+	mmdata->mapy = (int)floorf(mmdata->tiley);
+}
+
+// new - use struct.
+void	draw_minimap(t_vars *data)
+{
+	t_mmdata	mmdata;
+
+	clear_image(data->minimap);
+	mmdata.offsety = -VIEW;
+	while (mmdata.offsety <= VIEW)
+	{
+		mmdata.offsetx = -VIEW;
+		while (mmdata.offsetx <= VIEW)
+		{
+			set_draw_minimap_vars(&mmdata, data->plx, data->ply);
+			if (mmdata.mapx >= 0 && mmdata.mapx < data->mapwidth && mmdata.mapy >= 0 && mmdata.mapy < data->mapheight)
+			{
+				if (data->themap[mmdata.mapy][mmdata.mapx] == '1')
+					square_line(data, mmdata.tilex, mmdata.tiley, 0xFFFFFFFF);
+				else if (data->themap[mmdata.mapy][mmdata.mapx] == '0')
+					draw_square(data, mmdata.tilex, mmdata.tiley, 0xFFFFFF09);
+			}
+			mmdata.offsetx++;
+		}
+		mmdata.offsety++;
+	}
+	draw_fov_minimap(data);
+}
+
 //draw walls/floors arround player.
 // else if (data->themap[map_y][map_x] == 'D')
 // 	draw_filled_block(data, tile_x, tile_y, 0xFF0000FF);
-void	draw_small_minimap(t_vars *data)
-{
-	int		offset_x;
-	int		offset_y;
-	float	tile_x;
-	float	tile_y;
-	int		map_x;
-	int		map_y;
+// void	draw_minimap(t_vars *data)
+// {
+// 	int		offset_x;
+// 	int		offset_y;
+// 	float	tile_x;
+// 	float	tile_y;
+// 	int		map_x;
+// 	int		map_y;
 
-	clear_image(data->minimap);
-	offset_y = -VIEW;
-	while (offset_y <= VIEW)
-	{
-		offset_x = -VIEW;
-		while (offset_x <= VIEW)
-		{
-			tile_x = data->plx + offset_x;
-			tile_y = data->ply + offset_y;
-
-			map_x = (int)floorf(tile_x);
-			map_y = (int)floorf(tile_y);
-
-			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
-			{
-				if (data->themap[map_y][map_x] == '1')
-					square_line(data, tile_x, tile_y, 0xFFFFFFFF);
-				else if (data->themap[map_y][map_x] == '0')
-					draw_square(data, tile_x, tile_y, 0xFFFFFF09);
-			}
-			offset_x++;
-		}
-		offset_y++;
-	}
-	draw_fov_minimap(data);
-	// draw_image_outline(data->minimap, 0xE6E6FAFF);
-}
+// 	clear_image(data->minimap);
+// 	offset_y = -VIEW;
+// 	while (offset_y <= VIEW)
+// 	{
+// 		offset_x = -VIEW;
+// 		while (offset_x <= VIEW)
+// 		{
+// 			tile_x = data->plx + offset_x;
+// 			tile_y = data->ply + offset_y;
+// 			map_x = (int)floorf(tile_x);
+// 			map_y = (int)floorf(tile_y);
+// 			if (map_x >= 0 && map_x < data->mapwidth && map_y >= 0 && map_y < data->mapheight)
+// 			{
+// 				if (data->themap[map_y][map_x] == '1')
+// 					square_line(data, tile_x, tile_y, 0xFFFFFFFF);
+// 				else if (data->themap[map_y][map_x] == '0')
+// 					draw_square(data, tile_x, tile_y, 0xFFFFFF09);
+// 			}
+// 			offset_x++;
+// 		}
+// 		offset_y++;
+// 	}
+// 	draw_fov_minimap(data);
+// }

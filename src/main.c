@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 17:33:55 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/23 12:30:18 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	draw_hook(void *param)
 
 	data = (t_vars *)param;
 	draw_3d_view(data);
-	draw_small_minimap(data);
+	draw_minimap(data);
+	draw_image_outline(data->minimap, 0xE6E6FAFF); //moved for space reason.
 }
 
+// wrapper cause mlx takes 1 hook.
 void	game_hook(void *param)
 {
 	t_vars *data;

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/15 16:54:52 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/23 12:27:05 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,16 @@ typedef struct s_things
 	float		frac_y;
 	double		ignore;
 }				t_things;
+
+/* draw_minimap needs a bunch of variables for scrolling */
+typedef struct s_mmdata
+{
+	float	tilex;
+	float	tiley;
+	int		mapx;
+	int		mapy;
+	int		offsetx;
+	int		offsety;
+}			t_mmdata;
 
 #endif
