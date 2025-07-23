@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   draw_utils.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: roelof <roelof@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/07/23 12:49:35 by roelof        #+#    #+#                 */
+/*   Updated: 2025/07/23 12:51:08 by roelof        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 // Function to set a pixel using mlx_put_pixel
-void set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void	set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
 	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 		mlx_put_pixel(img, x, y, color);
@@ -16,23 +28,24 @@ int	ft_get_rgba(t_color color)
 // set all pixels data to zero.
 void	clear_image(mlx_image_t *img)
 {
-	uint32_t i = 0;
+	uint32_t	i;
+
+	i = 0;
 	while (i < img->width * img->height)
 	{
-		// Each pixel = 4 bytes (RGBA)
-		img->pixels[i * 4 + 0] = 0; // R
-		img->pixels[i * 4 + 1] = 0; // G
-		img->pixels[i * 4 + 2] = 0; // B
-		img->pixels[i * 4 + 3] = 0; // A
+		img->pixels[i * 4 + 0] = 0;
+		img->pixels[i * 4 + 1] = 0;
+		img->pixels[i * 4 + 2] = 0;
+		img->pixels[i * 4 + 3] = 0;
 		i++;
 	}
 }
 
 // Fill img -> only used for minimap background .
-void fill_image_color(mlx_image_t *img, uint32_t color)
+void	fill_image_color(mlx_image_t *img, uint32_t color)
 {
-	uint32_t x;
-	uint32_t y;
+	uint32_t	x;
+	uint32_t	y;
 
 	y = 0;
 	while (y < img->height)
@@ -48,10 +61,10 @@ void fill_image_color(mlx_image_t *img, uint32_t color)
 }
 
 // Outline img -> tmp for placement in window
-void draw_image_outline(mlx_image_t *img, uint32_t color)
+void	draw_image_outline(mlx_image_t *img, uint32_t color)
 {
-	uint32_t x;
-	uint32_t y;
+	uint32_t	x;
+	uint32_t	y;
 
 	x = 0;
 	while (x < img->width)
@@ -64,7 +77,7 @@ void draw_image_outline(mlx_image_t *img, uint32_t color)
 	while (y < img->height - 1)
 	{
 		mlx_put_pixel(img, 0, y, color);
-		mlx_put_pixel(img, img->width - 1, y, color); 
+		mlx_put_pixel(img, img->width - 1, y, color);
 		y++;
 	}
 }
