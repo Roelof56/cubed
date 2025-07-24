@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 16:13:59 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 16:35:10 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	square_line(t_vars *data, float tilex, float tiley, uint32_t clr)
 	}
 }
 
-static t_line	get_fov_line(t_vars *data, double angle)
+t_line	get_fov_line(t_vars *data, double angle)
 {
 	t_line	line;
 	t_ray	ray;
