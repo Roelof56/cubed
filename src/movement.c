@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 12:17:07 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/24 16:08:46 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 16:13:10 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	strafe_right(t_vars *data, int speed)
 	new_angle = normalize_angle(new_angle);
 	new_pdx = cos(new_angle) * 5;
 	new_pdy = sin(new_angle) * 5;
-	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 10))] == '0')
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '0')
 		data->plx += -data->pdy / speed;
-	if (data->themap[(int)floor(data->ply + (new_pdy / 10))][(int)floor(data->plx)] == '0')
+	if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '0')
 		data->ply += data->pdx / speed;
 }
 
@@ -42,18 +42,18 @@ static void	strafe_left(t_vars *data, int speed)
 	new_angle = normalize_angle(new_angle);
 	new_pdx = cos(new_angle) * 5;
 	new_pdy = sin(new_angle) * 5;
-	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 10))] == '0')
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '0')
 		data->plx += data->pdy / speed;
-	if (data->themap[(int)floor(data->ply + (new_pdy / 10))][(int)floor(data->plx)] == '0')
+	if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '0')
 		data->ply += -data->pdx / speed;
 }
 
 // new move back - needs more offset & check sides also i think.
 static void	move_backward(t_vars *data, int speed)
 {
-	if (data->themap[(int)floor(data->ply)][(int)floor( data->plx - (data->pdx / 10))] == '0')
+	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx - (data->pdx / 10))] == '0')
 		data->plx -= data->pdx / speed;
-	if (data->themap[(int)floor(data->ply - (data->pdy / speed))][(int)floor(data->plx)] == '0')
+	if (data->themap[(int)floor(data->ply - (data->pdy / 10))][(int)floor(data->plx)] == '0')
 		data->ply -= data->pdy / speed;
 }
 

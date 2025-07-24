@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 14:57:08 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 16:13:59 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	draw_minimap(t_vars *data)
 	t_mmdata	mmdata;
 
 	clear_image(data->minimap);
+	draw_fov_minimap(data);
 	mmdata.offsety = -VIEW;
 	while (mmdata.offsety <= VIEW)
 	{
@@ -135,5 +136,4 @@ void	draw_minimap(t_vars *data)
 		}
 		mmdata.offsety++;
 	}
-	draw_fov_minimap(data);
 }
