@@ -58,12 +58,13 @@ static int	collision_cheker(t_vars *data, float angle)
 	float	k;
 
 	i = 0;
-	k = 0;
+	k = 0.3;
 	new_angle = angle - (k * 2);
 	while (i < 3)
 	{
 		new_angle = new_angle + k;
 		new_angle = normalize_angle(new_angle);
+		printf("new angle: %f\n", new_angle);
 		new_pdx = cos(new_angle) * 5;
 		new_pdy = sin(new_angle) * 5;
 		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '1')
@@ -71,8 +72,8 @@ static int	collision_cheker(t_vars *data, float angle)
 		if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '1')
 			return (1);
 		i += 1;
-		k += 0.3;
 	}
+	printf("\n");
 	return (0);
 }
 
