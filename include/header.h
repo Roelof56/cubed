@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 15:35:40 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 15:41:36 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,9 @@ void		input_hook(void *param);
 
 /* input_mouse.c */
 void		mouse_hook(double xpos, double ypos, void *param);
+
+/* movement.c */
+void		move_player(t_vars *data);
 
 /* draw_utils_bresenham.c */
 void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);

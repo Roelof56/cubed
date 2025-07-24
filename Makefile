@@ -27,6 +27,7 @@ SRCS		:=	main.c \
 				init_mlx.c \
 				input.c \
 				input_mouse.c \
+				movement.c \
 				draw_utils_bresenham.c \
 				draw_utils.c \
 				raycaster.c \
