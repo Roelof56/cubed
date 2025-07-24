@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:39:42 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:45:00 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ typedef struct s_proj
 	int		pixel_end;
 }	t_proj;
 
-typedef struct s_texinfo
+typedef struct s_tex_info
 {
 	mlx_texture_t	*tex;
 	int				tex_x;
 	double			step;
 	double			pos;
-}	t_texinfo;
+}	t_tex_info;
 
 typedef struct s_tex_input
 {
@@ -65,7 +65,7 @@ typedef struct s_tex_input
 typedef struct s_render_data
 {
 	t_proj		*proj;
-	t_texinfo	*tex_map;
+	t_tex_info	*tex_map;
 	t_ray		*ray;
 }	t_render_data;
 
@@ -78,7 +78,7 @@ typedef struct s_render_state
 	int				px;
 	t_ray			ray;
 	t_proj			proj;
-	t_texinfo		tex_map;
+	t_tex_info		tex_map;
 	t_render_data	column;
 }	t_render_state;
 
@@ -91,8 +91,8 @@ t_ray			ray_wall(t_vars *data, double angle);
 
 t_proj			project(t_ray *info, double angle, int screen_h, t_vars *data);
 mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle);
-t_texinfo		prepare_texture_info(t_tex_input *in);
+t_tex_info		prepare_texture_info(t_tex_input *in);
 void			draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj);
-uint32_t		pixel_texture(t_texinfo *tinfo, t_ray *info);
+uint32_t		pixel_texture(t_tex_info *tinfo, t_ray *info);
 
 #endif

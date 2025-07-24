@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 10:35:06 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:32:44 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:44:52 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 	}
 }
 
-t_texinfo	prepare_texture_info(t_tex_input *in)
+t_tex_info	prepare_texture_info(t_tex_input *in)
 {
-	t_texinfo	tinfo;
+	t_tex_info	tinfo;
 	double		wall_x;
 
 	if (in->ray_info->side == 0)
@@ -86,7 +86,7 @@ void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 		set_pixel(data->view3d, px, y++, floor_col);
 }
 
-uint32_t	pixel_texture(t_texinfo *tinfo, t_ray *info)
+uint32_t	pixel_texture(t_tex_info *tinfo, t_ray *info)
 {
 	int		tex_y;
 	uint8_t	r;
