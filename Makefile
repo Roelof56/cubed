@@ -24,7 +24,7 @@ SRCS		:=	main.c \
 				init_mlx.c \
 				key_input_handler.c \
 				draw_utils_color.c \
-				draw_fov.c \
+				raycaster.c \
 				parser_square_map.c \
 				draw_small_minimap.c \
 				parser_import_color.c \

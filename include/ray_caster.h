@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 16:19:01 by jaimeilustr   ########   odam.nl         */
+/*   Updated: 2025/07/24 10:23:44 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ typedef struct s_render_data
 	t_texinfo	*tinfo;
 	t_ray		*info;
 }	t_render_data;
+
+typedef struct s_render_state
+{
+	int				screen_w;
+	int				screen_h;
+	double			fov;
+	double			start_a;
+	int				px;
+	t_ray			info;
+	t_proj			proj;
+	t_texinfo		tinfo;
+	t_render_data	rdata;
+}	t_render_state;
 
 void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle);
 void	init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step);

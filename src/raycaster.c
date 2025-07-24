@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_fov.c                                         :+:    :+:            */
+/*   raycaster.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/06/12 10:18:26 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 16:36:21 by jaimeilustr   ########   odam.nl         */
+/*   Created: 2025/07/24 09:58:15 by jilustre      #+#    #+#                 */
+/*   Updated: 2025/07/24 10:23:59 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,39 +100,43 @@ static void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 		set_pixel(data->view3d, px, y++, floor_col);
 }
 
-static void	draw_wall(t_vars*data, int px, t_render_data *r)
+uint32_t	pixel_texture(t_texinfo *tinfo, t_ray *info)
+{
+	int		tex_y;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+
+	tex_y = (int)(tinfo->pos);
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y >= (int)tinfo->tex->height)
+		tex_y = tinfo->tex->height - 1;
+	r = tinfo->tex->pixels[(tex_y * tinfo->tex->width + tinfo->tex_x) * 4];
+	g = tinfo->tex->pixels[(tex_y * tinfo->tex->width + tinfo->tex_x) * 4 + 1];
+	b = tinfo->tex->pixels[(tex_y * tinfo->tex->width + tinfo->tex_x) * 4 + 2];
+	a = tinfo->tex->pixels[(tex_y * tinfo->tex->width + tinfo->tex_x) * 4 + 3];
+	if (info->side == 1)
+	{
+		r *= 0.7;
+		g *= 0.7;
+		b *= 0.7;
+	}
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
+static void	draw_wall(t_vars *data, int px, t_render_data *r)
 {
 	int			y;
-	int			tex_y;
-	int			i;
-	uint8_t		r_val;
-	uint8_t		g;
-	uint8_t		b;
-	uint8_t		a;
 	uint32_t	color;
 
 	y = r->proj->start;
 	while (y < r->proj->end)
 	{
-		tex_y = (int)(r->tinfo->pos);
-		r->tinfo->pos += r->tinfo->step;
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= (int)r->tinfo->tex->height)
-			tex_y = r->tinfo->tex->height - 1;
-		i = (tex_y * r->tinfo->tex->width + r->tinfo->tex_x) * 4;
-		r_val = r->tinfo->tex->pixels[i];
-		g = r->tinfo->tex->pixels[i + 1];
-		b = r->tinfo->tex->pixels[i + 2];
-		a = r->tinfo->tex->pixels[i + 3];
-		if (r->info->side == 1)
-		{
-			r_val *= 0.7;
-			g *= 0.7;
-			b *= 0.7;
-		}
-		color = (r_val << 24) | (g << 16) | (b << 8) | a;
+		color = pixel_texture(r->tinfo, r->info);
 		set_pixel(data->view3d, px, y++, color);
+		r->tinfo->pos += r->tinfo->step;
 	}
 }
 
@@ -142,45 +146,43 @@ static void	draw_slice(t_vars *data, int px, t_render_data *r)
 	draw_wall(data, px, r);
 }
 
-void	draw_3d_view(t_vars *data)
+void	render_column(t_vars *data, t_render_state *s)
 {
-	int				screen_w;
-	int				screen_h;
-	double			fov;
-	double			start_a;
-	int				px;
 	double			ray_frac;
 	double			angle;
-	t_ray			info;
-	t_proj			proj;
-	t_tex_input		tin;
 	mlx_texture_t	*tex;
-	t_texinfo		tinfo;
-	t_render_data	rdata;
+	t_tex_input		tin;
 
-	screen_w = data->view3d->width;
-	screen_h = data->view3d->height;
-	fov = PI / 3.0;
-	start_a = data->pla - fov / 2.0;
+	ray_frac = (double)s->px / (double)s->screen_w;
+	angle = normalize_angle(s->start_a + ray_frac * s->fov);
+	s->info = ray_wall(data, angle);
+	s->proj = project(&s->info, angle, s->screen_h, data);
+	tex = get_wall_texture(data, s->info.side, angle);
+	tin.info = &s->info;
+	tin.angle = angle;
+	tin.proj = &s->proj;
+	tin.data = data;
+	tin.tex = tex;
+	s->tinfo = prepare_texture_info(&tin);
+	s->rdata.proj = &s->proj;
+	s->rdata.tinfo = &s->tinfo;
+	s->rdata.info = &s->info;
+	draw_slice(data, s->px, &s->rdata);
+}
+
+void	draw_3d_view(t_vars *data)
+{
+	t_render_state	s;
+
+	s.screen_w = data->view3d->width;
+	s.screen_h = data->view3d->height;
+	s.fov = PI / 3.0;
+	s.start_a = data->pla - s.fov / 2.0;
 	clear_image(data->view3d);
-	px = 0;
-	while (px < screen_w)
+	s.px = 0;
+	while (s.px < s.screen_w)
 	{
-		ray_frac = (double)px / (double)screen_w;
-		angle = normalize_angle(start_a + ray_frac * fov);
-		info = ray_wall(data, angle);
-		proj = project(&info, angle, screen_h, data);
-		tex = get_wall_texture(data, info.side, angle);
-		tin.info = &info;
-		tin.angle = angle;
-		tin.proj = &proj;
-		tin.data = data;
-		tin.tex = tex;
-		tinfo = prepare_texture_info(&tin);
-		rdata.proj = &proj;
-		rdata.tinfo = &tinfo;
-		rdata.info = &info;
-		draw_slice(data, px, &rdata);
-		px++;
+		render_column(data, &s);
+		s.px++;
 	}
 }
