@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:45:00 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 15:26:27 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ typedef struct s_render_state
 	t_render_data	column;
 }	t_render_state;
 
-void			init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle);
-void			init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step);
+void			init_ray(t_vars *data, t_raydir *dir, t_map *map, double angle);
+void			ini_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step);
 void			dda(t_vars *data, t_map *map, t_step *step);
-double			calc_dist(t_vars *data, t_map *map, t_step *step, t_raydir *dir);
+double			calc_dis(t_vars *data, t_map *map, t_step *step, t_raydir *dir);
 t_ray			build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist);
 t_ray			ray_wall(t_vars *data, double angle);
 

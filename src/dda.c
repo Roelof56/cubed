@@ -6,14 +6,14 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:05:00 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:21:53 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 15:26:35 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
 
-void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle)
+void	init_ray(t_vars *data, t_raydir *dir, t_map *map, double angle)
 {
 	dir->x = cos(angle);
 	dir->y = sin(angle);
@@ -21,7 +21,7 @@ void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle)
 	map->map_y = (int)data->ply;
 }
 
-void	init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
+void	ini_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
 {
 	step->delta_x = fabs(1.0 / dir->x);
 	step->delta_y = fabs(1.0 / dir->y);
@@ -68,7 +68,7 @@ void	dda(t_vars *data, t_map *map, t_step *step)
 	}
 }
 
-double	calc_dist(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
+double	calc_dis(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
 {
 	if (map->side == 0)
 		return ((map->map_x - data->plx + (1 - step->step_x) / 2.0) / dir->x);
