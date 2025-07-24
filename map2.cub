@@ -1,7 +1,7 @@
   
  
-F   200,100,100
-C     80,80,255
+F   64,64,64
+C     51,25,0
 NO   ./textures/no.png
 
 WE    ./textures/we.png

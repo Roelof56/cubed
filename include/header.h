@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/23 12:15:50 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/24 14:42:32 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ typedef struct	s_ray
 	double	distance; // perpedicular distance from player's position to the point where the ray hits the wall
 	int		side; // 0 = vertical wall (NS), 1 = horizontal (EW)
 	t_line	line; // line from player to hit point (for 2D drawing)
+	double		wall_hit_x;
+	double		wall_hit_y;
 }	t_ray;
 
 /* parser_error.c */
@@ -165,10 +167,7 @@ void		draw_image_outline(mlx_image_t *img, uint32_t color);
 void		clear_image(mlx_image_t *img);
 void		fill_image_color(mlx_image_t *img, uint32_t color);
 
-
 /* draw_fov.c */
-double		degree_to_radians(double degree);
-// void		draw_fov_line(t_vars *data);
 void		draw_3d_view(t_vars *data);
 double		normalize_angle(double angle);
 

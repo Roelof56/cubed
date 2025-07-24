@@ -29,8 +29,10 @@ SRCS		:=	main.c \
 				input_mouse.c \
 				draw_utils_bresenham.c \
 				draw_utils.c \
-				draw_fov.c \
-				draw_minimap.c
+				raycaster.c \
+				draw_minimap.c \
+				dda.c \
+				raycaster_utils.c 
 
 
 OBJ			:=	$(SRCS:.c=.o)

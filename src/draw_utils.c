@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:49:35 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/23 12:51:08 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/24 14:44:30 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ void	draw_image_outline(mlx_image_t *img, uint32_t color)
 		mlx_put_pixel(img, img->width - 1, y, color);
 		y++;
 	}
+}
+
+double	normalize_angle(double angle)
+{
+	while (angle < 0)
+		angle += 2 * PI;
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
+	return (angle);
 }
