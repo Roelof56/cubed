@@ -85,18 +85,25 @@ static t_line	get_fov_line(t_vars *data, double angle)
 }
 
 //draw fovlines. maybe use 1 degree to rad as step ? 
-void draw_fov_minimap(t_vars *data)
+void	draw_fov_minimap(t_vars *data)
 {
-	const int num_rays = 60;
-	const double fov = PI / 3.0;
-	const double start_angle = data->pla - fov / 2.0;
-	const double step = fov / num_rays;
-	int i = 0;
+	int		num_rays;
+	double	fov;
+	double	start_angle;
+	double	step;
+	int		i;
+	double	angle;
+	t_line	line;
 
+	num_rays = 60;
+	fov = PI / 3.0;
+	start_angle = data->pla - fov / 2.0;
+	step = fov / num_rays;
+	i = 0;
 	while (i < num_rays)
 	{
-		double angle = normalize_angle(start_angle + i * step);
-		t_line line = get_fov_line(data, angle);
+		angle = normalize_angle(start_angle + i * step);
+		line = get_fov_line(data, angle);
 		bresenham_line(data->minimap, line, 0xFFFFFF);
 		i++;
 	}
