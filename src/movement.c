@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 12:17:07 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/24 16:48:51 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 18:06:22 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,60 @@ static void	strafe_left(t_vars *data, int speed)
 		data->ply += -data->pdx / speed;
 }
 
-// new move back - needs more offset & check sides also i think.
-static void	move_backward(t_vars *data, int speed)
+// if return 1 = no move.
+static int	collision_cheker(t_vars *data, float angle)
 {
 	float	new_angle;
 	float	new_pdx;
 	float	new_pdy;
+	float	i;
+	float	k;
 
-	new_angle = data->pla - PI;
-	new_angle = normalize_angle(new_angle);
-	new_pdx = cos(new_angle) * 5;
-	new_pdy = sin(new_angle) * 5;
-	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '0')
-		data->plx -= data->pdx / speed;
-	if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '0')
-		data->ply -= data->pdy / speed;
+	i = 0;
+	k = 0;
+	new_angle = angle - (k * 2);
+	while (i < 3)
+	{
+		new_angle = new_angle + k;
+		new_angle = normalize_angle(new_angle);
+		new_pdx = cos(new_angle) * 5;
+		new_pdy = sin(new_angle) * 5;
+		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '1')
+			return (1);
+		if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '1')
+			return (1);
+		i += 1;
+		k += 0.3;
+	}
+	return (0);
 }
+
+static void	move_backward(t_vars *data, int speed)
+{
+	if (collision_cheker(data, data->pla + PI) == 0)
+	{
+		data->plx -= data->pdx / speed;
+		data->ply -= data->pdy / speed;
+	}
+}
+
+
+// new move back
+// static void	move_backward(t_vars *data, int speed)
+// {
+// 	float	new_angle;
+// 	float	new_pdx;
+// 	float	new_pdy;
+
+// 	new_angle = data->pla - PI;
+// 	new_angle = normalize_angle(new_angle);
+// 	new_pdx = cos(new_angle) * 5;
+// 	new_pdy = sin(new_angle) * 5;
+// 	if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '0')
+// 		data->plx -= data->pdx / speed;
+// 	if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '0')
+// 		data->ply -= data->pdy / speed;
+// }
 
 
 // include wall collision.
