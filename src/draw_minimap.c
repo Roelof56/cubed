@@ -6,12 +6,13 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 12:47:37 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/24 14:57:08 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "holdmydata.h"
+#include "ray_caster.h"
 
 //  draw floors & walls based on distance to player
 static void	draw_square(t_vars *data, float tilex, float tiley, uint32_t clr)
@@ -66,54 +67,36 @@ static void	square_line(t_vars *data, float tilex, float tiley, uint32_t clr)
 	}
 }
 
-// change this out for new DDA logic.
-// line 122:  || data->themap[map_y][map_x] == 'D' for doors
-static t_line get_line_coordinates(t_vars *data, double angle)
+static t_line	get_fov_line(t_vars *data, double angle)
 {
 	t_line	line;
+	t_ray	ray;
+	double	dx;
+	double	dy;
 
-	double	ray_x = data->plx;
-	double	ray_y = data->ply;
-
-	double	dx = cos(angle);
-	double	dy = sin(angle);
-	double	step = 0.05;
-	int		map_x; 
-	int		map_y;
-	double	distance = 0;
-
+	ray = ray_wall(data, angle);
 	line.x1 = data->minimap->width / 2;
 	line.y1 = data->minimap->height / 2;
-
-	while (distance < VIEW + 5)
-	{
-		ray_x += dx * step;
-		ray_y += dy * step;
-		map_x = (int)(ray_x);
-		map_y = (int)(ray_y);
-		distance += step;
-		if (data->themap[map_y][map_x] == '1')
-			break;
-	}
-	line.x2 = data->minimap->width / 2 + (ray_x - data->plx) * MAPSCALE;
-	line.y2 = data->minimap->height / 2 + (ray_y - data->ply) * MAPSCALE;
+	dx = ray.wall_hit_x - data->plx;
+	dy = ray.wall_hit_y - data->ply;
+	line.x2 = line.x1 + dx * MAPSCALE;
+	line.y2 = line.y1 + dy * MAPSCALE;
 	return (line);
 }
 
-//draw fovlines old -> Get new from 3dview.
-void	draw_fov_minimap(t_vars *data)
+//draw fovlines. maybe use 1 degree to rad as step ? 
+void draw_fov_minimap(t_vars *data)
 {
-	const int num_rays = 60;  // number of rays
-	const double fov = PI / 3;  // 60 degrees field of view
-	const double start_angle = data->pla - fov / 2;
+	const int num_rays = 60;
+	const double fov = PI / 3.0;
+	const double start_angle = data->pla - fov / 2.0;
 	const double step = fov / num_rays;
-	int	i = 0;
-	t_line line;
+	int i = 0;
 
 	while (i < num_rays)
 	{
-		double angle = start_angle + i * step;
-		line = get_line_coordinates(data, angle);
+		double angle = normalize_angle(start_angle + i * step);
+		t_line line = get_fov_line(data, angle);
 		bresenham_line(data->minimap, line, 0xFFFFFF);
 		i++;
 	}
