@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 10:35:06 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 10:37:11 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:32:44 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_proj	project(t_ray *info, double angle, int screen_h, t_vars *data)
 	if (proj.proj_dist < 0.01)
 		proj.proj_dist = 0.01;
 	proj.line_height = screen_h / proj.proj_dist;
-	proj.start = (int)(-proj.line_height / 2 + screen_h / 2);
-	proj.end = (int)(proj.line_height / 2 + screen_h / 2);
-	if (proj.start < 0)
-		proj.start = 0;
-	if (proj.end > screen_h)
-		proj.end = screen_h;
+	proj.pixel_start = (int)(-proj.line_height / 2 + screen_h / 2);
+	proj.pixel_end = (int)(proj.line_height / 2 + screen_h / 2);
+	if (proj.pixel_start < 0)
+		proj.pixel_start = 0;
+	if (proj.pixel_end > screen_h)
+		proj.pixel_end = screen_h;
 	return (proj);
 }
 
@@ -54,18 +54,18 @@ t_texinfo	prepare_texture_info(t_tex_input *in)
 	t_texinfo	tinfo;
 	double		wall_x;
 
-	if (in->info->side == 0)
+	if (in->ray_info->side == 0)
 		wall_x = in->data->ply + in->proj->raw_dist * sin(in->angle);
 	else
 		wall_x = in->data->plx + in->proj->raw_dist * cos(in->angle);
 	wall_x -= floor(wall_x);
 	tinfo.tex = in->tex;
 	tinfo.tex_x = (int)(wall_x * in->tex->width);
-	if ((in->info->side == 0 && cos(in->angle) > 0)
-		|| (in->info->side == 1 && sin(in->angle) < 0))
+	if ((in->ray_info->side == 0 && cos(in->angle) > 0)
+		|| (in->ray_info->side == 1 && sin(in->angle) < 0))
 		tinfo.tex_x = in->tex->width - tinfo.tex_x - 1;
 	tinfo.step = (double)in->tex->height / in->proj->line_height;
-	tinfo.pos = (in->proj->start - (int)(in->data->view3d->height / 2)
+	tinfo.pos = (in->proj->pixel_start - (int)(in->data->view3d->height / 2)
 			+ (in->proj->line_height / 2)) * tinfo.step;
 	return (tinfo);
 }
@@ -78,9 +78,9 @@ void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 
 	y = 0;
 	ceil_color = ft_get_rgba(data->textures.c);
-	while (y < proj->start)
+	while (y < proj->pixel_start)
 		set_pixel(data->view3d, px, y++, ceil_color);
-	y = proj->end;
+	y = proj->pixel_end;
 	floor_col = 0;
 	while (y < (int)data->view3d->height)
 		set_pixel(data->view3d, px, y++, floor_col);

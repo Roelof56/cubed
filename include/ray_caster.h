@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 10:39:03 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:39:42 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ typedef struct s_raydir
 
 typedef struct s_step
 {
-	int		x;
-	int		y;
-	double	side_x;
-	double	side_y;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
 	double	delta_x;
 	double	delta_y;
 }	t_step;
 
 typedef struct s_map
 {
-	int	x;
-	int	y;
+	int	map_x;
+	int	map_y;
 	int	side;
 }	t_map;
 
@@ -41,8 +41,8 @@ typedef struct s_proj
 	double	raw_dist;
 	double	proj_dist;
 	double	line_height;
-	int		start;
-	int		end;
+	int		pixel_start;
+	int		pixel_end;
 }	t_proj;
 
 typedef struct s_texinfo
@@ -55,7 +55,7 @@ typedef struct s_texinfo
 
 typedef struct s_tex_input
 {
-	t_ray			*info;
+	t_ray			*ray_info;
 	double			angle;
 	t_proj			*proj;
 	t_vars			*data;
@@ -65,8 +65,8 @@ typedef struct s_tex_input
 typedef struct s_render_data
 {
 	t_proj		*proj;
-	t_texinfo	*tinfo;
-	t_ray		*info;
+	t_texinfo	*tex_map;
+	t_ray		*ray;
 }	t_render_data;
 
 typedef struct s_render_state
@@ -74,12 +74,12 @@ typedef struct s_render_state
 	int				screen_w;
 	int				screen_h;
 	double			fov;
-	double			start_a;
+	double			start_angle;
 	int				px;
-	t_ray			info;
+	t_ray			ray;
 	t_proj			proj;
-	t_texinfo		tinfo;
-	t_render_data	rdata;
+	t_texinfo		tex_map;
+	t_render_data	column;
 }	t_render_state;
 
 void			init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle);

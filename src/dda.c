@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:05:00 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/23 16:55:27 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:21:53 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	init_structs(t_vars *data, t_raydir *dir, t_map *map, double angle)
 {
 	dir->x = cos(angle);
 	dir->y = sin(angle);
-	map->x = (int)data->plx;
-	map->y = (int)data->ply;
+	map->map_x = (int)data->plx;
+	map->map_y = (int)data->ply;
 }
 
 void	init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
@@ -27,23 +27,23 @@ void	init_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
 	step->delta_y = fabs(1.0 / dir->y);
 	if (dir->x < 0)
 	{
-		step->x = -1;
-		step->side_x = (data->plx - map->x) * step->delta_x;
+		step->step_x = -1;
+		step->side_dist_x = (data->plx - map->map_x) * step->delta_x;
 	}
 	else
 	{
-		step->x = 1;
-		step->side_x = (map->x + 1.0 - data->plx) * step->delta_x;
+		step->step_x = 1;
+		step->side_dist_x = (map->map_x + 1.0 - data->plx) * step->delta_x;
 	}
 	if (dir->y < 0)
 	{
-		step->y = -1;
-		step->side_y = (data->ply - map->y) * step->delta_y;
+		step->step_y = -1;
+		step->side_dist_y = (data->ply - map->map_y) * step->delta_y;
 	}
 	else
 	{
-		step->y = 1;
-		step->side_y = (map->y + 1.0 - data->ply) * step->delta_y;
+		step->step_y = 1;
+		step->side_dist_y = (map->map_y + 1.0 - data->ply) * step->delta_y;
 	}
 }
 
@@ -51,19 +51,19 @@ void	dda(t_vars *data, t_map *map, t_step *step)
 {
 	while (1)
 	{
-		if (step->side_x < step->side_y)
+		if (step->side_dist_x < step->side_dist_y)
 		{
-			step->side_x += step->delta_x;
-			map->x += step->x;
+			step->side_dist_x += step->delta_x;
+			map->map_x += step->step_x;
 			map->side = 0;
 		}
 		else
 		{
-			step->side_y += step->delta_y;
-			map->y += step->y;
+			step->side_dist_y += step->delta_y;
+			map->map_y += step->step_y;
 			map->side = 1;
 		}
-		if (data->themap[map->y][map->x] == '1')
+		if (data->themap[map->map_y][map->map_x] == '1')
 			break ;
 	}
 }
@@ -71,17 +71,17 @@ void	dda(t_vars *data, t_map *map, t_step *step)
 double	calc_dist(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
 {
 	if (map->side == 0)
-		return ((map->x - data->plx + (1 - step->x) / 2.0) / dir->x);
+		return ((map->map_x - data->plx + (1 - step->step_x) / 2.0) / dir->x);
 	else
-		return ((map->y - data->ply + (1 - step->y) / 2.0) / dir->y);
+		return ((map->map_y - data->ply + (1 - step->step_y) / 2.0) / dir->y);
 }
 
 t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist)
 {
 	t_ray	ray;
 
-	ray.hit_x = map->x;
-	ray.hit_y = map->y;
+	ray.hit_x = map->map_x;
+	ray.hit_y = map->map_y;
 	ray.side = map->side;
 	ray.distance = dist;
 	ray.wall_hit_x = data->plx + dir->x * dist;

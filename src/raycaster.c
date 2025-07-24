@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 09:58:15 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 10:36:23 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 12:40:12 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static void	draw_wall(t_vars *data, int px, t_render_data *r)
 	int			y;
 	uint32_t	color;
 
-	y = r->proj->start;
-	while (y < r->proj->end)
+	y = r->proj->pixel_start;
+	while (y < r->proj->pixel_end)
 	{
-		color = pixel_texture(r->tinfo, r->info);
+		color = pixel_texture(r->tex_map, r->ray);
 		set_pixel(data->view3d, px, y++, color);
-		r->tinfo->pos += r->tinfo->step;
+		r->tex_map->pos += r->tex_map->step;
 	}
 }
 
@@ -55,20 +55,20 @@ static void	render_column(t_vars *data, t_render_state *s)
 	t_tex_input		tin;
 
 	ray_frac = (double)s->px / (double)s->screen_w;
-	angle = normalize_angle(s->start_a + ray_frac * s->fov);
-	s->info = ray_wall(data, angle);
-	s->proj = project(&s->info, angle, s->screen_h, data);
-	tex = get_wall_texture(data, s->info.side, angle);
-	tin.info = &s->info;
+	angle = normalize_angle(s->start_angle + ray_frac * s->fov);
+	s->ray = ray_wall(data, angle);
+	s->proj = project(&s->ray, angle, s->screen_h, data);
+	tex = get_wall_texture(data, s->ray.side, angle);
+	tin.ray_info = &s->ray;
 	tin.angle = angle;
 	tin.proj = &s->proj;
 	tin.data = data;
 	tin.tex = tex;
-	s->tinfo = prepare_texture_info(&tin);
-	s->rdata.proj = &s->proj;
-	s->rdata.tinfo = &s->tinfo;
-	s->rdata.info = &s->info;
-	draw_slice(data, s->px, &s->rdata);
+	s->tex_map = prepare_texture_info(&tin);
+	s->column.proj = &s->proj;
+	s->column.tex_map = &s->tex_map;
+	s->column.ray = &s->ray;
+	draw_slice(data, s->px, &s->column);
 }
 
 void	draw_3d_view(t_vars *data)
@@ -78,7 +78,7 @@ void	draw_3d_view(t_vars *data)
 	s.screen_w = data->view3d->width;
 	s.screen_h = data->view3d->height;
 	s.fov = PI / 3.0;
-	s.start_a = data->pla - s.fov / 2.0;
+	s.start_angle = data->pla - s.fov / 2.0;
 	clear_image(data->view3d);
 	s.px = 0;
 	while (s.px < s.screen_w)
