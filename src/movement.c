@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 12:17:07 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/24 16:37:38 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 16:48:51 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	move_forward(t_vars *data, int speed)
 		data->ply += (data->pdy / speed);
 }
 
+// speed is for slowing down - higher speed = slower movement.
 void	move_player(t_vars *data)
 {
 	t_keystate	state;

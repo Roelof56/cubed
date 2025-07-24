@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 16:35:03 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/24 16:48:38 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ void		draw_3d_view(t_vars *data);
 double		normalize_angle(double angle);
 
 /* draw_minimap.c */
-t_line	get_fov_line(t_vars *data, double angle); //tmp for debug
 void		draw_minimap(t_vars *data);
 
 #endif
