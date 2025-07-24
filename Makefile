@@ -29,7 +29,8 @@ SRCS		:=	main.c \
 				draw_small_minimap.c \
 				parser_import_color.c \
 				draw_utils.c \
-				dda.c 
+				dda.c \
+				raycaster_utils.c 
 
 
 OBJ			:=	$(SRCS:.c=.o)
