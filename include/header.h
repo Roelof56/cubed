@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 14:42:32 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 15:35:40 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,37 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159
-// # define SCALE 32	// old & unused
 # define MAPSCALE 16	// size of wall & floor blocks minimap
 # define VIEW 10			// ammount of blocks to draw arround player x & y
+
+/* struct for key_state movement */
+typedef struct s_keystate
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}		t_keystate;
+
 
 /* colour */
 typedef struct	s_color
 {
-	int		r;
-	int		g;
-	int		b;
-	int		a;
-}			t_color;
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+}		t_color;
 
 typedef struct s_textures 
 {
-	mlx_texture_t *no;
-	mlx_texture_t *so;
-	mlx_texture_t *we;
-	mlx_texture_t *ea;
-	t_color f;
-	t_color c;
-}				t_textures;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+	t_color			f;
+	t_color			c;
+}					t_textures;
 
 /* map data struct */
 typedef struct s_vars
@@ -64,7 +73,8 @@ typedef struct s_vars
 	mlx_image_t		*minimap;
 	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
-}				t_vars;
+	t_keystate		keystate;
+}					t_vars;
 
 /* linkedlist - for map import*/
 typedef struct s_maplst
