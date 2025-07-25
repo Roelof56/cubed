@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/25 15:39:46 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 16:11:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	clean_textures(t_vars *data)
 		mlx_delete_texture(data->textures.we);
 	if (data->map_info[3][0] != '\0')
 		mlx_delete_texture(data->textures.ea);
-	// mlx_delete_image(data->minimap);
-	// mlx_delete_image(data->minimapbg);
-	// mlx_delete_image(data->view3d);
+	mlx_delete_image(data->mlx, data->minimap);
+	mlx_delete_image(data->mlx, data->minimapbg);
+	mlx_delete_image(data->mlx, data->view3d);
 }

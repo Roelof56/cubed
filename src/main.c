@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 14:45:35 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/25 16:10:15 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char **argv)
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
 		printf("exit mlx maybe ?\n");
+		mlx_terminate(data.mlx);
 		return (1);
 	}
 	mlx_loop_hook(data.mlx, &game_hook, &data);
