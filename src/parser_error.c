@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:28:00 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 15:39:46 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ int	clean_array(char **cleanme)
 // clean textures & imgs 
 void	clean_textures(t_vars *data)
 {
-	mlx_delete_texture(data->textures.no);
-	mlx_delete_texture(data->textures.so);
-	mlx_delete_texture(data->textures.we);
-	mlx_delete_texture(data->textures.ea);
+	if (data->map_info[0][0] != '\0')
+		mlx_delete_texture(data->textures.no);
+	if (data->map_info[1][0] != '\0')
+		mlx_delete_texture(data->textures.so);
+	if (data->map_info[2][0] != '\0')
+		mlx_delete_texture(data->textures.we);
+	if (data->map_info[3][0] != '\0')
+		mlx_delete_texture(data->textures.ea);
 	// mlx_delete_image(data->minimap);
 	// mlx_delete_image(data->minimapbg);
 	// mlx_delete_image(data->view3d);

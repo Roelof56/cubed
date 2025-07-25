@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:39:55 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 15:39:11 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	check_file_extension(char *str, char *ext)
 static int	error_clean(t_vars *data, t_maplst **head, int len)
 {
 	ll_clean_list(head);
-	clean_map_info(data);
 	clean_textures(data);
+	clean_map_info(data);
 	if (len > 0)
 		clean_array(data->themap);
 	return (1);

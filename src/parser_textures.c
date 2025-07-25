@@ -55,7 +55,12 @@ int	validate_texture_files(char **map_info)
 	{
 		if (access(map_info[i], F_OK) != 0)
 		{
-			printf("texture: %d does not exist\n", i);
+			i = 0;
+			while (i < 4)
+			{
+				map_info[i][0] = '\0';
+				i++;
+			}
 			return (1);
 		}
 		i++;
