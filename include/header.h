@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 16:48:38 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/25 12:22:09 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <unistd.h>
 # include <math.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1920 / 2
+# define HEIGHT 1080 / 2
 # define PI 3.14159
 # define MAPSCALE 16	// size of wall & floor blocks minimap
 # define VIEW 10			// ammount of blocks to draw arround player x & y
@@ -35,7 +35,6 @@ typedef struct s_keystate
 	int	s;
 	int	d;
 }		t_keystate;
-
 
 /* colour */
 typedef struct	s_color

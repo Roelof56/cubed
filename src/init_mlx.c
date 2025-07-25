@@ -12,7 +12,6 @@ static void	set_keystate_struct(t_vars *data)
 // save some space in main.
 int	init_mlx_images(t_vars *data)
 {
-	// data->view3d = mlx_new_image(data->mlx, 960, 540);
 	data->view3d = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data->mlx, data->view3d, 0, 0);
 

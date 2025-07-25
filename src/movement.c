@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 12:17:07 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/24 18:06:22 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/25 13:22:08 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,34 @@ static void	strafe_left(t_vars *data, int speed)
 		data->ply += -data->pdx / speed;
 }
 
-// if return 1 = no move.
+// check if wall is on 1/8 angle. 
 static int	collision_cheker(t_vars *data, float angle)
 {
 	float	new_angle;
 	float	new_pdx;
 	float	new_pdy;
-	float	i;
-	float	k;
+	int		i;
+	float	offset;
 
 	i = 0;
-	k = 0.3;
-	new_angle = angle - (k * 2);
+	offset = PI / 4;
+	new_angle = angle - (offset * 2);
 	while (i < 3)
 	{
-		new_angle = new_angle + k;
+		new_angle = new_angle + offset;
 		new_angle = normalize_angle(new_angle);
-		printf("new angle: %f\n", new_angle);
 		new_pdx = cos(new_angle) * 5;
 		new_pdy = sin(new_angle) * 5;
-		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 5))] == '1')
+		if (data->themap[(int)floor(data->ply)][(int)floor(data->plx + (new_pdx / 10))] == '1')
 			return (1);
-		if (data->themap[(int)floor(data->ply + (new_pdy / 5))][(int)floor(data->plx)] == '1')
+		if (data->themap[(int)floor(data->ply + (new_pdy / 10))][(int)floor(data->plx)] == '1')
 			return (1);
 		i += 1;
 	}
-	printf("\n");
 	return (0);
 }
 
-static void	move_backward(t_vars *data, int speed)
+static void	move_backward(t_vars *data, int speed) // is ollision checker alleen voor achteruit ?
 {
 	if (collision_cheker(data, data->pla + PI) == 0)
 	{
@@ -104,6 +102,14 @@ static void	move_backward(t_vars *data, int speed)
 // 		data->ply -= data->pdy / speed;
 // }
 
+// static void	move_forward(t_vars *data, int speed)
+// {
+// 	if (collision_cheker(data, data->pla))
+// 	{
+// 		data->plx += (data->pdx / speed);
+// 		data->ply += (data->pdy / speed);
+// 	}
+// }
 
 // include wall collision.
 static void	move_forward(t_vars *data, int speed)
