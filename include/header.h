@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/25 12:22:09 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 14:08:10 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,5 +185,7 @@ double		normalize_angle(double angle);
 
 /* draw_minimap.c */
 void		draw_minimap(t_vars *data);
+
+/* anewmovement.c */
 
 #endif
