@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/22 18:56:16 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/22 18:59:41 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 16:31:39 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,11 @@ void	input_hook(void *param)
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		handle_front_back_movement(data, MLX_KEY_W, data->themap);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		handle_front_back_movement(data, MLX_KEY_S, data->themap);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		handle_left_movement(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		handle_right_movement(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		change_player_angle(data, 1);

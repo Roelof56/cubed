@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 10:35:06 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:44:52 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/25 11:28:43 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 {
 	if (side == 0)
 	{
-		if (cos(angle > 0))
+		if (cos(angle) > 0)
 			return (data->textures.ea);
 		else
 			return (data->textures.we);
@@ -81,7 +81,7 @@ void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 	while (y < proj->pixel_start)
 		set_pixel(data->view3d, px, y++, ceil_color);
 	y = proj->pixel_end;
-	floor_col = 0;
+	floor_col = ft_get_rgba(data->textures.f);
 	while (y < (int)data->view3d->height)
 		set_pixel(data->view3d, px, y++, floor_col);
 }

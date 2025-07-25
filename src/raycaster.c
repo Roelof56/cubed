@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 09:58:15 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 12:40:12 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/24 15:26:39 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_ray	ray_wall(t_vars *data, double angle)
 	t_step		step;
 	double		dist;
 
-	init_structs(data, &dir, &map, angle);
-	init_step(data, &dir, &map, &step);
+	init_ray(data, &dir, &map, angle);
+	ini_step(data, &dir, &map, &step);
 	dda(data, &map, &step);
-	dist = calc_dist(data, &map, &step, &dir);
+	dist = calc_dis(data, &map, &step, &dir);
 	return (build_ray(data, &dir, &map, dist));
 }
 
