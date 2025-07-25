@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/25 16:11:02 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/25 17:33:42 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,33 @@ int	clean_array(char **cleanme)
 	return (1);
 }
 
+void	set_texturepath_to_null(char **arr, int index)
+{
+	int	i;
+	(void) index;
+	
+	i = 0;
+	printf("index: %d\n", index);
+	while (i < 6)
+	{
+		if (arr[i] != NULL)
+			arr[i][0] = '\0';
+		i++;
+	}
+	i = 0;
+	while (i < 6)
+	{
+		printf("arr[%d]: %s\n", i, arr[i]);
+		i++;
+	}
+}
+
 // clean textures & imgs 
 void	clean_textures(t_vars *data)
 {
-	if (data->map_info[0][0] != '\0')
-		mlx_delete_texture(data->textures.no);
+	if (data->map_info[0] != NULL)
+		if (data->map_info[0][0] != '\0')
+			mlx_delete_texture(data->textures.no);
 	if (data->map_info[1][0] != '\0')
 		mlx_delete_texture(data->textures.so);
 	if (data->map_info[2][0] != '\0')

@@ -39,7 +39,15 @@ int	enforce_texture_file_extension(char **arr)
 	while (i < 4)
 	{
 		if (check_file_extension(arr[i], ".png") == 1)
+		{
+			i = 0;
+			while (i < 4)
+			{
+				arr[i][0] = '\0';
+				i++;
+			}
 			return (1);
+		}
 		i++;
 	}
 	return (0);

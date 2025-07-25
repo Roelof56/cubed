@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/14 22:51:03 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 17:56:40 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	flood_fill(t_vars *data, int x, int y, int *retval)
 	width = (int)ft_strlen(data->themap[y]);
 	if (x < 0 || y < 0 || y >= data->mapheight || x >= width)
 	{
-		data->themap[y][x] = '5';
+		// data->themap[y][x] = '5';
 		*retval = 1;
 		return ;
 	}

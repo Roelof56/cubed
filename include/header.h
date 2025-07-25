@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/24 14:42:32 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/25 17:23:55 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			ft_strerror(char *str);
 void		clean_map_info(t_vars *data);
 void		clean_textures(t_vars *data);
 int			clean_array(char **cleanme);
+void		set_texturepath_to_null(char **arr, int index);
 
 /* parser_main.c */
 int			check_file_extension(char *str, char *ext);

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:28:28 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/25 17:30:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static int	check_and_save_identifier_info(char *str, char **info)
 		info[retval] = clean_intel;
 		return (0);
 	}
+	printf("HI\n");
 	return (1);
 }
 
@@ -127,7 +128,10 @@ int	get_map_info(t_maplst *head, t_vars *data)
 	while (i < 6)
 	{
 		if (check_and_save_identifier_info(head->line, data->map_info) == 1)
+		{
+			set_texturepath_to_null(data->map_info, i);
 			return (ft_strerror("invalid mapinfo."));
+		}
 		i++;
 		head = head->next;
 	}
