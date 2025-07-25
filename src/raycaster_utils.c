@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 10:35:06 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/25 11:11:04 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/25 11:28:43 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 {
 	if (side == 0)
 	{
-		if (cos(angle > 0))
+		if (cos(angle) > 0)
 			return (data->textures.ea);
 		else
 			return (data->textures.we);
