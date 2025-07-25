@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/25 16:10:15 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/25 16:54:15 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int argc, char **argv)
 		return (ft_strerror("Could not start mlx instance.\n"));
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
-		printf("exit mlx maybe ?\n");
 		mlx_terminate(data.mlx);
 		return (1);
 	}
@@ -53,9 +52,9 @@ int	main(int argc, char **argv)
 	mlx_loop(data.mlx);
 
 	//end of program clean.
-	mlx_terminate(data.mlx);
 	clean_textures(&data);
 	clean_map_info(&data);
 	clean_array(data.themap);
+	mlx_terminate(data.mlx);
 	return (0);
 }

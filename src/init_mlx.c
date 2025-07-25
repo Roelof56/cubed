@@ -19,7 +19,7 @@ int	init_mlx_images(t_vars *data)
 // start mlx save in data struct.
 int	start_mlx(t_vars *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "   :)   ", true);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "   :)   ", false);
 	if (!data->mlx)
 		return (1);
 	init_mlx_images(data);
