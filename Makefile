@@ -1,5 +1,5 @@
 NAME		:=	cub3d
-CC			:=	clang
+CC			:=	cc
 LIBMLX		:=	./MLX42
 LIBFT		:=	./libft
 
