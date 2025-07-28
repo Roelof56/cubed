@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_fov.c                                         :+:    :+:            */
+/*   draw_utils_bresenham.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 1844/01/07 09:00:00 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/09 16:53:45 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 19:22:38 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-#include "holdmydata.h"
+#include "draw_structs.h"
 
 // set data_struct variables.
 static void	set_data_struct(t_line *line, t_stuff *data)

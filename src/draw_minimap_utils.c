@@ -6,12 +6,12 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:19:02 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 15:20:39 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 19:22:24 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-#include "holdmydata.h"
+#include "draw_structs.h"
 #include "ray_caster.h"
 
 //  draw floors & walls based on distance to player

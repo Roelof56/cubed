@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:06:09 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:21:09 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define PI 3.14159
-// # define SCALE 32	// old & unused
 # define MAPSCALE 16	// size of wall & floor blocks minimap
-# define VIEW 10			// ammount of blocks to draw arround player x & y
+# define VIEW 10		// ammount of blocks to draw arround player x & y
 
 /* colour */
 typedef struct	s_color
@@ -130,7 +129,6 @@ int			color_digit_checker(char *str);
 char		*remove_whitespace_colorinput(char *str);
 char		*clean_color_text(char *str);
 void		set_array_for_cleanig(char **arr);
-
 
 /* parser_get_mapinfo.c */
 int			get_map_info(t_maplst *head, t_vars *data);
