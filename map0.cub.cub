@@ -1,11 +1,11 @@
   
  
-F   25, 110,   160
+	F   25,    12,160
 SO        ./textures/so.png
-NO		./textures/no.png
+	NO	./textures/no.png
 
-C     157,96,230
-		EA  ./textures/ea.png
+C     157	,96,	230
+		EA   ./textures/ea.png
 	WE    ./textures/we.png
              
 
@@ -26,4 +26,3 @@ C     157,96,230
 1000000000000100N01  
 1000000000000100001  
 1111111111111111111  
-

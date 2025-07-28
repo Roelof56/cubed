@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 15:36:06 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 17:49:09 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	game_hook(void *param)
 	data = (t_vars *)param;
 	input_hook(data);
 	mlx_cursor_hook(data->mlx, mouse_hook, data);
-	draw_hook(data); // draw minimap & draw 3d cast
+	draw_hook(data);
 }
 
 int	main(int argc, char **argv)
@@ -41,9 +41,9 @@ int	main(int argc, char **argv)
 	t_vars	data;
 
 	if (argc != 2)
-		return (ft_strerror("Give 1 map argument please."));
+		return (ft_strerror(&data, "Give 1 map argument please."));
 	if (start_mlx(&data) == 1)
-		return (ft_strerror("Could not start mlx instance.\n"));
+		return (ft_strerror(&data, "Could not start mlx instance.\n"));
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
 		mlx_terminate(data.mlx);

@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 15:21:33 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 17:06:09 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ typedef struct	s_ray
 }	t_ray;
 
 /* parser_error.c */
-int			ft_strerror(char *str);
+int			ft_strerror(t_vars *data, char *str);
 void		clean_map_info(t_vars *data);
 void		clean_textures(t_vars *data);
 int			clean_array(char **cleanme);
 
 /* parser_main.c */
-int			check_file_extension(char *str, char *ext);
+int			check_file_extension(t_vars *data, char *str, char *ext);
 int			import_mapfile(t_vars *data, char *str);
 
 /* parser_load_file.c */
@@ -118,12 +118,19 @@ void		ll_clean_list(t_maplst **head);
 int			make_map_square(t_vars *data);
 
 /* parser_textures.c */
-int			save_textures_in_struct(t_textures *dest, char **arr);
-int			enforce_texture_file_extension(char **arr);
+int			save_textures_in_struct(t_vars *data, t_textures *dest, char **arr);
+int			enforce_texture_file_extension(t_vars *data, char **arr);
 int			validate_texture_files(char **map_info);
 
 /* parser_import_color.c */
 int			get_colours(t_vars *data, char **cf);
+
+/* parser_color_utils.c */
+int			color_digit_checker(char *str);
+char		*remove_whitespace_colorinput(char *str);
+char		*clean_color_text(char *str);
+void		set_array_for_cleanig(char **arr);
+
 
 /* parser_get_mapinfo.c */
 int			get_map_info(t_maplst *head, t_vars *data);
