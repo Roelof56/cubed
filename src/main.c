@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:09:54 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 17:49:09 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	game_hook(void *param)
 	data = (t_vars *)param;
 	input_hook(data);
 	mlx_cursor_hook(data->mlx, mouse_hook, data);
-	draw_hook(data); // draw minimap & draw 3d cast
+	draw_hook(data);
 }
 
 int	main(int argc, char **argv)
