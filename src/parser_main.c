@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:11:41 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 17:31:43 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,41 @@ int	check_file_extension(t_vars *data, char *str, char *ext)
 	return (0);
 }
 
+int	check_file_extension_map(t_vars *data, char *str, char *ext)
+{
+	int		i;
+	int		j;
+	char	*type;
+	(void) ext;
+	(void) data;
+	i = 0;
+	j = 0;
+	if (!str)
+		return (1);
+	if (ft_strlen(str) <= 4)
+		return (1);
+	printf("ext: %s\n", ext);
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			while (str[i + j])
+				j++;
+			printf("extenstion length: %s\n", ext);
+			type = ft_substr(str, i, j);
+			if (ft_strncmp(type, ext, 4) != 0)
+			{
+				free(type);
+				printf("str: %s\n", str);
+				return (ft_strerror(data, "Invalid file extension"));
+			}
+			// printf("type: '%s'\n", type);
+		}
+		i++;
+	}
+	return (0);
+}
+
 // handle cleaning for import_mapfile
 // from get_map_info & everything below it.
 static int	error_clean(t_vars *data, t_maplst **head, int len)
@@ -57,7 +92,8 @@ int	import_mapfile(t_vars *data, char *str)
 	t_maplst	*head;
 
 	head = NULL;
-	if (check_file_extension(data, str, ".cub") == 1)
+	printf("mapfile: %s\n", str);
+	if (check_file_extension_map(data, str, ".cub") == 1)
 		return (1);
 	if (open_that_file(str, &fd) == 1)
 		return (ft_strerror(data, "Can't open file"));
