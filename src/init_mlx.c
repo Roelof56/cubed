@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 19:07:39 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:12:51 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	init_mlx_images(t_vars *data)
 	}
 	mlx_image_to_window(data->mlx, data->minimapbg, WIDTH - 330, 10);
 	fill_image_color(data->minimapbg, 160);
-	data->minimap = NULL;
-	// data->minimap = mlx_new_image(data->mlx, 320, 320);
+	data->minimap = mlx_new_image(data->mlx, 320, 320);
 	if (!data->minimap)
 	{
 		mlx_delete_image(data->mlx, data->view3d);
