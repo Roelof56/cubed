@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:49:35 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/24 14:44:30 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 12:09:53 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Function to set a pixel using mlx_put_pixel
 void	set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+	if (x < img->width && y < img->height)
 		mlx_put_pixel(img, x, y, color);
 }
 
