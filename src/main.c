@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "header.h"
+#include "ray_caster.h"
 
 // maybe put draw_hook into game_hook cause smol.
 // limit fps here ?

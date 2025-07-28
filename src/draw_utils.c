@@ -19,7 +19,7 @@ void	set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 		mlx_put_pixel(img, x, y, color);
 }
 
-// convert color struct to int vallue
+// convert color struct to int value
 int	ft_get_rgba(t_color color)
 {
 	return (color.r << 24 | color.g << 16 | color.b << 8 | color.a);
