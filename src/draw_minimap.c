@@ -6,12 +6,12 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 15:21:49 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 19:22:32 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-#include "holdmydata.h"
+#include "draw_structs.h"
 #include "ray_caster.h"
 
 //draw fovlines. maybe use 1 degree to rad as step ? 
@@ -70,4 +70,5 @@ void	draw_minimap(t_vars *data)
 		mmdata.offsety++;
 	}
 	draw_fov_minimap(data);
+	draw_image_outline(data->minimap, 0xE6E6FAFF);
 }

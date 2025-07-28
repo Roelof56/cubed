@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   holdmydata.h                                       :+:    :+:            */
+/*   draw_structs.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/23 12:27:05 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/28 19:23:56 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOLDMYDATA_H
-# define HOLDMYDATA_H
+#ifndef DRAW_STRUCTS_H
+# define DRAW_STRUCTS_H
+# include <stdint.h>
 
 /* bresenham's line algorithm data storage struct, thanks norm*/
 typedef struct s_stuff

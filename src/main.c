@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:49:09 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:10:44 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	draw_hook(void *param)
 	data = (t_vars *)param;
 	draw_3d_view(data);
 	draw_minimap(data);
-	draw_image_outline(data->minimap, 0xE6E6FAFF); //moved for space reason.
 }
 
 // wrapper cause mlx takes 1 hook.
@@ -43,7 +42,10 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_strerror(&data, "Give 1 map argument please."));
 	if (start_mlx(&data) == 1)
-		return (ft_strerror(&data, "Could not start mlx instance.\n"));
+	{
+		printf("Error\nCould not start mlx instance\n");
+		return (1);
+	}
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
 		mlx_terminate(data.mlx);
