@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:21:09 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:24:38 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,6 @@ int			check_for_player(t_vars *data, char **themap);
 /* parser_floodfill.c */
 void		reset_map_fields(char **map);
 int			check_if_enclosed(t_vars *data);
-
-/* parser_printer.c */
-int			print_2d_char_array(char **map, int len);
-int			print_map_color(char **map, int len);
 
 /* init_mlx.c */
 int			init_mlx_images(t_vars *data);
