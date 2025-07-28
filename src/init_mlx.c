@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 19:12:51 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:13:41 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	init_mlx_images(t_vars *data)
 // start mlx save in data struct.
 int	start_mlx(t_vars *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "   :)   ", false);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3d", false);
 	if (!data->mlx)
 		return (1);
 	if (init_mlx_images(data) == 1)

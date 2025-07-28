@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 18:59:15 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 19:14:53 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,13 @@ int	import_mapfile(t_vars *data, char *str)
 	head = NULL;
 	if (check_file_extension(data, str, ".cub") == 1)
 		return (1);
+	// if (open_that_file(str, &fd) == 1)
+	// 	return (ft_strerror(data, "Can't open file"));
 	if (open_that_file(str, &fd) == 1)
-		return (ft_strerror(data, "Can't open file"));
+	{
+		printf("Error\nCan't open file\n");
+		return (1);
+	}
 	if (file_to_linkedlist(fd, &head) == 1)
 		return (ft_strerror(data, "Failed to copy file to linkedlist"));
 	if (get_map_info(head, data) == 1)
