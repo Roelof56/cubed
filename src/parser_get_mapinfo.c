@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:28:28 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/28 16:03:12 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //2. skip identifier text
 //3. skip mid whitespace.
 //4. get length du text
-static char	*cleanup_input_mapinfo(char *str)
+static char	*clean_texture_text(char *str)
 {
 	int		i;
 	int		j;
@@ -89,7 +89,10 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	free(tmp);
 	if (retval >= 0 && retval < 6)
 	{
-		clean_intel = cleanup_input_mapinfo(str);
+		if (retval >= 0 && retval < 4)
+			clean_intel = clean_texture_text(str);
+		else
+			clean_intel = clean_color_text(str);
 		if (!clean_intel)
 			return (1);
 		info[retval] = clean_intel;

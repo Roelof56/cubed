@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/22 15:22:53 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/28 16:38:59 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,19 @@ static int	save_to_struct(t_vars *data, int *intarr, int c)
 int	get_colours(t_vars *data, char **cf)
 {
 	char	**split;
+	char	*tmp;
 	int		i;
 	int		intarr[3];
 
 	i = 0;
 	while (i < 2)
 	{
-		split = ft_split(cf[i], ',');
+		tmp = remove_whitespace_colorinput(cf[i]);
+		if (!tmp)
+			return (ft_strerror("Malloc error\n"));
+		if (color_digit_checker(tmp) == 1)
+			return (1);
+		split = ft_split(tmp, ',');
 		if (check_array_length(split) == 1)
 			return (clean_array(split));
 		convert_to_intarray(split, intarr);
