@@ -43,7 +43,6 @@ OBJS		:=	$(addprefix $(OBJ_PATH), $(OBJ))
 # Colours
 RESET		= \033[0m
 GREEN		= \033[0;92m
-RED			= \033[31;01m
 
 # Args for run rule.
 ARG			= map2.cub
