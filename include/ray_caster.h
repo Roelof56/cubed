@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/17 10:01:38 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 15:26:27 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 15:23:35 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,22 @@ typedef struct s_render_state
 	t_render_data	column;
 }	t_render_state;
 
+/* dda.c */
 void			init_ray(t_vars *data, t_raydir *dir, t_map *map, double angle);
 void			ini_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step);
 void			dda(t_vars *data, t_map *map, t_step *step);
 double			calc_dis(t_vars *data, t_map *map, t_step *step, t_raydir *dir);
 t_ray			build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist);
-t_ray			ray_wall(t_vars *data, double angle);
 
+/* raycaster_utils.c */
 t_proj			project(t_ray *info, double angle, int screen_h, t_vars *data);
 mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle);
 t_tex_info		prepare_texture_info(t_tex_input *in);
 void			draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj);
 uint32_t		pixel_texture(t_tex_info *tinfo, t_ray *info);
+
+/* raycaster.c*/
+t_ray			ray_wall(t_vars *data, double angle);
+void			draw_3d_view(t_vars *data);
 
 #endif

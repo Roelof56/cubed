@@ -6,11 +6,12 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/25 16:54:15 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 15:36:06 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+#include "ray_caster.h"
 
 // maybe put draw_hook into game_hook cause smol.
 // limit fps here ?

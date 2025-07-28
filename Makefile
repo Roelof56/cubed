@@ -32,7 +32,8 @@ SRCS		:=	main.c \
 				raycaster.c \
 				draw_minimap.c \
 				dda.c \
-				raycaster_utils.c 
+				raycaster_utils.c \
+				draw_minimap_utils.c
 
 
 OBJ			:=	$(SRCS:.c=.o)
