@@ -2,10 +2,10 @@
  
 	F   25,    12,160
 SO        ./textures/so.png
-NO		./textures/no.png
+	NO	./textures/no.png
 
-C     157	,96,230
-		EA  ./textures/ea.png
+C     157	,96,	230
+		EA  
 	WE    ./textures/we.png
              
 
@@ -27,3 +27,6 @@ C     157	,96,230
 1000000000000100001  
 1111111111111111111  
 
+int	check_file_extension(t_vars *data, char *str, char *ext)
+
+int	save_textures_in_struct(t_vars *data, t_textures *dest, char **arr)

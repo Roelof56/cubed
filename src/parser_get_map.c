@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:37 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/22 15:22:03 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/28 17:02:05 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	load_that_map(t_vars *data, t_maplst *head)
 	cpy = head;
 	data->themap = create_new(head);
 	if (!data->themap)
-		return (ft_strerror("failed to create 2d char array for map."));
+		return (ft_strerror(data, "failed to create 2d char array for map."));
 	while (i < 6)
 	{
 		cpy = cpy->next;

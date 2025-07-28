@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/28 16:38:59 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 17:08:28 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	get_colours(t_vars *data, char **cf)
 	{
 		tmp = remove_whitespace_colorinput(cf[i]);
 		if (!tmp)
-			return (ft_strerror("Malloc error\n"));
+			return (ft_strerror(data, "Malloc error\n"));
 		if (color_digit_checker(tmp) == 1)
 			return (1);
 		split = ft_split(tmp, ',');

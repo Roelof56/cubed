@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:58:40 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 16:39:25 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 17:10:42 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 int	color_digit_checker(char *str)
 {
 	int		i;
-	
+
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != ',' || str[i] == ' ')
 		{
@@ -30,12 +30,13 @@ int	color_digit_checker(char *str)
 	return (0);
 }
 
+// remove ' ' & '\t' from color text mapfile.
 char	*remove_whitespace_colorinput(char *str)
 {
 	char	*result;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	result = malloc((ft_strlen(str) + 1) * sizeof(char));
@@ -60,7 +61,7 @@ char	*remove_whitespace_colorinput(char *str)
 }
 
 // used in parser_get_map_info to diferentiate between color & texture text
-char *clean_color_text(char *str)
+char	*clean_color_text(char *str)
 {
 	char	*result;
 	int		i;
@@ -83,4 +84,19 @@ char *clean_color_text(char *str)
 	}
 	result[j] = '\0';
 	return (result);
+}
+
+// set map info array to nothing so mlx_delete_texture don't cry.
+void	set_array_for_cleanig(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (arr[i] == NULL)
+			arr[i] = malloc(1 * sizeof(char));
+		arr[i][0] = '\0';
+		i++;
+	}
 }
