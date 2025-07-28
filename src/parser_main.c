@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:50:33 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/28 18:59:15 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	import_mapfile(t_vars *data, char *str)
 	t_maplst	*head;
 
 	head = NULL;
-	printf("mapfile: %s\n", str);
 	if (check_file_extension(data, str, ".cub") == 1)
 		return (1);
 	if (open_that_file(str, &fd) == 1)

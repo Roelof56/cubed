@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/09 17:09:25 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 15:21:49 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/28 18:59:50 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	draw_minimap(t_vars *data)
 		mmdata.offsety++;
 	}
 	draw_fov_minimap(data);
+	draw_image_outline(data->minimap, 0xE6E6FAFF);
 }
