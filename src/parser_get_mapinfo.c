@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:50:18 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:27:25 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	get_map_info(t_maplst *head, t_vars *data)
 		i++;
 		head = head->next;
 	}
-	if (enforce_texture_file_extension(data, data->map_info) == 1)
+	if (enforce_texture_file_extension(data->map_info) == 1)
 		return (ft_strerror(data, "Only .png files for textures\n"));
 	if (validate_texture_files(data->map_info) == 1)
 		return (ft_strerror(data, "loading textures."));
