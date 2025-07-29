@@ -6,23 +6,12 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 09:46:00 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/29 13:48:09 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
-
-// maybe put draw_hook into game_hook cause smol.
-// limit fps here ?
-void	draw_hook(void *param)
-{
-	t_vars	*data;
-
-	data = (t_vars *)param;
-	draw_3d_view(data);
-	draw_minimap(data);
-}
 
 // wrapper cause mlx takes 1 hook.
 void	game_hook(void *param)
@@ -32,7 +21,8 @@ void	game_hook(void *param)
 	data = (t_vars *)param;
 	input_hook(data);
 	mlx_cursor_hook(data->mlx, mouse_hook, data);
-	draw_hook(data);
+	draw_3d_view(data);
+	draw_minimap(data);
 }
 
 int	main(int argc, char **argv)
