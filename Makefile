@@ -4,7 +4,7 @@ LIBMLX		:=	./MLX42
 LIBFT		:=	./libft
 
 INCLUDE		:=	-I ./include -I $(LIBMLX)/include
-FLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+FLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBS		:=	$(LIBFT)/libft.a  $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRC_PATH	:=	src/
