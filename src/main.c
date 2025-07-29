@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:10:44 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 09:46:00 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // limit fps here ?
 void	draw_hook(void *param)
 {
-	t_vars *data;
+	t_vars	*data;
 
 	data = (t_vars *)param;
 	draw_3d_view(data);
@@ -27,7 +27,7 @@ void	draw_hook(void *param)
 // wrapper cause mlx takes 1 hook.
 void	game_hook(void *param)
 {
-	t_vars *data;
+	t_vars	*data;
 
 	data = (t_vars *)param;
 	input_hook(data);
@@ -53,8 +53,6 @@ int	main(int argc, char **argv)
 	}
 	mlx_loop_hook(data.mlx, &game_hook, &data);
 	mlx_loop(data.mlx);
-
-	//end of program clean.
 	clean_textures(&data);
 	clean_map_info(&data);
 	clean_array(data.themap);

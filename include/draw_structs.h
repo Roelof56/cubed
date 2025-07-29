@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:23:56 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 09:45:41 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_stuff
 	int	err;
 }		t_stuff;
 
-/* draw_filled block for the minimap needs many vars cause of the scrolling effect.*/
+/* draw_filled block for minimap needs many vars cause of scrolling effect.*/
 typedef struct s_things
 {
 	uint32_t	drawx;
