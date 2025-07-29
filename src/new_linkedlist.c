@@ -6,32 +6,11 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:44 by rhol          #+#    #+#                 */
-/*   Updated: 2025/06/02 17:05:45 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:56:11 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-// print that list _ delete at some point.
-void	ll_print_list(t_maplst *head)
-{
-	t_maplst	*cpy;
-	int			i;
-
-	i = 0;
-	cpy = NULL;
-	if (!head)
-		return ;
-	cpy = head;
-	printf("\n- print list -\n");
-	while (cpy)
-	{
-		printf("%.2d:%s\n", i, cpy->line);
-		cpy = cpy->next;
-		i++;
-	}
-	return ;
-}
 
 // create a new node for linkedlist.
 t_maplst	*ll_new_node(char *str)

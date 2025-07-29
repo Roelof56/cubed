@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:43:22 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:55:47 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int			open_that_file(char *file, int *map_fd);
 int			file_to_linkedlist(int fd, t_maplst **head);
 
 /* new_linkedlist.c */
-void		ll_print_list(t_maplst *head); //delete at some point.
 t_maplst	*ll_new_node(char *str);
 void		ll_add_back(t_maplst **head, t_maplst *new);
 int			ll_listsize(t_maplst *head);
