@@ -6,14 +6,14 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:16:36 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:21:37 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // check if string has file extension - char *ext. for .cub & .png
-int	check_file_extension(t_vars *data, char *str, char *ext)
+int	check_file_extension(char *str, char *ext)
 {
 	int		i;
 	char	*type;
@@ -22,17 +22,21 @@ int	check_file_extension(t_vars *data, char *str, char *ext)
 	type = NULL;
 	if (!str)
 		return (1);
-	if (ft_strlen(str) <= 4)
-		return (1);
 	while (str[i])
 		i++;
+	if (i < 5)
+	{
+		printf("Error\nWrong File extension\n");
+		return (1);
+	}
 	type = ft_substr(str, (i - 4), 4);
 	if (!type)
-		return (ft_strerror(data, "Encountered a malloc error."));
+		return (1);
 	if (ft_strncmp(type, ext, 4) != 0)
 	{
 		free(type);
-		return (ft_strerror(data, "invalid extension use '<name>.cub'"));
+		printf("Error\nWrong File extension\n");
+		return (1);
 	}
 	free(type);
 	return (0);
@@ -57,7 +61,7 @@ int	import_mapfile(t_vars *data, char *str)
 	t_maplst	*head;
 
 	head = NULL;
-	if (check_file_extension(data, str, ".cub") == 1)
+	if (check_file_extension(str, ".cub") == 1)
 		return (1);
 	if (open_that_file(str, &fd) == 1)
 	{

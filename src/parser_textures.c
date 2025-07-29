@@ -31,14 +31,14 @@ int	save_textures_in_struct(t_vars *data, t_textures *dest, char **arr)
 }
 
 // use .png or leave.
-int	enforce_texture_file_extension(t_vars *data, char **arr)
+int	enforce_texture_file_extension(char **arr)
 {
 	int	i;
 
 	i = 0;
 	while (i < 4)
 	{
-		if (check_file_extension(data, arr[i], ".png") == 1)
+		if (check_file_extension(arr[i], ".png") == 1)
 			return (1);
 		i++;
 	}
