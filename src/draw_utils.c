@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:49:35 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/28 12:09:53 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/29 09:39:53 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,6 @@ void	fill_image_color(mlx_image_t *img, uint32_t color)
 			set_pixel(img, x, y, color);
 			x++;
 		}
-		y++;
-	}
-}
-
-// Outline img -> tmp for placement in window
-void	draw_image_outline(mlx_image_t *img, uint32_t color)
-{
-	uint32_t	x;
-	uint32_t	y;
-
-	x = 0;
-	while (x < img->width)
-	{
-		mlx_put_pixel(img, x, 0, color);
-		mlx_put_pixel(img, x, img->height - 1, color);
-		x++;
-	}
-	y = 1;
-	while (y < img->height - 1)
-	{
-		mlx_put_pixel(img, 0, y, color);
-		mlx_put_pixel(img, img->width - 1, y, color);
 		y++;
 	}
 }

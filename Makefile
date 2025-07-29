@@ -20,7 +20,6 @@ SRCS		:=	main.c \
 				parser_validate_map.c \
 				parser_validate_utils.c \
 				parser_floodfill.c \
-				parser_printer.c \
 				parser_import_color.c \
 				parser_color_utils.c \
 				parser_square_map.c \

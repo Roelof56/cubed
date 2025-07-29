@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:19:02 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 19:22:24 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 09:40:02 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,28 @@ void	square_line(t_vars *data, float tilex, float tiley, uint32_t clr)
 			set_pixel(data->minimap, vars.drawx + y, vars.drawy + x, clr);
 			x++;
 		}
+		y++;
+	}
+}
+
+// Outline img -> tmp for placement in window
+void	draw_image_outline(mlx_image_t *img, uint32_t color)
+{
+	uint32_t	x;
+	uint32_t	y;
+
+	x = 0;
+	while (x < img->width)
+	{
+		mlx_put_pixel(img, x, 0, color);
+		mlx_put_pixel(img, x, img->height - 1, color);
+		x++;
+	}
+	y = 1;
+	while (y < img->height - 1)
+	{
+		mlx_put_pixel(img, 0, y, color);
+		mlx_put_pixel(img, img->width - 1, y, color);
 		y++;
 	}
 }

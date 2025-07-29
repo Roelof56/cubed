@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:24:38 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 09:40:20 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,6 @@ void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 /* draw_utils.c */
 void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int			ft_get_rgba(t_color color);
-void		draw_image_outline(mlx_image_t *img, uint32_t color);
 void		clear_image(mlx_image_t *img);
 void		fill_image_color(mlx_image_t *img, uint32_t color);
 double		normalize_angle(double angle);
@@ -172,6 +171,7 @@ double		normalize_angle(double angle);
 /* draw_minimap_utils.c*/
 void		draw_square(t_vars *data, float tilex, float tiley, uint32_t clr);
 void		square_line(t_vars *data, float tilex, float tiley, uint32_t clr);
+void		draw_image_outline(mlx_image_t *img, uint32_t color);
 void		draw_single_fov_line(t_vars *data, double angle);
 
 /* draw_minimap.c */
