@@ -1,4 +1,4 @@
-NAME		:=	cub3d
+NAME		:=	cub3D
 CC			:=	cc
 LIBMLX		:=	./MLX42
 LIBFT		:=	./libft
@@ -61,9 +61,6 @@ $(NAME)			:	$(OBJS)
 					@$(CC) $(OBJS) $(LIBS) $(INCLUDE) -o $(NAME)
 					@echo "$(GREEN)$(NAME) has been made! $(RESET)" 
 
-run				:	all
-					./$(NAME) $(ARG)
-
 clean			:
 					rm -rf $(OBJ_PATH)
 					rm -rf $(LIBMLX)/build
@@ -75,4 +72,4 @@ fclean			:	clean
 
 re				:	clean all
 
-.PHONY			:	all, clean, fclean, re, run
+.PHONY			:	all, clean, fclean, re
