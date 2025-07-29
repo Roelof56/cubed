@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 13:48:09 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/29 16:11:25 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ int	main(int argc, char **argv)
 	t_vars	data;
 
 	if (argc != 2)
-		return (ft_strerror(&data, "Give 1 map argument please."));
-	if (start_mlx(&data) == 1)
+	{
+		printf("Error\nGive 1 map argument.");
+		return (1);
+	}
+		if (start_mlx(&data) == 1)
 	{
 		printf("Error\nCould not start mlx instance\n");
 		return (1);
