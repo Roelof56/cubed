@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/28 17:08:28 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:42:50 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,11 @@ static int	are_those_ints_in_range(int *arr)
 	return (0);
 }
 
-// save to data struct , maybe change data for texture thing.
-// c = 0 -> floor
-// c = 1 -> ceiling
-static int	save_to_struct(t_vars *data, int *intarr, int c)
+static int	intarray_wrapper(char **split, int *intarr)
 {
-	t_color	*color;
-
-	if (c == 0)
-		color = &data->textures.f;
-	else if (c == 1)
-		color = &data->textures.c;
-	else
-		return (1);
-	color->r = intarr[0];
-	color->g = intarr[1];
-	color->b = intarr[2];
-	color->a = 255;
+	convert_to_intarray(split, intarr);
+	if (are_those_ints_in_range(intarr) == 1)
+		return (clean_array(split));
 	return (0);
 }
 
@@ -94,12 +82,12 @@ int	get_colours(t_vars *data, char **cf)
 		if (color_digit_checker(tmp) == 1)
 			return (1);
 		split = ft_split(tmp, ',');
+		free(tmp);
 		if (check_array_length(split) == 1)
 			return (clean_array(split));
-		convert_to_intarray(split, intarr);
-		if (are_those_ints_in_range(intarr) == 1)
-			return (clean_array(split));
-		if (save_to_struct(data, intarr, i) == 1)
+		if (intarray_wrapper(split, intarr) == 1)
+			return (1);
+		if (save_color_to_struct(data, intarr, i) == 1)
 			return (clean_array(split));
 		i++;
 		clean_array(split);

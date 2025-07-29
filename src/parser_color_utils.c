@@ -6,11 +6,31 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:58:40 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:10:42 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:42:56 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+// save to data struct , maybe change data for texture thing.
+// c = 0 -> floor
+// c = 1 -> ceiling
+int	save_color_to_struct(t_vars *data, int *intarr, int c)
+{
+	t_color	*color;
+
+	if (c == 0)
+		color = &data->textures.f;
+	else if (c == 1)
+		color = &data->textures.c;
+	else
+		return (1);
+	color->r = intarr[0];
+	color->g = intarr[1];
+	color->b = intarr[2];
+	color->a = 255;
+	return (0);
+}
 
 // check if isdigit skip ',' and ' '
 int	color_digit_checker(char *str)
@@ -20,10 +40,13 @@ int	color_digit_checker(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != ',' || str[i] == ' ')
+		if (str[i] != ',')
 		{
 			if (ft_isdigit((int)str[i]) == 0)
+			{
+				free(str);
 				return (1);
+			}
 		}
 		i++;
 	}
