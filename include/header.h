@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:22:49 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:43:22 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int			validate_texture_files(char **map_info);
 int			get_colours(t_vars *data, char **cf);
 
 /* parser_color_utils.c */
+int			save_color_to_struct(t_vars *data, int *intarr, int c);
 int			color_digit_checker(char *str);
 char		*remove_whitespace_colorinput(char *str);
 char		*clean_color_text(char *str);
