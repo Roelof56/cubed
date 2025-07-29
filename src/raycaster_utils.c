@@ -6,13 +6,14 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 10:35:06 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/25 11:28:43 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/29 09:52:39 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
 
+/*Converts wall hit distance into an on screen vertical height*/
 t_proj	project(t_ray *info, double angle, int screen_h, t_vars *data)
 {
 	t_proj	proj;
@@ -31,6 +32,7 @@ t_proj	project(t_ray *info, double angle, int screen_h, t_vars *data)
 	return (proj);
 }
 
+/*Picks the correct texture based on which side of wall was hit*/
 mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 {
 	if (side == 0)
@@ -49,6 +51,7 @@ mlx_texture_t	*get_wall_texture(t_vars *data, int side, double angle)
 	}
 }
 
+/*Computes which part of the texture to draw based on the ray hits the wall*/
 t_tex_info	prepare_texture_info(t_tex_input *in)
 {
 	t_tex_info	tinfo;
@@ -70,6 +73,7 @@ t_tex_info	prepare_texture_info(t_tex_input *in)
 	return (tinfo);
 }
 
+/*Fills pixels above and below the wall with colors from map file*/
 void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 {
 	int			y;
@@ -86,6 +90,7 @@ void	draw_ceiling_and_floor(t_vars *data, int px, t_proj *proj)
 		set_pixel(data->view3d, px, y++, floor_col);
 }
 
+/*Samples one pixel from the wall texture at current tex position*/
 uint32_t	pixel_texture(t_tex_info *tinfo, t_ray *info)
 {
 	int		tex_y;

@@ -6,13 +6,14 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/23 12:05:00 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 15:26:35 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/29 09:50:07 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
 
+/*Sets ray direction vector and start tile*/
 void	init_ray(t_vars *data, t_raydir *dir, t_map *map, double angle)
 {
 	dir->x = cos(angle);
@@ -21,6 +22,7 @@ void	init_ray(t_vars *data, t_raydir *dir, t_map *map, double angle)
 	map->map_y = (int)data->ply;
 }
 
+/*Prepares step direction and side distances for DDA to travers map*/
 void	ini_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
 {
 	step->delta_x = fabs(1.0 / dir->x);
@@ -47,6 +49,7 @@ void	ini_step(t_vars *data, t_raydir *dir, t_map *map, t_step *step)
 	}
 }
 
+/*Performs the DDA algorithm to walk the ray through the grid*/
 void	dda(t_vars *data, t_map *map, t_step *step)
 {
 	while (1)
@@ -68,6 +71,7 @@ void	dda(t_vars *data, t_map *map, t_step *step)
 	}
 }
 
+/*Calculates the exact distance from the player to the wall the ray hits*/
 double	calc_dis(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
 {
 	if (map->side == 0)
@@ -76,6 +80,7 @@ double	calc_dis(t_vars *data, t_map *map, t_step *step, t_raydir *dir)
 		return ((map->map_y - data->ply + (1 - step->step_y) / 2.0) / dir->y);
 }
 
+/*Packages all informate about the ray into a t_ray struct*/
 t_ray	build_ray(t_vars *data, t_raydir *dir, t_map *map, double dist)
 {
 	t_ray	ray;

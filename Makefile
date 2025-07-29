@@ -20,7 +20,6 @@ SRCS		:=	main.c \
 				parser_validate_map.c \
 				parser_validate_utils.c \
 				parser_floodfill.c \
-				parser_printer.c \
 				parser_import_color.c \
 				parser_color_utils.c \
 				parser_square_map.c \
@@ -51,8 +50,8 @@ ARG			= map2.cub
 all				:	createlibs $(NAME)
 
 createlibs		:
-					cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-					$(MAKE) -C $(LIBFT)
+					cmake $(LIBMLX) -B $(LIBMLX)/build -D CMAKE_C_COMPILER=$(CC) && make -C $(LIBMLX)/build -j4
+					$(MAKE) -C $(LIBFT) CC=$(CC)
 
 $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 					@mkdir -p $(OBJ_PATH)

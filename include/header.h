@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:24:38 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 09:47:29 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@
 # define VIEW 10		// ammount of blocks to draw arround player x & y
 
 /* colour */
-typedef struct	s_color
+typedef struct s_color
 {
 	int		r;
 	int		g;
 	int		b;
 	int		a;
-}			t_color;
+}	t_color;
 
-typedef struct s_textures 
+typedef struct s_textures
 {
-	mlx_texture_t *no;
-	mlx_texture_t *so;
-	mlx_texture_t *we;
-	mlx_texture_t *ea;
-	t_color f;
-	t_color c;
-}				t_textures;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+	t_color			f;
+	t_color			c;
+}	t_textures;
 
 /* map data struct */
 typedef struct s_vars
@@ -63,14 +63,14 @@ typedef struct s_vars
 	mlx_image_t		*minimap;
 	mlx_image_t		*minimapbg;
 	mlx_image_t		*view3d;
-}				t_vars;
+}	t_vars;
 
 /* linkedlist - for map import*/
 typedef struct s_maplst
 {
 	char			*line;
 	struct s_maplst	*next;
-}					t_maplst;
+}	t_maplst;
 
 /* for bresenhams line algo */
 typedef struct s_line
@@ -81,11 +81,11 @@ typedef struct s_line
 	int		y2;
 }			t_line;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	int		hit_x; // ray hit x coordinate
 	int		hit_y; // ray_hit y coordinate
-	double	distance; // perpedicular distance from player's position to the point where the ray hits the wall
+	double	distance; // perpedicular distance from player's position to wall
 	int		side; // 0 = vertical wall (NS), 1 = horizontal (EW)
 	t_line	line; // line from player to hit point (for 2D drawing)
 	double	wall_hit_x;
@@ -164,7 +164,6 @@ void		bresenham_line(mlx_image_t *img, t_line line, uint32_t color);
 /* draw_utils.c */
 void		set_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int			ft_get_rgba(t_color color);
-void		draw_image_outline(mlx_image_t *img, uint32_t color);
 void		clear_image(mlx_image_t *img);
 void		fill_image_color(mlx_image_t *img, uint32_t color);
 double		normalize_angle(double angle);
@@ -172,6 +171,7 @@ double		normalize_angle(double angle);
 /* draw_minimap_utils.c*/
 void		draw_square(t_vars *data, float tilex, float tiley, uint32_t clr);
 void		square_line(t_vars *data, float tilex, float tiley, uint32_t clr);
+void		draw_image_outline(mlx_image_t *img, uint32_t color);
 void		draw_single_fov_line(t_vars *data, double angle);
 
 /* draw_minimap.c */

@@ -6,13 +6,14 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/24 09:58:15 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/24 15:26:39 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/29 09:53:52 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include "ray_caster.h"
 
+/*Wrapper that casts a single ray at the given angle and returns t_ray*/
 t_ray	ray_wall(t_vars *data, double angle)
 {
 	t_raydir	dir;
@@ -27,6 +28,7 @@ t_ray	ray_wall(t_vars *data, double angle)
 	return (build_ray(data, &dir, &map, dist));
 }
 
+/*Draws the textured vertical slice of the wall*/
 static void	draw_wall(t_vars *data, int px, t_render_data *r)
 {
 	int			y;
@@ -41,12 +43,14 @@ static void	draw_wall(t_vars *data, int px, t_render_data *r)
 	}
 }
 
+/*Draws one full vertical column*/
 static void	draw_slice(t_vars *data, int px, t_render_data *r)
 {
 	draw_ceiling_and_floor(data, px, r->proj);
 	draw_wall(data, px, r);
 }
 
+/*Does everything for one vertical screen column*/
 static void	render_column(t_vars *data, t_render_state *s)
 {
 	double			ray_frac;
@@ -71,6 +75,7 @@ static void	render_column(t_vars *data, t_render_state *s)
 	draw_slice(data, s->px, &s->column);
 }
 
+/*Main loop to render the entire 3D screen*/
 void	draw_3d_view(t_vars *data)
 {
 	t_render_state	s;
