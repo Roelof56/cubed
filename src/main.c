@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:13:51 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/29 16:48:24 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Error\nGive 1 map argument.");
+		printf("Error\nGive 1 map argument.\n");
 		return (1);
 	}
 	if (start_mlx(&data) == 1)
