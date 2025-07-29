@@ -50,8 +50,8 @@ ARG			= map2.cub
 all				:	createlibs $(NAME)
 
 createlibs		:
-					cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-					$(MAKE) -C $(LIBFT)
+					cmake $(LIBMLX) -B $(LIBMLX)/build -D CMAKE_C_COMPILER=$(CC) && make -C $(LIBMLX)/build -j4
+					$(MAKE) -C $(LIBFT) CC=$(CC)
 
 $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 					@mkdir -p $(OBJ_PATH)
