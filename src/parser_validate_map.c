@@ -6,36 +6,11 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:04:17 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 14:39:00 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-// error out if no walkable tiles in map
-static int	check_walkable_space(char **map)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (map[i] != NULL)
-	{
-		j = 0;
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == '0')
-				count++;
-			j++;
-		}
-		i++;
-	}
-	if (count <= 0)
-		return (1);
-	return (0);
-}
 
 static int	check_for_player_duplicates(char **themap)
 {
@@ -71,8 +46,6 @@ int	validate_that_map(t_vars *data)
 {
 	if (check_map_for_invalid_chars(data->themap) == 1)
 		return (ft_strerror(data, "Invalid char on map."));
-	if (check_walkable_space(data->themap) == 1)
-		return (ft_strerror(data, "No walkable space"));
 	if (check_for_player_duplicates(data->themap) == 1)
 		return (ft_strerror(data, "More than 1 player on map"));
 	if (check_for_player(data, data->themap) == 1)
