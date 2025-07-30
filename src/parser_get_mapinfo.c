@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:27:25 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 15:03:25 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	int		i;
 	char	*tmp;
 	int		retval;
-	char	*clean_intel;
 
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
@@ -87,34 +86,36 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	if (retval >= 0 && retval < 6)
 	{
 		if (retval >= 0 && retval < 4)
-			clean_intel = clean_texture_text(str);
+			tmp = clean_texture_text(str);
 		else
-			clean_intel = clean_color_text(str);
-		if (!clean_intel)
+			tmp = clean_color_text(str);
+		if (!tmp)
 			return (1);
-		info[retval] = clean_intel;
+		free(info[retval]);
+		info[retval] = tmp;
 		return (0);
 	}
 	return (1);
 }
 
-static int	create_2d_char_array(t_vars *data)
-{
-	char	**new;
-	int		i;
+// // save texture locations and color info.
+// static int	create_2d_char_array(t_vars *data)
+// {
+// 	char	**new;
+// 	int		i;
 
-	i = 0;
-	new = malloc(6 * sizeof(char *));
-	if (!new)
-		return (1);
-	while (i < 6)
-	{
-		new[i] = NULL;
-		i++;
-	}
-	data->map_info = new;
-	return (0);
-}
+// 	i = 0;
+// 	new = malloc(6 * sizeof(char *));
+// 	if (!new)
+// 		return (1);
+// 	while (i < 6)
+// 	{
+// 		new[i] = NULL;
+// 		i++;
+// 	}
+// 	data->map_info = new;
+// 	return (0);
+// }
 
 // put sprites in data->mapinfo 2d char array.
 int	get_map_info(t_maplst *head, t_vars *data)
@@ -122,8 +123,8 @@ int	get_map_info(t_maplst *head, t_vars *data)
 	int		i;
 
 	i = 0;
-	if (create_2d_char_array(data) == 1)
-		return (ft_strerror(data, "2dchar array creation failed (malloc)"));
+	// if (create_2d_char_array(data) == 1)
+	// 	return (ft_strerror(data, "2dchar array creation failed (malloc)"));
 	while (i < 6)
 	{
 		if (check_and_save_identifier_info(head->line, data->map_info) == 1)

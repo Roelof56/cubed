@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/29 16:42:50 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 15:06:30 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	are_those_ints_in_range(int *arr)
 
 static int	intarray_wrapper(char **split, int *intarr)
 {
+	if (check_array_length(split) == 1)
+		return (clean_array(split));
 	convert_to_intarray(split, intarr);
 	if (are_those_ints_in_range(intarr) == 1)
 		return (clean_array(split));
@@ -83,8 +85,6 @@ int	get_colours(t_vars *data, char **cf)
 			return (1);
 		split = ft_split(tmp, ',');
 		free(tmp);
-		if (check_array_length(split) == 1)
-			return (clean_array(split));
 		if (intarray_wrapper(split, intarr) == 1)
 			return (1);
 		if (save_color_to_struct(data, intarr, i) == 1)
