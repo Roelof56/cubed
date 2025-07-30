@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 18:14:12 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 19:14:06 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,28 @@ static int	error_clean(t_vars *data, t_maplst **head, int len)
 	return (1);
 }
 
+// 
+static int	check_for_empty_file(int fd)
+{
+	char	*line;
+	int		i;
+
+	line = get_next_line(fd);
+	i = 0;
+	while (line != NULL)
+	{
+		while (line[i])
+		{
+			if (line[i] != ' ' && line[i] != '\n')
+				return (0);
+		}
+		free(line);
+		line = get_next_line(fd);
+		i = 0;
+	}
+	return (1);
+}
+
 // maybe move map square.
 int	import_mapfile(t_vars *data, char *str)
 {
@@ -68,6 +90,8 @@ int	import_mapfile(t_vars *data, char *str)
 		printf("Error\nCan't open file\n");
 		return (error_clean(data, &head, 0));
 	}
+	if (check_for_empty_file(fd) == 1)
+		return (error_clean(data, &head, 0));
 	if (file_to_linkedlist(fd, &head, 0) == 1)
 		return (error_clean(data, &head, 0));
 	if (get_map_info(head, data) == 1)

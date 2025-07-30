@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 17:53:34 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 19:14:15 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ static int	handle_error(char *line, t_maplst **head, int fd)
 	return (1);
 }
 
+// shorten file_to_linkedlist helper func.
+static int	handle_empty_line(char *line, int count)
+{
+	free(line);
+	if (count >= 7)
+		return (1);
+	return (0);
+}
+
 // read file line for line, put in linkedlist for further parsing.
 int	file_to_linkedlist(int fd, t_maplst **head, int count)
 {
@@ -67,8 +76,7 @@ int	file_to_linkedlist(int fd, t_maplst **head, int count)
 	{
 		if (check_for_empty_line(line) == 0)
 		{
-			free(line);
-			if (count >= 8)
+			if (handle_empty_line(line, count) == 1)
 				return (0);
 		}
 		else
@@ -81,8 +89,6 @@ int	file_to_linkedlist(int fd, t_maplst **head, int count)
 		}
 		line = get_next_line(fd);
 	}
-	if (ll_listsize(new) == 0)
-		return (1);
 	close(fd);
 	return (0);
 }
