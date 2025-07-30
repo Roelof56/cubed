@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 17:41:37 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:49:00 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	import_mapfile(t_vars *data, char *str)
 		return (error_clean(data, &head, 0));
 	}
 	if (file_to_linkedlist(fd, &head) == 1)
-		return (ft_strerror("Failed to copy file to linkedlist"));
+		return (error_clean(data, &head, 0));
 	if (get_map_info(head, data) == 1)
 		return (error_clean(data, &head, 0));
 	if (load_that_map(data, head) == 1)

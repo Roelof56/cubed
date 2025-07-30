@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 17:45:29 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:49:44 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	handle_error(char *line, t_maplst **head, int fd)
 	}
 	close(fd);
 	ll_clean_list(head);
+	printf("Error\nMalloc failed on linkedlist creation.");
 	return (1);
 }
 
