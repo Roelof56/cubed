@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/30 15:05:00 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 15:25:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ static int	create_2d_char_array(t_vars *data)
 
 int	set_mapinfo_array(t_vars *data)
 {
+	int	i;
+
+	i = 0;
 	if (create_2d_char_array(data) == 1)
-	 	return (1);
-	int i = 0;
+		return (1);
 	while (i < 6)
 	{
 		data->map_info[i] = malloc(1 * sizeof(char));
