@@ -13,7 +13,7 @@
 #include "header.h"
 
 // save em in data struct t_vars *data->textures
-int	save_textures_in_struct(t_vars *data, t_textures *dest, char **arr)
+int	save_textures_in_struct(t_textures *dest, char **arr)
 {
 	(void)data;
 	dest->no = mlx_load_png(arr[0]);

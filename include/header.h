@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 15:58:40 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:21:06 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		ll_clean_list(t_maplst **head);
 int			make_map_square(t_vars *data);
 
 /* parser_textures.c */
-int			save_textures_in_struct(t_vars *data, t_textures *dest, char **arr);
+int			save_textures_in_struct(t_textures *dest, char **arr);
 int			enforce_texture_file_extension(char **arr);
 int			validate_texture_files(char **map_info);
 
