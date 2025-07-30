@@ -1,6 +1,6 @@
 NAME        = libft.a
-CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -g
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror 
 RM          = rm -f
 HEADER      = libft.h
 BUILD_DIR   = build
