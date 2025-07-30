@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 15:24:35 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:00:54 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,17 @@ int	get_map_info(t_maplst *head, t_vars *data)
 	while (i < 6)
 	{
 		if (check_and_save_identifier_info(head->line, data->map_info) == 1)
-			return (ft_strerror(data, "invalid mapinfo."));
+			return (ft_strerror("invalid mapinfo."));
 		i++;
 		head = head->next;
 	}
 	if (enforce_texture_file_extension(data->map_info) == 1)
-		return (ft_strerror(data, "Only .png files for textures\n"));
+		return (ft_strerror("Only .png files for textures\n"));
 	if (validate_texture_files(data->map_info) == 1)
-		return (ft_strerror(data, "loading textures."));
+		return (ft_strerror("loading textures."));
 	if (save_textures_in_struct(data, &data->textures, data->map_info) == 1)
-		return (ft_strerror(data, "saving textures."));
+		return (ft_strerror("saving textures."));
 	if (get_colours(data, &data->map_info[4]) == 1)
-		return (ft_strerror(data, "Loading color"));
+		return (ft_strerror("Loading color"));
 	return (0);
 }

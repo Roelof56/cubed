@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:55:47 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/30 15:58:40 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_ray
 }	t_ray;
 
 /* parser_error.c */
-int			ft_strerror(t_vars *data, char *str);
+int			ft_strerror(char *str);
 void		clean_map_info(t_vars *data);
 void		clean_textures(t_vars *data);
 int			clean_array(char **cleanme);
