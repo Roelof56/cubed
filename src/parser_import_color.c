@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/30 15:06:30 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 15:25:40 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static int	check_array_length(char **split)
 	while (split[i])
 		i++;
 	if (i != 3)
-	{
-		printf("incorrect amount of rgb numbers\n");
 		return (1);
-	}
 	return (0);
 }
 
