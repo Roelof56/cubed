@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 13:00:24 by roelof        #+#    #+#                 */
-/*   Updated: 2025/06/02 16:54:22 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 14:41:04 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_atoi(const char *str)
 	min = 1;
 	res = 0;
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || \
-						str[i] == '\v' || str[i] == '\f' || str[i] == '\r'))
+	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
+			|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r'))
 		str++;
 	if (str[i] == '-')
 		min = -1;
