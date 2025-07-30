@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 12:48:03 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/30 19:56:33 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,53 @@ static void	flood_fill(t_vars *data, int x, int y, int *retval)
 // }
 
 // Wrapper for floodfill.
+// int	check_if_enclosed(t_vars *data)
+// {
+// 	int	retval;
+// 	int	flatx;
+// 	int	flaty;
+
+// 	retval = 0;
+// 	flatx = (int)data->plx;
+// 	flaty = (int)data->ply;
+// 	data->themap[flaty][flatx] = '0';
+// 	flood_fill(data, flatx, flaty, &retval);
+// 	return (retval);
+// }
+
 int	check_if_enclosed(t_vars *data)
 {
 	int	retval;
 	int	flatx;
 	int	flaty;
+	int	y;
+	int	x;
+	int	region_retval;
 
-	retval = 0;
 	flatx = (int)data->plx;
 	flaty = (int)data->ply;
+	retval = 0;
 	data->themap[flaty][flatx] = '0';
 	flood_fill(data, flatx, flaty, &retval);
-	return (retval);
+	if (retval == 1)
+		return (1);
+	y = 0;
+	while (data->themap[y] != NULL)
+	{
+		x = 0;
+		while (data->themap[y][x] != '\0')
+		{
+			if (data->themap[y][x] == '0')
+			{
+				region_retval = 0;
+				flood_fill(data, x, y, &region_retval);
+				if (region_retval == 1)
+					return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
 }
+
