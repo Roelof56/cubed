@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 16:21:06 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 18:16:09 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int			import_mapfile(t_vars *data, char *str);
 
 /* parser_load_file.c */
 int			open_that_file(char *file, int *map_fd);
-int			file_to_linkedlist(int fd, t_maplst **head);
+int			file_to_linkedlist(int fd, t_maplst **head, int count);
 
 /* new_linkedlist.c */
 t_maplst	*ll_new_node(char *str);
@@ -128,7 +128,6 @@ int			save_color_to_struct(t_vars *data, int *intarr, int c);
 int			color_digit_checker(char *str);
 char		*remove_whitespace_colorinput(char *str);
 char		*clean_color_text(char *str);
-void		set_array_for_cleanig(char **arr);
 
 /* parser_get_mapinfo.c */
 int			get_map_info(t_maplst *head, t_vars *data);

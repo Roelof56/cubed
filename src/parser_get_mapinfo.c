@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 16:20:58 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 18:15:01 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,15 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	return (1);
 }
 
+// set mapinfo textuers to /0 so it wont try to clean
+static void	set_texturetext_null(t_vars *data)
+{
+	data->map_info[0][0] = '\0';
+	data->map_info[1][0] = '\0';
+	data->map_info[2][0] = '\0';
+	data->map_info[3][0] = '\0';
+}
+
 // put sprites in data->mapinfo 2d char array.
 int	get_map_info(t_maplst *head, t_vars *data)
 {
@@ -112,7 +121,10 @@ int	get_map_info(t_maplst *head, t_vars *data)
 		head = head->next;
 	}
 	if (enforce_texture_file_extension(data->map_info) == 1)
-		return (ft_strerror("Only .png files for textures\n"));
+	{
+		set_texturetext_null(data);
+		return (1);
+	}
 	if (validate_texture_files(data->map_info) == 1)
 		return (ft_strerror("loading textures."));
 	if (save_textures_in_struct(&data->textures, data->map_info) == 1)

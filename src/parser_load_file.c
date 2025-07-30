@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 17:49:44 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:53:34 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,11 @@ static int	handle_error(char *line, t_maplst **head, int fd)
 }
 
 // read file line for line, put in linkedlist for further parsing.
-int	file_to_linkedlist(int fd, t_maplst **head)
+int	file_to_linkedlist(int fd, t_maplst **head, int count)
 {
 	char		*line;
 	t_maplst	*new;
-	int	count;
 
-	count = 0;
-	new = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -80,8 +77,7 @@ int	file_to_linkedlist(int fd, t_maplst **head)
 			new = ll_new_node(line);
 			if (!new)
 				return (handle_error(line, head, fd));
-			else
-				ll_add_back(head, new);
+			ll_add_back(head, new);
 		}
 		line = get_next_line(fd);
 	}
