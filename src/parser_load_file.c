@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 14:49:29 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:24:24 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,22 @@ int	file_to_linkedlist(int fd, t_maplst **head)
 {
 	char		*line;
 	t_maplst	*new;
+	int	count;
 
+	count = 0;
 	new = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		if (check_for_empty_line(line) == 0)
+		{
 			free(line);
+			if (count >= 8)
+				return (0);
+		}
 		else
 		{
+			count++;
 			new = ll_new_node(line);
 			if (!new)
 				return (handle_error(line, head, fd));
