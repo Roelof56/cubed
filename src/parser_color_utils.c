@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:58:40 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:42:56 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 14:51:54 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,16 @@ char	*clean_color_text(char *str)
 }
 
 // set map info array to nothing so mlx_delete_texture don't cry.
-void	set_array_for_cleanig(char **arr)
-{
-	int	i;
+// void	set_array_for_cleanig(char **arr)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < 4)
-	{
-		if (arr[i] == NULL)
-			arr[i] = malloc(1 * sizeof(char));
-		arr[i][0] = '\0';
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < 4)
+// 	{
+// 		if (arr[i] == NULL)
+// 			arr[i] = malloc(1 * sizeof(char));
+// 		arr[i][0] = '\0';
+// 		i++;
+// 	}
+// }

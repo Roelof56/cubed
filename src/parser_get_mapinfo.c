@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/29 16:27:25 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:00:54 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	int		i;
 	char	*tmp;
 	int		retval;
-	char	*clean_intel;
 
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
@@ -87,33 +86,16 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	if (retval >= 0 && retval < 6)
 	{
 		if (retval >= 0 && retval < 4)
-			clean_intel = clean_texture_text(str);
+			tmp = clean_texture_text(str);
 		else
-			clean_intel = clean_color_text(str);
-		if (!clean_intel)
+			tmp = clean_color_text(str);
+		if (!tmp)
 			return (1);
-		info[retval] = clean_intel;
+		free(info[retval]);
+		info[retval] = tmp;
 		return (0);
 	}
 	return (1);
-}
-
-static int	create_2d_char_array(t_vars *data)
-{
-	char	**new;
-	int		i;
-
-	i = 0;
-	new = malloc(6 * sizeof(char *));
-	if (!new)
-		return (1);
-	while (i < 6)
-	{
-		new[i] = NULL;
-		i++;
-	}
-	data->map_info = new;
-	return (0);
 }
 
 // put sprites in data->mapinfo 2d char array.
@@ -122,22 +104,20 @@ int	get_map_info(t_maplst *head, t_vars *data)
 	int		i;
 
 	i = 0;
-	if (create_2d_char_array(data) == 1)
-		return (ft_strerror(data, "2dchar array creation failed (malloc)"));
 	while (i < 6)
 	{
 		if (check_and_save_identifier_info(head->line, data->map_info) == 1)
-			return (ft_strerror(data, "invalid mapinfo."));
+			return (ft_strerror("invalid mapinfo."));
 		i++;
 		head = head->next;
 	}
 	if (enforce_texture_file_extension(data->map_info) == 1)
-		return (ft_strerror(data, "Only .png files for textures\n"));
+		return (ft_strerror("Only .png files for textures\n"));
 	if (validate_texture_files(data->map_info) == 1)
-		return (ft_strerror(data, "loading textures."));
+		return (ft_strerror("loading textures."));
 	if (save_textures_in_struct(data, &data->textures, data->map_info) == 1)
-		return (ft_strerror(data, "saving textures."));
+		return (ft_strerror("saving textures."));
 	if (get_colours(data, &data->map_info[4]) == 1)
-		return (ft_strerror(data, "Loading color"));
+		return (ft_strerror("Loading color"));
 	return (0);
 }
