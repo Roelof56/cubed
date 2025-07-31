@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:57 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 14:33:23 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 12:13:07 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,33 @@ static void	flood_fill(t_vars *data, int x, int y, int *retval)
 	flood_fill(data, x, y - 1, retval);
 }
 
+// Flood fill for unreachable space
+static int	check_unreachable_space(t_vars *data)
+{
+	int	y;
+	int	x;
+	int	region_retval;
+
+	y = 0;
+	while (data->themap[y] != NULL)
+	{
+		x = 0;
+		while (data->themap[y][x] != '\0')
+		{
+			if (data->themap[y][x] == '0')
+			{
+				region_retval = 0;
+				flood_fill(data, x, y, &region_retval);
+				if (region_retval == 1)
+					return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 // Wrapper for floodfill.
 int	check_if_enclosed(t_vars *data)
 {
@@ -70,10 +97,14 @@ int	check_if_enclosed(t_vars *data)
 	int	flatx;
 	int	flaty;
 
-	retval = 0;
 	flatx = (int)data->plx;
 	flaty = (int)data->ply;
+	retval = 0;
 	data->themap[flaty][flatx] = '0';
 	flood_fill(data, flatx, flaty, &retval);
-	return (retval);
+	if (retval == 1)
+		return (1);
+	if (check_unreachable_space(data) == 1)
+		return (1);
+	return (0);
 }

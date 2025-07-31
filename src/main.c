@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 16:42:57 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 14:25:24 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv)
 {
 	t_vars	data;
 
+	ft_bzero(&data, sizeof(t_vars));
 	if (argc != 2)
 	{
 		printf("Error\nGive 1 map argument.\n");
