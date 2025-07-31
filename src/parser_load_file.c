@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 15:33:34 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 16:05:43 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,15 @@ int	file_to_linkedlist(int fd, t_maplst **head, int count)
 		if (check_for_empty_line(line) == 0)
 		{
 			if (handle_empty_line(line, count) == 1)
+			{
+				line = get_next_line(fd);
+				while (line)
+				{
+					free(line);
+					line = get_next_line(fd);
+				}
 				return (0);
+			}
 		}
 		else
 		{
