@@ -12,21 +12,41 @@
 
 #include "header.h"
 
+// save textures is shorter now.
+static void	shorten_this_func(t_textures *dest)
+{
+	mlx_delete_texture(dest->no);
+	mlx_delete_texture(dest->so);
+	mlx_delete_texture(dest->we);
+}
+
 // save em in data struct t_vars *data->textures
 int	save_textures_in_struct(t_textures *dest, char **arr)
 {
 	dest->no = mlx_load_png(arr[0]);
 	if (!dest->no)
-		return (ft_strerror("mlx_load_png failed on north texture\n"));
+	{
+		return (1);
+	}
 	dest->so = mlx_load_png(arr[1]);
 	if (!dest->so)
-		return (ft_strerror("mlx_load_png failed on south texture\n"));
+	{
+		mlx_delete_texture(dest->no);
+		return (1);
+	}
 	dest->we = mlx_load_png(arr[2]);
 	if (!dest->we)
-		return (ft_strerror("mlx_load_png failed on west texture\n"));
+	{
+		mlx_delete_texture(dest->no);
+		mlx_delete_texture(dest->so);
+		return (1);
+	}
 	dest->ea = mlx_load_png(arr[3]);
 	if (!dest->ea)
-		return (ft_strerror("mlx_load_png failed on east texture\n"));
+	{
+		shorten_this_func(dest);
+		return (1);
+	}
 	return (0);
 }
 
@@ -45,25 +65,17 @@ int	enforce_texture_file_extension(char **arr)
 	return (0);
 }
 
-// check if texture file exist.
-int	validate_texture_files(char **map_info)
+int	texture_wrapper(t_vars *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
+	if (enforce_texture_file_extension(data->map_info) == 1)
 	{
-		if (access(map_info[i], F_OK) != 0)
-		{
-			i = 0;
-			while (i < 4)
-			{
-				map_info[i][0] = '\0';
-				i++;
-			}
-			return (1);
-		}
-		i++;
+		set_texturetext_null(data);
+		return (1);
+	}
+	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
+	{
+		set_texturetext_null(data);
+		return (1);
 	}
 	return (0);
 }

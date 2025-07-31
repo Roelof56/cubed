@@ -4,7 +4,7 @@ LIBMLX		:=	./MLX42
 LIBFT		:=	./libft
 
 INCLUDE		:=	-I ./include -I $(LIBMLX)/include
-FLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast
+FLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast -g
 LIBS		:=	$(LIBFT)/libft.a  $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRC_PATH	:=	src/
@@ -13,6 +13,7 @@ OBJ_PATH	:=	objects/
 SRCS		:=	main.c \
 				new_linkedlist.c \
 				parser_error.c \
+				parser_file_handling.c \
 				parser_main.c \
 				parser_load_file.c \
 				parser_get_mapinfo.c \
@@ -42,9 +43,6 @@ OBJS		:=	$(addprefix $(OBJ_PATH), $(OBJ))
 # Colours
 RESET		= \033[0m
 GREEN		= \033[0;92m
-
-# Args for run rule.
-ARG			= map2.cub
 
 # Operations
 all				:	createlibs $(NAME)

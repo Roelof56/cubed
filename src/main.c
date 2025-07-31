@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 14:25:24 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/31 21:00:41 by jaimeilustr   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv)
 	}
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
-		clean_map_info(&data);
 		mlx_terminate(data.mlx);
 		return (1);
 	}

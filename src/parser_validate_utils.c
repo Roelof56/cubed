@@ -6,11 +6,20 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:53 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 16:45:24 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:06:18 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+// set mapinfo textuers to /0 so it wont try to clean
+void	set_texturetext_null(t_vars *data)
+{
+	data->map_info[0][0] = '\0';
+	data->map_info[1][0] = '\0';
+	data->map_info[2][0] = '\0';
+	data->map_info[3][0] = '\0';
+}
 
 // check if char c is allowed.
 // return 0 for yes, 1 for no.

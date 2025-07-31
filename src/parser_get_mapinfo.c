@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 16:20:58 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:31:41 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,21 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	return (1);
 }
 
+// check if a map_info line is empty.
+static int	check_if_filled(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (i < 6)
+	{
+		if (arr[i][0] == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 // put sprites in data->mapinfo 2d char array.
 int	get_map_info(t_maplst *head, t_vars *data)
 {
@@ -107,16 +122,20 @@ int	get_map_info(t_maplst *head, t_vars *data)
 	while (i < 6)
 	{
 		if (check_and_save_identifier_info(head->line, data->map_info) == 1)
+		{
+			set_texturetext_null(data);
 			return (ft_strerror("invalid mapinfo."));
+		}
 		i++;
 		head = head->next;
 	}
-	if (enforce_texture_file_extension(data->map_info) == 1)
-		return (ft_strerror("Only .png files for textures\n"));
-	if (validate_texture_files(data->map_info) == 1)
-		return (ft_strerror("loading textures."));
-	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
-		return (ft_strerror("saving textures."));
+	if (check_if_filled(data->map_info) == 1)
+	{
+		set_texturetext_null(data);
+		return (ft_strerror("Invalid identifier info"));
+	}
+	if (texture_wrapper(data) == 1)
+		return (1);
 	if (get_colours(data, &data->map_info[4]) == 1)
 		return (ft_strerror("Loading color"));
 	return (0);

@@ -6,27 +6,11 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 14:49:29 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:25:29 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-// open file on file file descriptor
-int	open_that_file(char *file, int *map_fd)
-{
-	int	fd;
-
-	fd = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		*map_fd = -1;
-		return (1);
-	}
-	*map_fd = fd;
-	return (0);
-}
 
 // helper func to not import empty lines.
 // return 0 for empty
@@ -52,33 +36,55 @@ static int	handle_error(char *line, t_maplst **head, int fd)
 	}
 	close(fd);
 	ll_clean_list(head);
+	printf("Error\nMalloc failed on linkedlist creation.");
 	return (1);
 }
 
+// shorten file_to_linkedlist helper func.
+static int	handle_empty_line(char *line, int count)
+{
+	free(line);
+	if (count >= 7)
+		return (1);
+	return (0);
+}
+
+// shorten file_to_linkedlist - let GNL finish so it can't leak
+static int	let_gnl_run_out(char *line, int fd)
+{
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (0);
+}
+
 // read file line for line, put in linkedlist for further parsing.
-int	file_to_linkedlist(int fd, t_maplst **head)
+int	file_to_linkedlist(int fd, t_maplst **head, int count)
 {
 	char		*line;
 	t_maplst	*new;
 
-	new = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		if (check_for_empty_line(line) == 0)
-			free(line);
+		{
+			if (handle_empty_line(line, count) == 1)
+				return (let_gnl_run_out(line, fd));
+		}
 		else
 		{
+			count++;
 			new = ll_new_node(line);
 			if (!new)
 				return (handle_error(line, head, fd));
-			else
-				ll_add_back(head, new);
+			ll_add_back(head, new);
 		}
 		line = get_next_line(fd);
 	}
-	if (ll_listsize(new) == 0)
-		return (1);
 	close(fd);
 	return (0);
 }
