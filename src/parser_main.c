@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 18:03:50 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:11:36 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ int	import_mapfile(t_vars *data, char *str)
 
 	head = NULL;
 	if (check_file_extension(str, ".cub") == 1)
-	{
-		clean_map_info(data);
-		return (1);
-	}
+		return (error_clean(data, &head, 0, NULL));
 	if (open_and_emptycheck(str, &fd) == 1)
 	{
 		clean_map_info(data);
