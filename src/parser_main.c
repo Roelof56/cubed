@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 15:39:40 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 16:40:06 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	check_file_extension(char *str, char *ext)
 		i++;
 	if (i < 5)
 	{
-		printf("->ext: %s\n", ext);
-		printf("->str: %s\n", str);
 		printf("Error\nWrong File extension\n");
 		return (1);
 	}
@@ -36,7 +34,6 @@ int	check_file_extension(char *str, char *ext)
 		return (1);
 	if (ft_strncmp(type, ext, 4) != 0)
 	{
-		printf("->%s\n", type);
 		free(type);
 		printf("Error\nWrong File extension\n");
 		return (1);
@@ -60,35 +57,32 @@ static int	error_clean(t_vars *data, t_maplst **head, int len, char *str)
 }
 
 // use retval instead of return
-// static int	check_for_empty_file(int fd)
-// {
-// 	char	*line;
-// 	int		i;
-// 	int		retval;
+static int	check_for_empty_file(int fd)
+{
+	char	*line;
+	int		i;
+	int		retval;
 
-// 	retval = 1;
-// 	line = get_next_line(fd);
-// 	i = 0;
-// 	while (line != NULL)
-// 	{
-// 		while (line[i])
-// 		{
-// 			if (line[i] != ' ')
-// 			{
-// 				if (line[i] != '\n')
-// 				{
-// 					printf("TRIGGER THIS\n");
-// 					retval = 0;
-// 				}
-// 			}
-// 		}
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		i = 0;
-// 	}
-// 	// close(fd);
-// 	return (retval);
-// }
+	retval = 1;
+	line = get_next_line(fd);
+	i = 0;
+	while (line != NULL)
+	{
+		while (line[i])
+		{
+			if (line[i] != ' ')
+			{
+				if (line[i] != '\n')
+					retval = 0;
+			}
+			i++;	
+		}
+		free(line);
+		line = get_next_line(fd);
+		i = 0;
+	}
+	return (retval);
+}
 
 // maybe move map square.
 int	import_mapfile(t_vars *data, char *str)
@@ -98,14 +92,21 @@ int	import_mapfile(t_vars *data, char *str)
 
 	head = NULL;
 	if (check_file_extension(str, ".cub") == 1)
-		return (error_clean(data, &head, 0, NULL));
+	{
+		clean_map_info(data);
+		return (1);
+	}
 	if (open_that_file(str, &fd) == 1)
 	{
+		clean_map_info(data);
 		printf("Error\nCan't open file\n");
-		return (error_clean(data, &head, 0, NULL));
+		return (1);
 	}
-	// if (check_for_empty_file(fd) == 1)
-	// 	return (error_clean(data, &head, 0, "Empty file."));
+	if (check_for_empty_file(fd) == 1)
+	{
+		clean_map_info(data);
+		return (ft_strerror("Empty file"));
+	}
 	if (file_to_linkedlist(fd, &head, 0) == 1)
 		return (error_clean(data, &head, 0, NULL));
 	if (get_map_info(head, data) == 1)
