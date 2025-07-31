@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 18:02:38 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:04:36 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void		clean_textures(t_vars *data);
 int			clean_array(char **cleanme);
 
 /* parser_file_hanling.c */
-// int			open_that_file(char *file, int *map_fd);
 int			open_and_emptycheck(char *file, int *map_fd);
 
 /* parser_main.c */

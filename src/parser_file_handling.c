@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/31 17:56:48 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 18:03:22 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:05:02 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_for_empty_file(int fd)
 				if (line[i] != '\n')
 					retval = 0;
 			}
-			i++;	
+			i++;
 		}
 		free(line);
 		line = get_next_line(fd);
