@@ -17,16 +17,30 @@ int	save_textures_in_struct(t_textures *dest, char **arr)
 {
 	dest->no = mlx_load_png(arr[0]);
 	if (!dest->no)
+	{
 		return (1);
+	}
 	dest->so = mlx_load_png(arr[1]);
 	if (!dest->so)
+	{
+		mlx_delete_texture(dest->no);
 		return (1);
+	}
 	dest->we = mlx_load_png(arr[2]);
 	if (!dest->we)
+	{
+		mlx_delete_texture(dest->no);
+		mlx_delete_texture(dest->so);
 		return (1);
+	}
 	dest->ea = mlx_load_png(arr[3]);
 	if (!dest->ea)
+	{
+		mlx_delete_texture(dest->no);
+		mlx_delete_texture(dest->so);
+		mlx_delete_texture(dest->we);
 		return (1);
+	}
 	return (0);
 }
 
