@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 14:41:19 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 15:39:40 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	check_file_extension(char *str, char *ext)
 		i++;
 	if (i < 5)
 	{
+		printf("->ext: %s\n", ext);
+		printf("->str: %s\n", str);
 		printf("Error\nWrong File extension\n");
 		return (1);
 	}
@@ -34,6 +36,7 @@ int	check_file_extension(char *str, char *ext)
 		return (1);
 	if (ft_strncmp(type, ext, 4) != 0)
 	{
+		printf("->%s\n", type);
 		free(type);
 		printf("Error\nWrong File extension\n");
 		return (1);
@@ -56,7 +59,7 @@ static int	error_clean(t_vars *data, t_maplst **head, int len, char *str)
 	return (1);
 }
 
-// use retval instead of return. this way gnl finishes its loop and can't leak its buffer.
+// use retval instead of return
 // static int	check_for_empty_file(int fd)
 // {
 // 	char	*line;
