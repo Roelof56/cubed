@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 18:06:12 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:31:41 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,15 +134,8 @@ int	get_map_info(t_maplst *head, t_vars *data)
 		set_texturetext_null(data);
 		return (ft_strerror("Invalid identifier info"));
 	}
-	if (enforce_texture_file_extension(data->map_info) == 1)
-	{
-		set_texturetext_null(data);
+	if (texture_wrapper(data) == 1)
 		return (1);
-	}
-	if (validate_texture_files(data->map_info) == 1)
-		return (ft_strerror("loading textures."));
-	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
-		return (ft_strerror("saving textures."));
 	if (get_colours(data, &data->map_info[4]) == 1)
 		return (ft_strerror("Loading color"));
 	return (0);

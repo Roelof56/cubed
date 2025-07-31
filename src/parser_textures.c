@@ -67,3 +67,17 @@ int	validate_texture_files(char **map_info)
 	}
 	return (0);
 }
+
+int	texture_wrapper(t_vars *data)
+{
+	if (enforce_texture_file_extension(data->map_info) == 1)
+	{
+		set_texturetext_null(data);
+		return (1);
+	}
+	if (validate_texture_files(data->map_info) == 1)
+		return (ft_strerror("loading textures."));
+	if (save_textures_in_struct(&data->textures, data->map_info) == 1)
+		return (ft_strerror("saving textures."));
+	return (0);
+}
