@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 15:39:24 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 16:58:29 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ static int	check_and_save_identifier_info(char *str, char **info)
 	int		retval;
 
 	i = 0;
+	if (str[i] == '\0')
+	{
+		return (1);
+	}
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	tmp = ft_substr(str, i, 2);
