@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/30 19:14:06 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 13:03:39 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	check_file_extension(char *str, char *ext)
 
 // handle cleaning for import_mapfile
 // from get_map_info & everything below it.
-static int	error_clean(t_vars *data, t_maplst **head, int len)
+static int	error_clean(t_vars *data, t_maplst **head, int len, char *str)
 {
+	if (str != NULL)
+		printf("Error\n%s\n", str);
 	ll_clean_list(head);
 	clean_textures(data);
 	clean_map_info(data);
@@ -54,12 +56,14 @@ static int	error_clean(t_vars *data, t_maplst **head, int len)
 	return (1);
 }
 
-// 
+// use retval instead of return. this way gnl finishes its loop and can't leak its buffer.
 static int	check_for_empty_file(int fd)
 {
 	char	*line;
 	int		i;
+	int		retval;
 
+	retval = 1;
 	line = get_next_line(fd);
 	i = 0;
 	while (line != NULL)
@@ -67,13 +71,14 @@ static int	check_for_empty_file(int fd)
 		while (line[i])
 		{
 			if (line[i] != ' ' && line[i] != '\n')
-				return (0);
+				retval = 0;
 		}
 		free(line);
 		line = get_next_line(fd);
 		i = 0;
 	}
-	return (1);
+	close(fd);
+	return (retval);
 }
 
 // maybe move map square.
@@ -84,24 +89,24 @@ int	import_mapfile(t_vars *data, char *str)
 
 	head = NULL;
 	if (check_file_extension(str, ".cub") == 1)
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, NULL));
 	if (open_that_file(str, &fd) == 1)
 	{
 		printf("Error\nCan't open file\n");
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, NULL));
 	}
 	if (check_for_empty_file(fd) == 1)
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, "Empty file."));
 	if (file_to_linkedlist(fd, &head, 0) == 1)
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, NULL));
 	if (get_map_info(head, data) == 1)
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, NULL));
 	if (load_that_map(data, head) == 1)
-		return (error_clean(data, &head, 0));
+		return (error_clean(data, &head, 0, NULL));
 	if (validate_that_map(data) == 1)
-		return (error_clean(data, &head, (ll_listsize(head) - 6)));
+		return (error_clean(data, &head, (ll_listsize(head) - 6), NULL));
 	if (make_map_square(data) == 1)
-		return (error_clean(data, &head, (ll_listsize(head) - 6)));
+		return (error_clean(data, &head, (ll_listsize(head) - 6), NULL));
 	ll_clean_list(&head);
 	return (0);
 }
