@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/31 12:34:36 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/31 14:48:21 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	start_mlx(t_vars *data)
 		mlx_delete_image(data->mlx, data->view3d);
 		mlx_delete_image(data->mlx, data->minimapbg);
 		mlx_delete_image(data->mlx, data->minimap);
+		return (1);
 	}
 	return (0);
 }
