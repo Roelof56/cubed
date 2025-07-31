@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 14:31:17 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 14:41:19 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,14 @@ static int	error_clean(t_vars *data, t_maplst **head, int len, char *str)
 // 	{
 // 		while (line[i])
 // 		{
-// 			if (line[i] != ' ' && line[i] != '\n')
-// 				retval = 0;
+// 			if (line[i] != ' ')
+// 			{
+// 				if (line[i] != '\n')
+// 				{
+// 					printf("TRIGGER THIS\n");
+// 					retval = 0;
+// 				}
+// 			}
 // 		}
 // 		free(line);
 // 		line = get_next_line(fd);
