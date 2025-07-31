@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 13:07:15 by roelof        ########   odam.nl         */
+/*   Updated: 2025/07/31 18:02:38 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,15 @@ void		clean_map_info(t_vars *data);
 void		clean_textures(t_vars *data);
 int			clean_array(char **cleanme);
 
+/* parser_file_hanling.c */
+// int			open_that_file(char *file, int *map_fd);
+int			open_and_emptycheck(char *file, int *map_fd);
+
 /* parser_main.c */
 int			check_file_extension(char *str, char *ext);
 int			import_mapfile(t_vars *data, char *str);
 
 /* parser_load_file.c */
-int			open_that_file(char *file, int *map_fd);
 int			file_to_linkedlist(int fd, t_maplst **head, int count);
 
 /* new_linkedlist.c */

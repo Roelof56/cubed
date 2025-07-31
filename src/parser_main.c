@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:45 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 17:09:26 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:03:50 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,6 @@ static int	error_clean(t_vars *data, t_maplst **head, int len, char *str)
 	return (1);
 }
 
-// use retval instead of return
-static int	check_for_empty_file(int fd)
-{
-	char	*line;
-	int		i;
-	int		retval;
-
-	retval = 1;
-	line = get_next_line(fd);
-	i = 0;
-	while (line != NULL)
-	{
-		while (line[i])
-		{
-			if (line[i] != ' ')
-			{
-				if (line[i] != '\n')
-					retval = 0;
-			}
-			i++;	
-		}
-		free(line);
-		line = get_next_line(fd);
-		i = 0;
-	}
-	close(fd);
-	return (retval);
-}
-
 // maybe move map square.
 int	import_mapfile(t_vars *data, char *str)
 {
@@ -97,21 +68,9 @@ int	import_mapfile(t_vars *data, char *str)
 		clean_map_info(data);
 		return (1);
 	}
-	if (open_that_file(str, &fd) == 1)
+	if (open_and_emptycheck(str, &fd) == 1)
 	{
 		clean_map_info(data);
-		printf("Error\nCan't open file\n");
-		return (1);
-	}
-	if (check_for_empty_file(fd) == 1)
-	{
-		clean_map_info(data);
-		return (ft_strerror("Empty file"));
-	}
-		if (open_that_file(str, &fd) == 1)
-	{
-		clean_map_info(data);
-		printf("Error\nCan't open file\n");
 		return (1);
 	}
 	if (file_to_linkedlist(fd, &head, 0) == 1)

@@ -6,27 +6,11 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 16:26:43 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 17:54:19 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-// open file on file file descriptor
-int	open_that_file(char *file, int *map_fd)
-{
-	int	fd;
-
-	fd = 0;
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		*map_fd = -1;
-		return (1);
-	}
-	*map_fd = fd;
-	return (0);
-}
 
 // helper func to not import empty lines.
 // return 0 for empty

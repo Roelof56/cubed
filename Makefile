@@ -13,6 +13,7 @@ OBJ_PATH	:=	objects/
 SRCS		:=	main.c \
 				new_linkedlist.c \
 				parser_error.c \
+				parser_file_handling.c \
 				parser_main.c \
 				parser_load_file.c \
 				parser_get_mapinfo.c \
