@@ -6,7 +6,7 @@
 /*   By: roelof <roelof@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/14 22:43:29 by roelof        #+#    #+#                 */
-/*   Updated: 2025/07/30 15:19:50 by jilustre      ########   odam.nl         */
+/*   Updated: 2025/07/30 16:18:32 by jilustre      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static int	check_array_length(char **split)
 	while (split[i])
 		i++;
 	if (i != 3)
-	{
-		printf("incorrect amount of rgb numbers\n");
 		return (1);
-	}
 	return (0);
 }
 
@@ -58,6 +55,8 @@ static int	are_those_ints_in_range(int *arr)
 
 static int	intarray_wrapper(char **split, int *intarr)
 {
+	if (check_array_length(split) == 1)
+		return (clean_array(split));
 	convert_to_intarray(split, intarr);
 	if (are_those_ints_in_range(intarr) == 1)
 		return (clean_array(split));
@@ -78,13 +77,11 @@ int	get_colours(t_vars *data, char **cf)
 	{
 		tmp = remove_whitespace_colorinput(cf[i]);
 		if (!tmp)
-			return (ft_strerror(data, "Malloc error\n"));
+			return (ft_strerror("Malloc error\n"));
 		if (color_digit_checker(tmp) == 1)
 			return (1);
 		split = ft_split(tmp, ',');
 		free(tmp);
-		if (check_array_length(split) == 1)
-			return (clean_array(split));
 		if (intarray_wrapper(split, intarr) == 1)
 			return (1);
 		if (save_color_to_struct(data, intarr, i) == 1)

@@ -33,7 +33,7 @@ void	reset_map_fields(char **map)
 	}
 }
 
-// new floodfill split y and x checks.
+// Floodfill split y and x checks.
 static void	flood_fill(t_vars *data, int x, int y, int *retval)
 {
 	int	width;

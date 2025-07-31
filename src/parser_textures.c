@@ -13,20 +13,21 @@
 #include "header.h"
 
 // save em in data struct t_vars *data->textures
-int	save_textures_in_struct(t_vars *data, t_textures *dest, char **arr)
+int	save_textures_in_struct(t_textures *dest, char **arr)
 {
+	(void)data;
 	dest->no = mlx_load_png(arr[0]);
 	if (!dest->no)
-		return (ft_strerror(data, "mlx_load_png failed on north texture\n"));
+		return (ft_strerror("mlx_load_png failed on north texture\n"));
 	dest->so = mlx_load_png(arr[1]);
 	if (!dest->so)
-		return (ft_strerror(data, "mlx_load_png failed on south texture\n"));
+		return (ft_strerror("mlx_load_png failed on south texture\n"));
 	dest->we = mlx_load_png(arr[2]);
 	if (!dest->we)
-		return (ft_strerror(data, "mlx_load_png failed on west texture\n"));
+		return (ft_strerror("mlx_load_png failed on west texture\n"));
 	dest->ea = mlx_load_png(arr[3]);
 	if (!dest->ea)
-		return (ft_strerror(data, "mlx_load_png failed on east texture\n"));
+		return (ft_strerror("mlx_load_png failed on east texture\n"));
 	return (0);
 }
 

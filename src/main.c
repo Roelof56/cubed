@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	}
 	if (import_mapfile(&data, argv[1]) == 1)
 	{
+		clean_map_info(&data);
 		mlx_terminate(data.mlx);
 		return (1);
 	}

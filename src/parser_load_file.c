@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:32 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 19:15:44 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 14:49:29 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	file_to_linkedlist(int fd, t_maplst **head)
 		}
 		line = get_next_line(fd);
 	}
+	if (ll_listsize(new) == 0)
+		return (1);
 	close(fd);
 	return (0);
 }

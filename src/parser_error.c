@@ -6,16 +6,15 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:53:03 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/28 17:01:27 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:37:46 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 // print string return 1.
-int	ft_strerror(t_vars *data, char *str)
+int	ft_strerror(char *str)
 {
-	set_array_for_cleanig(data->map_info);
 	printf("Error\n%s\n", str);
 	return (1);
 }

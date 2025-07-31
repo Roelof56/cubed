@@ -6,11 +6,51 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/28 19:13:41 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:44:27 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+// save texture locations and color info.
+static int	create_2d_char_array(t_vars *data)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	new = malloc(6 * sizeof(char *));
+	if (!new)
+		return (1);
+	while (i < 6)
+	{
+		new[i] = NULL;
+		i++;
+	}
+	data->map_info = new;
+	return (0);
+}
+
+int	set_mapinfo_array(t_vars *data)
+{
+	int	i;
+
+	i = 0;
+	if (create_2d_char_array(data) == 1)
+		return (1);
+	while (i < 6)
+	{
+		data->map_info[i] = malloc(1 * sizeof(char));
+		if (!data->map_info[i])
+		{
+			clean_array(data->map_info);
+			return (1);
+		}
+		data->map_info[i][0] = '\0';
+		i++;
+	}
+	return (0);
+}
 
 // save some space in main.
 int	init_mlx_images(t_vars *data)
@@ -47,5 +87,11 @@ int	start_mlx(t_vars *data)
 	if (init_mlx_images(data) == 1)
 		return (1);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	if (set_mapinfo_array(data) == 1)
+	{
+		mlx_delete_image(data->mlx, data->view3d);
+		mlx_delete_image(data->mlx, data->minimapbg);
+		mlx_delete_image(data->mlx, data->minimap);
+	}
 	return (0);
 }
