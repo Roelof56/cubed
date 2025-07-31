@@ -43,9 +43,6 @@ OBJS		:=	$(addprefix $(OBJ_PATH), $(OBJ))
 RESET		= \033[0m
 GREEN		= \033[0;92m
 
-# Args for run rule.
-ARG			= map2.cub
-
 # Operations
 all				:	createlibs $(NAME)
 
