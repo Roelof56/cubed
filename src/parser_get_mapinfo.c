@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:05:30 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 17:16:35 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:06:12 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,6 @@ static int	check_and_save_identifier_info(char *str, char **info)
 		return (0);
 	}
 	return (1);
-}
-
-// set mapinfo textuers to /0 so it wont try to clean
-static void	set_texturetext_null(t_vars *data)
-{
-	data->map_info[0][0] = '\0';
-	data->map_info[1][0] = '\0';
-	data->map_info[2][0] = '\0';
-	data->map_info[3][0] = '\0';
 }
 
 // check if a map_info line is empty.

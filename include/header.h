@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/07/31 18:04:36 by rhol          ########   odam.nl         */
+/*   Updated: 2025/07/31 18:06:36 by rhol          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int			load_that_map(t_vars *data, t_maplst *head);
 int			validate_that_map(t_vars *data);
 
 /* parser_validate_utils.c */
+void		set_texturetext_null(t_vars *data);
 int			check_map_for_invalid_chars(char **themap);
 int			check_for_player(t_vars *data, char **themap);
 
