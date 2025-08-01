@@ -6,7 +6,7 @@
 /*   By: jilustre <jilustre@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/28 15:24:59 by jilustre      #+#    #+#                 */
-/*   Updated: 2025/07/31 14:48:21 by rhol          ########   odam.nl         */
+/*   Updated: 2025/08/01 12:17:34 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	set_mapinfo_array(t_vars *data)
 }
 
 // save some space in main.
-int	init_mlx_images(t_vars *data)
+static int	init_mlx_images(t_vars *data)
 {
 	data->view3d = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->view3d)

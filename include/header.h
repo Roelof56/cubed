@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/08/01 12:13:05 by roelof        ########   odam.nl         */
+/*   Updated: 2025/08/01 12:18:45 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ void		reset_map_fields(char **map);
 int			check_if_enclosed(t_vars *data);
 
 /* init_mlx.c */
-int			init_mlx_images(t_vars *data);
 int			start_mlx(t_vars *data);
 
 /* input.c */
