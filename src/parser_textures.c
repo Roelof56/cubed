@@ -13,7 +13,7 @@
 #include "header.h"
 
 // save textures is shorter now.
-static void	shorten_this_func(t_textures *dest)
+static void	load_error_clean(t_textures *dest)
 {
 	mlx_delete_texture(dest->no);
 	mlx_delete_texture(dest->so);
@@ -21,7 +21,7 @@ static void	shorten_this_func(t_textures *dest)
 }
 
 // save em in data struct t_vars *data->textures
-int	save_textures_in_struct(t_textures *dest, char **arr)
+static int	save_textures_in_struct(t_textures *dest, char **arr)
 {
 	dest->no = mlx_load_png(arr[0]);
 	if (!dest->no)
@@ -44,14 +44,14 @@ int	save_textures_in_struct(t_textures *dest, char **arr)
 	dest->ea = mlx_load_png(arr[3]);
 	if (!dest->ea)
 	{
-		shorten_this_func(dest);
+		load_error_clean(dest);
 		return (1);
 	}
 	return (0);
 }
 
 // use .png or leave.
-int	enforce_texture_file_extension(char **arr)
+static int	enforce_texture_file_extension(char **arr)
 {
 	int	i;
 
