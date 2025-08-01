@@ -6,7 +6,7 @@
 /*   By: rhol <rhol@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 16:52:25 by rhol          #+#    #+#                 */
-/*   Updated: 2025/08/01 12:01:00 by roelof        ########   odam.nl         */
+/*   Updated: 2025/08/01 12:13:05 by roelof        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void		ll_clean_list(t_maplst **head);
 int			make_map_square(t_vars *data);
 
 /* parser_textures.c */
-int			validate_texture_files(char **map_info);
 int			texture_wrapper(t_vars *data);
 
 /* parser_import_color.c */
