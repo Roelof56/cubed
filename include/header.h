@@ -21,8 +21,8 @@
 # include <unistd.h>
 # include <math.h>
 
-# define WIDTH 1920 / 1.5
-# define HEIGHT 1080 / 1.5
+# define WIDTH 1920
+# define HEIGHT 1080
 # define PI 3.14159
 # define MAPSCALE 16	// size of wall & floor blocks minimap
 # define VIEW 10		// ammount of blocks to draw arround player x & y
