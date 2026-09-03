@@ -1,8 +1,8 @@
-🎮 cub3D
+## 🎮 cub3D
 Description
 cub3D is a simple 3D game engine written in C using raycasting to render a first-person view from a 2D map.
 
-Requirements
+**Requirements**
 Linux or macOS
 cc
 make
